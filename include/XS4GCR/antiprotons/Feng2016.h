@@ -17,12 +17,12 @@ class Feng2016SecAp : public SecondaryAntiprotons {
 
   std::shared_ptr<SecondaryAntiprotons> clone() override;
 
-  double get(const PID &projectile, const TARGET &target, const double &T_n, const double &T_ap) const override;
+  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_ap) const override;
 
  protected:
-  using Range = std::pair<double, double>;
-  Range m_Tn_range;
-  Range m_Tap_range;
+  std::vector<double> m_lgTproj;
+  std::vector<double> m_lgTap;
+
   Grid<double> m_sigma_pp;
   Grid<double> m_sigma_pHe;
   Grid<double> m_sigma_Hep;
@@ -30,7 +30,7 @@ class Feng2016SecAp : public SecondaryAntiprotons {
   std::string m_dataFilename;
 
  protected:
-  void init();
+  void init(double units);
 };
 
 }  // namespace XS4GCR
