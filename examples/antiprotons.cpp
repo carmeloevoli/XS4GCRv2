@@ -33,13 +33,13 @@ void get_secondary_production(XS4GCR::SecondaryAntiprotonsModels model, double T
   auto x_ap = xsec.createSecondaryAntiprotons();
 
   std::ofstream outfile(filename.c_str());
-  outfile << "#T_ap [GeV] - sigma_pp - sigma_phe - sigma_hep [mbarn]\n";
+  outfile << "#T_ap [GeV] - sigma_pp - sigma_phe - sigma_hep [mbarn/GeV]\n";
   outfile << std::scientific;
 
   using XS4GCR::cgs::GeV;
   using XS4GCR::cgs::mbarn;
-
   const double units = mbarn / GeV;
+
   auto T_ap = XS4GCR::UTILS::LogAxis(0.1 * GeV, T_proj, 100);
   for (auto T : T_ap) {
     auto sigma_pp = x_ap->get(XS4GCR::H1, XS4GCR::TARGET::H, T_proj, T);
@@ -51,58 +51,37 @@ void get_secondary_production(XS4GCR::SecondaryAntiprotonsModels model, double T
   outfile.close();
 }
 
-void compute_table(XS4GCR::SecondaryAntiprotonsModels model, std::string filename) {
+/**
+ * @brief Compute the non annihilating cross-sections
+ *
+ * This function computes the non annihilating inelastic cross-section of antiprotons
+ * on H in the ISM and write it in a text file, where columns represent: \n
+ * 1) the antiproton kinetic energy in GeV/n \n
+ * 2) \f$\sigma_{in} - \sigma_{ann}\f$ in mbarn
+ *
+ * @param model production model identifier, e.g. Winkler2017
+ * @param filename output file name
+ */
+void get_tertiary_production(XS4GCR::SecondaryAntiprotonsModels model, std::string filename) {
   XS4GCR::XSECS xsec;
   xsec.setSecondaryAntiprotons(model);
   auto x_ap = xsec.createSecondaryAntiprotons();
 
   std::ofstream outfile(filename.c_str());
-  outfile << "#T_proj [GeV/n] - T_ap [GeV] - sigma_pp - sigma_phe - sigma_hep [mbarn / GeV]\n";
+  outfile << "#\n";
   outfile << std::scientific;
 
   using XS4GCR::cgs::GeV;
   using XS4GCR::cgs::mbarn;
-  using XS4GCR::cgs::TeV;
-
   const double units = mbarn / GeV;
-  auto T_ap = XS4GCR::UTILS::LogAxis(1. * GeV, 10. * TeV, 4 * 32);
-  auto T_proj = XS4GCR::UTILS::LogAxis(1. * GeV, 10. * TeV, 4 * 32);
-  for (auto T_p : T_proj)
-    for (auto T : T_ap) {
-      auto sigma_pp = x_ap->get(XS4GCR::H1, XS4GCR::TARGET::H, T_p, T);
-      auto sigma_phe = x_ap->get(XS4GCR::H1, XS4GCR::TARGET::He, T_p, T);
-      auto sigma_hep = x_ap->get(XS4GCR::He4, XS4GCR::TARGET::H, T_p, T);
-      outfile << T_p / GeV << "\t";
-      outfile << T / GeV << "\t";
-      outfile << sigma_pp / units << "\t" << sigma_phe / units << "\t" << sigma_hep / units << "\n";
-    }
+
+  double T_proj = 100 * GeV;
+  for (double T_ap = 0.1 * GeV; T_ap < 1e4 * GeV; T_ap *= 1.1) {
+    auto sigma_ter = x_ap->getNonAnnihilatingInelastic(XS4GCR::TARGET::H, T_proj);
+    outfile << T_ap / GeV << "\t" << sigma_ter / mbarn << "\n";
+  }
   outfile.close();
 }
-
-// /**
-//  * @brief Compute the non annihilating cross-sections
-//  *
-//  * This function computes the non annihilating inelastic cross-section of antiprotons
-//  * on H in the ISM and write it in a text file, where columns represent: \n
-//  * 1) the antiproton kinetic energy in GeV/n \n
-//  * 2) \f$\sigma_{in} - \sigma_{ann}\f$ in mbarn
-//  *
-//  * @param model production model identifier, e.g. Winkler2017
-//  * @param filename output file name
-//  */
-// void get_tertiary_production(std::string model, std::string filename) {
-//   XS4GCR::XSECS xsec;
-//   xsec.set_secondary_antiprotons(model);
-//   auto x_ap = xsec.create_secondary_antiprotons();
-//   std::ofstream outfile(filename);
-//   outfile << std::scientific;
-//   double T_proj = 100 * cgs::GeV;
-//   for (double T_ap = 0.1 * cgs::GeV; T_ap < 1e4 * cgs::GeV; T_ap *= 1.1) {
-//     double sigma_H = x_ap->get_non_annihilating_inelastic(XS4GCR::H_ISM, T_proj);
-//     outfile << T_ap / cgs::GeV << " " << sigma_H / cgs::mbarn << "\n";
-//   }
-//   outfile.close();
-// }
 
 /**
  * @brief Main function for example antiprotons
@@ -112,7 +91,7 @@ int main() {
     XS4GCR::LOG::startup_information();
     {
       double T_proj = 1. * XS4GCR::cgs::TeV;
-      //get_secondary_production(XS4GCR::AAFRAG, T_proj, "output/AAFRAG_1TeV_ap.txt");
+      // get_secondary_production(XS4GCR::AAFRAG, T_proj, "output/AAFRAG_1TeV_ap.txt");
       get_secondary_production(XS4GCR::TANNG1983, T_proj, "output/TanNg1983_1TeV_ap.txt");
       get_secondary_production(XS4GCR::DUPERRAY2003, T_proj, "output/Duperray2003_1TeV_ap.txt");
       get_secondary_production(XS4GCR::DIMAURO2014, T_proj, "output/DiMauro2014_1TeV_ap.txt");
