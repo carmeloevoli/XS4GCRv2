@@ -2,8 +2,12 @@
 #define XS4GCR_GSL_H
 
 #include <gsl/gsl_integration.h>
+#include <gsl/gsl_interp2d.h>
+#include <gsl/gsl_math.h>
+#include <gsl/gsl_spline2d.h>
 
 #include <functional>
+#include <vector>
 
 namespace XS4GCR {
 namespace GSL {
@@ -70,6 +74,9 @@ T gslQAGIUIntegration(std::function<T(T)> f, T start, int LIMIT, double rel_erro
 
   return T(result);
 }
+
+void interpolate2d(const std::vector<double> &x, const std::vector<double> &y, const std::vector<double> &z, double xi,
+                   double yj);
 
 }  // namespace GSL
 }  // namespace XS4GCR

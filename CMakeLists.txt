@@ -33,6 +33,7 @@ set(XS4GCR_SRCS
 	src/antiprotons/TanNg1983.cpp
 	src/antiprotons/Winkler2017.cpp
 	src/common.cpp
+	src/gsl.cpp
 	src/utilities.cpp
 	src/XS4GCR.cpp
     "${git_revision_cpp}"
