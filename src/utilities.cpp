@@ -74,7 +74,7 @@ std::vector<double> loadColumn(const std::string& filename, size_t useCol, size_
   std::ifstream file(filename.c_str());
   size_t count = 0;
   while (getline(file, line)) {
-    if (count >= nHeaderLines && line != "") {
+    if (count >= nHeaderLines) {
       auto items = split(line, " ");
       auto s = items.at(useCol);
       v.push_back(atof(s.c_str()));
@@ -82,7 +82,6 @@ std::vector<double> loadColumn(const std::string& filename, size_t useCol, size_
     count++;
   }
   file.close();
-  // if (v.size() != countFileLines(filename) - nHeaderLines) throw std::runtime_error("error in loading column");
   return v;
 }
 
