@@ -108,15 +108,15 @@ int main() {
       get_secondary_production(XS4GCR::FENG2016EPOS, T_proj, "output/Feng2016_EPOS_100GeV_ap.txt");
       get_secondary_production(XS4GCR::FENG2016QGSJET, T_proj, "output/Feng2016_QGSJET_100GeV_ap.txt");
     }
-    // {
-    //   double T_proj = 10. * XS4GCR::cgs::GeV;
-    //   get_secondary_production(XS4GCR::TANNG1983, T_proj, "output/TanNg1983_10GeV_ap.txt");
-    //   get_secondary_production(XS4GCR::DUPERRAY2003, T_proj, "output/Duperray2003_10GeV_ap.txt");
-    //   get_secondary_production(XS4GCR::DIMAURO2014, T_proj, "output/DiMauro2014_10GeV_ap.txt");
-    //   get_secondary_production(XS4GCR::WINKLER2017, T_proj, "output/Winkler2017_10GeV_ap.txt");
-    //   get_secondary_production(XS4GCR::FENG2016EPOS, T_proj, "output/Feng2016_EPOS_10GeV_ap.txt");
-    //   get_secondary_production(XS4GCR::FENG2016QGSJET, T_proj, "output/Feng2016_QGSJET_10GeV_ap.txt");
-    // }
+    {
+      double T_proj = 10. * XS4GCR::cgs::GeV;
+      get_secondary_production(XS4GCR::TANNG1983, T_proj, "output/TanNg1983_10GeV_ap.txt");
+      get_secondary_production(XS4GCR::DUPERRAY2003, T_proj, "output/Duperray2003_10GeV_ap.txt");
+      get_secondary_production(XS4GCR::DIMAURO2014, T_proj, "output/DiMauro2014_10GeV_ap.txt");
+      get_secondary_production(XS4GCR::WINKLER2017, T_proj, "output/Winkler2017_10GeV_ap.txt");
+      get_secondary_production(XS4GCR::FENG2016EPOS, T_proj, "output/Feng2016_EPOS_10GeV_ap.txt");
+      get_secondary_production(XS4GCR::FENG2016QGSJET, T_proj, "output/Feng2016_QGSJET_10GeV_ap.txt");
+    }
     // {
     //   double T_proj = 100. * XS4GCR::cgs::GeV;
     //   get_tertiary_production(XS4GCR::TANNG1983, T_proj, "output/tertiary_ap_100GeV.txt");

@@ -59,21 +59,21 @@ std::shared_ptr<SecondaryAntiprotons> AAfragSecAp::clone() { return std::make_sh
 double AAfragSecAp::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& T_ap) const {
   using std::log;
   double value = 0;
-  if (UTILS::inRange(T_proj, m_Tproj_range) && UTILS::inRange(T_ap, m_Tap_range)) {
-    auto f_Tp = UTILS::computeFraction(log(T_proj), UTILS::logRange(m_Tproj_range));
-    auto f_Tap = UTILS::computeFraction(log(T_ap), UTILS::logRange(m_Tap_range));
-    if (projectile == H1 && target == TARGET::H)
-      value = m_sigma_pp.interpolate(f_Tp, f_Tap) / (T_ap);
-    else if (projectile == H1 && target == TARGET::He)
-      value = m_sigma_pHe.interpolate(f_Tp, f_Tap);
-    else if (projectile == He4 && target == TARGET::H)
-      value = m_sigma_Hep.interpolate(f_Tp, f_Tap);
-    else if (projectile == He4 && target == TARGET::He)
-      value = m_sigma_HeHe.interpolate(f_Tp, f_Tap);
-    else {
-      LOGE << "channel not implemented in AAfrag model";
-    }
-  }
+  // if (UTILS::inRange(T_proj, m_Tproj_range) && UTILS::inRange(T_ap, m_Tap_range)) {
+  //   auto f_Tp = UTILS::computeFraction(log(T_proj), UTILS::logRange(m_Tproj_range));
+  //   auto f_Tap = UTILS::computeFraction(log(T_ap), UTILS::logRange(m_Tap_range));
+  //   if (projectile == H1 && target == TARGET::H)
+  //     value = m_sigma_pp.interpolate(f_Tp, f_Tap) / (T_ap);
+  //   else if (projectile == H1 && target == TARGET::He)
+  //     value = m_sigma_pHe.interpolate(f_Tp, f_Tap);
+  //   else if (projectile == He4 && target == TARGET::H)
+  //     value = m_sigma_Hep.interpolate(f_Tp, f_Tap);
+  //   else if (projectile == He4 && target == TARGET::He)
+  //     value = m_sigma_HeHe.interpolate(f_Tp, f_Tap);
+  //   else {
+  //     LOGE << "channel not implemented in AAfrag model";
+  //   }
+  // }
   return value;
 }
 
