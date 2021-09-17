@@ -6,13 +6,14 @@
 #include <utility>
 
 #include "XS4GCR/cgs.h"
+#include "XS4GCR/gsl.h"
 #include "XS4GCR/utilities.h"
 
 namespace XS4GCR {
 
 Winkler2017SecAp::Winkler2017SecAp(const std::string& dataFilename) : m_dataFilename(dataFilename) {
   if (!UTILS::fileExist(m_dataFilename)) LOGE << "problem with reading data file " << m_dataFilename;
-  m_Tn_range = std::make_pair(5.49540874e0 * cgs::GeV, 9.54992586e5 * cgs::GeV);
+  m_Tproj_range = std::make_pair(5.49540874e0 * cgs::GeV, 9.54992586e5 * cgs::GeV);
   m_Tap_range = std::make_pair(1e-2 * cgs::GeV, 1e3 * cgs::GeV);
   m_sigma_pp = Grid<double>(132, 251);
   m_sigma_pHe = Grid<double>(132, 251);
@@ -55,20 +56,21 @@ void Winkler2017SecAp::print() const {
 
 std::shared_ptr<SecondaryAntiprotons> Winkler2017SecAp::clone() { return std::make_shared<Winkler2017SecAp>(*this); }
 
-double Winkler2017SecAp::get(const PID& projectile, const TARGET& target, const double& T_n, const double& T_ap) const {
+double Winkler2017SecAp::get(const PID& projectile, const TARGET& target, const double& T_proj,
+                             const double& T_ap) const {
   using std::log;
   double value = 0;
-  if (UTILS::inRange(T_n, m_Tn_range) && UTILS::inRange(T_ap, m_Tap_range)) {
-    auto f_Tn = UTILS::computeFraction(log(T_n), UTILS::logRange(m_Tn_range));
+  if (UTILS::inRange(T_proj, m_Tproj_range) && UTILS::inRange(T_ap, m_Tap_range)) {
+    auto f_Tp = UTILS::computeFraction(log(T_proj), UTILS::logRange(m_Tproj_range));
     auto f_Tap = UTILS::computeFraction(log(T_ap), UTILS::logRange(m_Tap_range));
     if (projectile == H1 && target == TARGET::H)
-      value = m_sigma_pp.interpolate(f_Tn, f_Tap);
+      value = m_sigma_pp.interpolate(f_Tp, f_Tap);
     else if (projectile == H1 && target == TARGET::He)
-      value = m_sigma_pHe.interpolate(f_Tn, f_Tap);
+      value = m_sigma_pHe.interpolate(f_Tp, f_Tap);
     else if (projectile == He4 && target == TARGET::H)
-      value = m_sigma_Hep.interpolate(f_Tn, f_Tap);
+      value = m_sigma_Hep.interpolate(f_Tp, f_Tap);
     else if (projectile == He4 && target == TARGET::He)
-      value = m_sigma_HeHe.interpolate(f_Tn, f_Tap);
+      value = m_sigma_HeHe.interpolate(f_Tp, f_Tap);
     else {
       LOGE << "channel not implemented in Winkler2017";
     }
