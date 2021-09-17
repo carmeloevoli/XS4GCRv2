@@ -20,17 +20,18 @@ class Winkler2017SecAp : public SecondaryAntiprotons {
   double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_ap) const override;
 
  protected:
-  using Range = std::pair<double, double>;
-  Range m_Tproj_range;
-  Range m_Tap_range;
+  std::vector<double> m_lgTproj;
+  std::vector<double> m_lgTap;
+
   Grid<double> m_sigma_pp;
   Grid<double> m_sigma_pHe;
   Grid<double> m_sigma_Hep;
   Grid<double> m_sigma_HeHe;
+
   std::string m_dataFilename;
 
  protected:
-  void init();
+  void init(double units);
 };
 
 }  // namespace XS4GCR
