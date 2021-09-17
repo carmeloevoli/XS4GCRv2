@@ -1,3 +1,4 @@
 build*
 plots*
 .DS_Store*
+*.code-workspace
