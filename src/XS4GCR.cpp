@@ -55,7 +55,7 @@ std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
   } else if (secondaryAntiprotonsModel == FENG2016EPOS) {
     secondaryAntiprotons = std::make_shared<Feng2016SecAp>("data/Feng2016_EPOS_LHC_antiprotons.txt");
   } else if (secondaryAntiprotonsModel == AAFRAG) {
-    secondaryAntiprotons = std::make_shared<AAfragSecAp>("");  // TODO this
+    secondaryAntiprotons = std::make_shared<AAfragSecAp>("data/AAfrag_v101_antiprotons.txt");
   } else {
     LOGE << "Secondary Antiprotons model not found.";
   }

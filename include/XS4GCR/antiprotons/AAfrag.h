@@ -17,11 +17,11 @@ class AAfragSecAp : public SecondaryAntiprotons {
 
   std::shared_ptr<SecondaryAntiprotons> clone() override;
 
-  double get(const PID &projectile, const TARGET &target, const double &T_n, const double &T_ap) const override;
+  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_ap) const override;
 
  protected:
   using Range = std::pair<double, double>;
-  Range m_Tn_range;
+  Range m_Tproj_range;
   Range m_Tap_range;
   Grid<double> m_sigma_pp;
   Grid<double> m_sigma_pHe;

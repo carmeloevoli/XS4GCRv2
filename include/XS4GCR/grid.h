@@ -71,7 +71,7 @@ class Grid {
     double fy = y - floor(y);
     double fY = 1 - fy;
 
-    // trilinear interpolation (see http://paulbourke.net/miscellaneous/interpolation)
+    // bilinear interpolation (see http://paulbourke.net/miscellaneous/interpolation)
     T b(0.);
     // V00 (1 - x) (1 - y) +
     b += get(ix, iy) * fX * fY;

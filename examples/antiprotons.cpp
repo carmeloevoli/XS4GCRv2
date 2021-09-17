@@ -62,7 +62,7 @@ void get_secondary_production(XS4GCR::SecondaryAntiprotonsModels model, double T
  * @param model production model identifier, e.g. Winkler2017
  * @param filename output file name
  */
-void get_tertiary_production(XS4GCR::SecondaryAntiprotonsModels model, std::string filename) {
+void get_tertiary_production(XS4GCR::SecondaryAntiprotonsModels model, double T_proj, std::string filename) {
   XS4GCR::XSECS xsec;
   xsec.setSecondaryAntiprotons(model);
   auto x_ap = xsec.createSecondaryAntiprotons();
@@ -75,7 +75,6 @@ void get_tertiary_production(XS4GCR::SecondaryAntiprotonsModels model, std::stri
   using XS4GCR::cgs::mbarn;
   const double units = mbarn / GeV;
 
-  double T_proj = 100 * GeV;
   for (double T_ap = 0.1 * GeV; T_ap < 1e4 * GeV; T_ap *= 1.1) {
     auto sigma_ter = x_ap->getNonAnnihilatingInelastic(XS4GCR::TARGET::H, T_proj);
     outfile << T_ap / GeV << "\t" << sigma_ter / mbarn << "\n";
@@ -91,7 +90,7 @@ int main() {
     XS4GCR::LOG::startup_information();
     {
       double T_proj = 1. * XS4GCR::cgs::TeV;
-      // get_secondary_production(XS4GCR::AAFRAG, T_proj, "output/AAFRAG_1TeV_ap.txt");
+      get_secondary_production(XS4GCR::AAFRAG, T_proj, "output/AAFRAG_1TeV_ap.txt");
       get_secondary_production(XS4GCR::TANNG1983, T_proj, "output/TanNg1983_1TeV_ap.txt");
       get_secondary_production(XS4GCR::DUPERRAY2003, T_proj, "output/Duperray2003_1TeV_ap.txt");
       get_secondary_production(XS4GCR::DIMAURO2014, T_proj, "output/DiMauro2014_1TeV_ap.txt");
@@ -101,6 +100,7 @@ int main() {
     }
     {
       double T_proj = 100. * XS4GCR::cgs::GeV;
+      get_secondary_production(XS4GCR::AAFRAG, T_proj, "output/AAFRAG_100GeV_ap.txt");
       get_secondary_production(XS4GCR::TANNG1983, T_proj, "output/TanNg1983_100GeV_ap.txt");
       get_secondary_production(XS4GCR::DUPERRAY2003, T_proj, "output/Duperray2003_100GeV_ap.txt");
       get_secondary_production(XS4GCR::DIMAURO2014, T_proj, "output/DiMauro2014_100GeV_ap.txt");
@@ -108,17 +108,19 @@ int main() {
       get_secondary_production(XS4GCR::FENG2016EPOS, T_proj, "output/Feng2016_EPOS_100GeV_ap.txt");
       get_secondary_production(XS4GCR::FENG2016QGSJET, T_proj, "output/Feng2016_QGSJET_100GeV_ap.txt");
     }
-    {
-      double T_proj = 10. * XS4GCR::cgs::GeV;
-      get_secondary_production(XS4GCR::TANNG1983, T_proj, "output/TanNg1983_10GeV_ap.txt");
-      get_secondary_production(XS4GCR::DUPERRAY2003, T_proj, "output/Duperray2003_10GeV_ap.txt");
-      get_secondary_production(XS4GCR::DIMAURO2014, T_proj, "output/DiMauro2014_10GeV_ap.txt");
-      get_secondary_production(XS4GCR::WINKLER2017, T_proj, "output/Winkler2017_10GeV_ap.txt");
-      get_secondary_production(XS4GCR::FENG2016EPOS, T_proj, "output/Feng2016_EPOS_10GeV_ap.txt");
-      get_secondary_production(XS4GCR::FENG2016QGSJET, T_proj, "output/Feng2016_QGSJET_10GeV_ap.txt");
-    }
-
-    // get_tertiary_production("Winkler2017", "output/Winkler2017_tertiary.txt");
+    // {
+    //   double T_proj = 10. * XS4GCR::cgs::GeV;
+    //   get_secondary_production(XS4GCR::TANNG1983, T_proj, "output/TanNg1983_10GeV_ap.txt");
+    //   get_secondary_production(XS4GCR::DUPERRAY2003, T_proj, "output/Duperray2003_10GeV_ap.txt");
+    //   get_secondary_production(XS4GCR::DIMAURO2014, T_proj, "output/DiMauro2014_10GeV_ap.txt");
+    //   get_secondary_production(XS4GCR::WINKLER2017, T_proj, "output/Winkler2017_10GeV_ap.txt");
+    //   get_secondary_production(XS4GCR::FENG2016EPOS, T_proj, "output/Feng2016_EPOS_10GeV_ap.txt");
+    //   get_secondary_production(XS4GCR::FENG2016QGSJET, T_proj, "output/Feng2016_QGSJET_10GeV_ap.txt");
+    // }
+    // {
+    //   double T_proj = 100. * XS4GCR::cgs::GeV;
+    //   get_tertiary_production(XS4GCR::TANNG1983, T_proj, "output/tertiary_ap_100GeV.txt");
+    // }
   } catch (const std::exception& e) {
     LOGF << "exception caught with message: " << e.what();
   }
