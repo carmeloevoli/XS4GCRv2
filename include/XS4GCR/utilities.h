@@ -22,11 +22,7 @@ std::vector<double> loadColumn(const std::string& filename, size_t useCol, size_
 
 std::vector<std::string> split(std::string s, std::string delimiter);
 
-double computeFraction(double x, std::pair<double, double> range);
-
 bool inRange(double x, std::pair<double, double> range);
-
-std::pair<double, double> logRange(std::pair<double, double> p);  // TODO remove this
 
 }  // namespace UTILS
 }  // namespace XS4GCR

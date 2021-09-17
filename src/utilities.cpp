@@ -85,18 +85,7 @@ std::vector<double> loadColumn(const std::string& filename, size_t useCol, size_
   return v;
 }
 
-double computeFraction(double x, std::pair<double, double> range) {
-  return (x - range.first) / (range.second - range.first);
-}
-
 bool inRange(double x, std::pair<double, double> range) { return (x > range.first && x < range.second); }
-
-std::pair<double, double> logRange(std::pair<double, double> p) {
-  using std::log;
-  double logFirst = log(p.first);
-  double logSecond = log(p.second);
-  return std::make_pair(logFirst, logSecond);
-}
 
 }  // namespace UTILS
 }  // namespace XS4GCR
