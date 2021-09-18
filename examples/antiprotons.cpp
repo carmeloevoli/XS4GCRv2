@@ -28,7 +28,7 @@ using namespace XS4GCR;
  * @param model production model identifier, e.g. Winkler2017
  * @param filename output file name
  */
-void get_secondary_production(SecondaryAntiprotonsModels model, double T_proj, std::string filename) {
+void get_secondary_production(SecondaryAntiprotonModels model, double T_proj, std::string filename) {
   XSECS xsec;
   xsec.setSecondaryAntiprotons(model);
   auto x_ap = xsec.createSecondaryAntiprotons();
@@ -61,7 +61,7 @@ void get_secondary_production(SecondaryAntiprotonsModels model, double T_proj, s
  * @param model production model identifier, e.g. Winkler2017
  * @param filename output file name
  */
-void get_tertiary_production(XS4GCR::SecondaryAntiprotonsModels model, double T_proj, std::string filename) {
+void get_tertiary_production(XS4GCR::SecondaryAntiprotonModels model, double T_proj, std::string filename) {
   XS4GCR::XSECS xsec;
   xsec.setSecondaryAntiprotons(model);
   auto x_ap = xsec.createSecondaryAntiprotons();

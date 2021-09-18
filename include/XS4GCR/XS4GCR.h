@@ -12,9 +12,10 @@
 #include "XS4GCR/inelastic/CROSEC.h"
 #include "XS4GCR/inelastic/Letaw1983.h"
 #include "XS4GCR/inelastic/Tripathi1999.h"
+#include "XS4GCR/leptons/HuangPohl2007.h"
+#include "XS4GCR/leptons/Kamae2006.h"
 
 // #include "XS4GCR/cr_chart.h"
-// #include "XS4GCR/leptons/leptons.h"
 // #include "XS4GCR/particlenames.h"
 // #include "XS4GCR/protons.h"
 // #include "XS4GCR/spallation/Evoli2019.h"
@@ -23,7 +24,7 @@
 
 namespace XS4GCR {
 
-enum SecondaryAntiprotonsModels {
+enum SecondaryAntiprotonModels {
   DIMAURO2014,
   DUPERRAY2003,
   TANNG1983,
@@ -33,6 +34,8 @@ enum SecondaryAntiprotonsModels {
   AAFRAG
 };
 
+enum SecondaryLeptonModels { KAMAE2006, HUANGPOHL2007 };
+
 enum TotalInelasticModels { TRIPATHI1999, CROSEC, LETAW1983 };
 
 class XSECS {
@@ -41,32 +44,25 @@ class XSECS {
   virtual ~XSECS() = default;
 
   std::shared_ptr<TotalInelastic> createTotalInelastic();
-  //   std::shared_ptr<Proton_Xsecs> create_proton_xsecs();
   std::shared_ptr<SecondaryAntiprotons> createSecondaryAntiprotons();
-  //   std::shared_ptr<Secondary_Leptons> create_secondary_leptons(PID lepton = positron);
+  std::shared_ptr<SecondaryLeptons> createSecondaryLeptons(PID lepton = positron);
   //   std::shared_ptr<CosmicRayChart> create_decay_chart();
   //   std::shared_ptr<Spallation> create_secondary_nuclei();
 
   inline void setTotalInelastic(TotalInelasticModels model) { totalInelasticModel = model; }
-
-  //   inline void set_proton_xsecs(const std::string &model_name) { proton_xsecs_model = model_name; }
-
-  inline void setSecondaryAntiprotons(SecondaryAntiprotonsModels model) { secondaryAntiprotonsModel = model; }
-
-  //   inline void set_secondary_leptons(const std::string &model_name) { secondary_leptons_model = model_name; }
+  inline void setSecondaryAntiprotons(SecondaryAntiprotonModels model) { secondaryAntiprotonsModel = model; }
+  inline void setSecondaryLeptons(SecondaryLeptonModels model) { secondaryLeptonsModel = model; }
 
   //   inline void set_secondary_nuclei(const std::string &model_name) { secondary_nuclei_model = model_name; }
 
  private:
   TotalInelasticModels totalInelasticModel = TRIPATHI1999;
-  SecondaryAntiprotonsModels secondaryAntiprotonsModel = DIMAURO2014;
-  //   std::string proton_xsecs_model = "DRAGON2";
-  //   std::string secondary_leptons_model = "Kamae2006";
+  SecondaryAntiprotonModels secondaryAntiprotonsModel = DIMAURO2014;
+  SecondaryLeptonModels secondaryLeptonsModel = KAMAE2006;
   //   std::string secondary_nuclei_model = "Webber1993";
 
   std::shared_ptr<TotalInelastic> totalInelastic;
-  //   std::shared_ptr<Proton_Xsecs> proton_xsecs;
-  //   std::shared_ptr<Secondary_Leptons> secondary_leptons;
+  std::shared_ptr<SecondaryLeptons> secondaryLeptons;
   std::shared_ptr<SecondaryAntiprotons> secondaryAntiprotons;
   //   std::shared_ptr<CosmicRayChart> decay_chart;
   //   std::shared_ptr<Spallation> secondary_nuclei;

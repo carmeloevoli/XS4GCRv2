@@ -4,7 +4,7 @@
 
 #include <memory>
 
-#include "XS4GCR/inelastic/inelastic.h"
+#include "XS4GCR/inelastic/TotalInelastic.h"
 
 namespace XS4GCR {
 

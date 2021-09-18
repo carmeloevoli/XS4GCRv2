@@ -2,6 +2,7 @@
 #define INCLUDE_XS4GCR_GRID_H
 
 #include <algorithm>
+#include <cmath>
 #include <functional>
 #include <vector>
 

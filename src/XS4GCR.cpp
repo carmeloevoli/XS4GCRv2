@@ -18,28 +18,17 @@ std::shared_ptr<TotalInelastic> XSECS::createTotalInelastic() {
   return totalInelastic->clone();
 }
 
-// std::shared_ptr<Proton_Xsecs> XSECS::create_proton_xsecs() {
-//     if (proton_xsecs_model == "DRAGON2") {
-//         proton_xsecs = std::make_shared<DRAGON2_Proton_Xsecs>();
-//     } else {
-//         assert(proton_xsecs_model == "DRAGON2");
-//     }
-//     proton_xsecs->print();
-//     return proton_xsecs->clone();
-// }
-
-// std::shared_ptr<Secondary_Leptons> XSECS::create_secondary_leptons(PID lepton) {
-//     if (secondary_leptons_model == "Kamae2006") {
-//         secondary_leptons = std::make_shared<Kamae2006_Secondary_Leptons>(lepton);
-//     } else if (secondary_leptons_model == "HuangPohl2007") {
-//         secondary_leptons = std::make_shared<HuangPohl2007_Secondary_Leptons>(lepton);
-//     } else {
-//         assert(secondary_leptons_model == "Kamae2006");
-//         return 0;
-//     }
-//     secondary_leptons->print();
-//     return secondary_leptons->clone();
-// }
+std::shared_ptr<SecondaryLeptons> XSECS::createSecondaryLeptons(PID lepton) {
+  if (secondaryLeptonsModel == KAMAE2006) {
+    secondaryLeptons = std::make_shared<Kamae2006SecLep>(lepton);
+  } else if (secondaryLeptonsModel == HUANGPOHL2007) {
+    secondaryLeptons = std::make_shared<HuangPohl2007SecLep>(lepton);
+  } else {
+    throw std::invalid_argument("Secondary Leptons model not found.");
+  }
+  secondaryLeptons->print();
+  return secondaryLeptons->clone();
+}
 
 std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
   if (secondaryAntiprotonsModel == TANNG1983) {

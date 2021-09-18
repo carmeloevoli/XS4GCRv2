@@ -59,6 +59,7 @@ static constexpr double protonMass = 1.6726219e-24 * gram;
 static constexpr double kB = 1.380649e-16 * erg / kelvin;
 static constexpr double elementaryCharge = 4.80320427e-10 * statcoulomb;
 static constexpr double sigmaTh = 6.6524e-25 * pow2(centimeter);
+static constexpr double electronRadius = 2.8179403227e-13 * centimeter;
 
 // derived quantities
 static constexpr double volt = electronvolt / c;

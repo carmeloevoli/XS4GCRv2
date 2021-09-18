@@ -2,7 +2,7 @@
 #define INCLUDE_XS4GCR_INELASTIC_CROSEC_H
 
 #include "XS4GCR/cgs.h"
-#include "XS4GCR/inelastic/inelastic.h"
+#include "XS4GCR/inelastic/TotalInelastic.h"
 #include "XS4GCR/pid.h"
 
 namespace XS4GCR {
