@@ -36,6 +36,9 @@ set(XS4GCR_SRCS
 	src/inelastic/CROSEC.cpp
 	src/inelastic/Letaw1983.cpp
 	src/inelastic/Tripathi1999.cpp
+	src/leptons/SecondaryLeptons.cpp
+	src/leptons/Kamae2006.cpp
+	src/leptons/HuangPohl2007.cpp
 	src/common.cpp
 	src/utilities.cpp
 	src/XS4GCR.cpp
@@ -68,7 +71,7 @@ endif(GSL_FOUND)
 file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/output)
 
 # copy data files in build
-file(GLOB XS4GCR_DATA "data/*.txt")
+file(GLOB XS4GCR_DATA "data/*")
 file(COPY ${XS4GCR_DATA} DESTINATION ${PROJECT_BINARY_DIR}/data)
 
 # make library
@@ -82,6 +85,9 @@ target_link_libraries (sandbox XS4GCR_LIB ${XS4GCR_LIBRARIES})
 # make examples
 add_executable(antiprotons examples/antiprotons.cpp)
 target_link_libraries (antiprotons XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
+add_executable(leptons examples/leptons.cpp)
+target_link_libraries (leptons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 add_executable(inelastic examples/inelastic.cpp)
 target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
