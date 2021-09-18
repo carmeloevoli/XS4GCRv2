@@ -25,6 +25,7 @@ set(XS4GCR_SRCS
 	src/models/apDiMauro14.cpp
 	src/models/apDuperray03.cpp
 	src/models/apTanNg83.cpp
+	src/models/inTripathi99.cpp
 	src/antiprotons/SecondaryAntiprotons.cpp
 	src/antiprotons/AAfrag.cpp
 	src/antiprotons/DiMauro2014.cpp
@@ -32,6 +33,9 @@ set(XS4GCR_SRCS
 	src/antiprotons/Feng2016.cpp
 	src/antiprotons/TanNg1983.cpp
 	src/antiprotons/Winkler2017.cpp
+	src/inelastic/CROSEC.cpp
+	src/inelastic/Letaw1983.cpp
+	src/inelastic/Tripathi1999.cpp
 	src/common.cpp
 	src/utilities.cpp
 	src/XS4GCR.cpp
@@ -78,6 +82,9 @@ target_link_libraries (sandbox XS4GCR_LIB ${XS4GCR_LIBRARIES})
 # make examples
 add_executable(antiprotons examples/antiprotons.cpp)
 target_link_libraries (antiprotons XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
+add_executable(inelastic examples/inelastic.cpp)
+target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 # Show summary.
 message (STATUS "CMAKE_SYSTEM .......... = ${CMAKE_SYSTEM}")

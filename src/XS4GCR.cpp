@@ -4,19 +4,19 @@
 
 namespace XS4GCR {
 
-// std::shared_ptr<Total_Inelastic> XSECS::create_total_inelastic() {
-//     if (total_inelastic_model == "Letaw83") {
-//         total_inelastic = std::make_shared<Letaw1983_Total_Inelastic>();
-//     } else if (total_inelastic_model == "Tripathi99") {
-//         total_inelastic = std::make_shared<Tripathi99_Total_Inelastic>();
-//     } else if (total_inelastic_model == "CROSEC") {
-//         total_inelastic = std::make_shared<CROSEC_Total_Inelastic>();
-//     } else {
-//         return nullptr;
-//     }
-//     total_inelastic->print();
-//     return total_inelastic->clone();
-// }
+std::shared_ptr<TotalInelastic> XSECS::createTotalInelastic() {
+  if (totalInelasticModel == LETAW1983) {
+    totalInelastic = std::make_shared<Letaw1983TotalInel>();
+  } else if (totalInelasticModel == TRIPATHI1999) {
+    totalInelastic = std::make_shared<Tripathi1999TotalInel>();
+  } else if (totalInelasticModel == CROSEC) {
+    totalInelastic = std::make_shared<CrosecTotalInel>();
+  } else {
+    throw std::invalid_argument("Total inelastic model not found.");
+  }
+  totalInelastic->print();
+  return totalInelastic->clone();
+}
 
 // std::shared_ptr<Proton_Xsecs> XSECS::create_proton_xsecs() {
 //     if (proton_xsecs_model == "DRAGON2") {
@@ -57,7 +57,7 @@ std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
   } else if (secondaryAntiprotonsModel == AAFRAG) {
     secondaryAntiprotons = std::make_shared<AAfragSecAp>("data/AAfrag_v101_antiprotons.txt");
   } else {
-    LOGE << "Secondary Antiprotons model not found.";
+    throw std::invalid_argument("Secondary Antiprotons model not found.");
   }
   secondaryAntiprotons->print();
   return secondaryAntiprotons->clone();
