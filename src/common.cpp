@@ -25,4 +25,15 @@ double T2pc(const double& T, const PID& pid) {
   return pc;
 }
 
+double ppInelastic(double T) {  // TODO find reference
+  constexpr double T_threshold = 0.2797 * cgs::GeV;
+  const double x = T / T_threshold;
+  double value = 0;
+  if (x > 1) {
+    value = 30.7 - 0.96 * log(x) + 0.18 * pow2(log(x));
+    value *= pow3(1 - pow(x, -1.9));
+  }
+  return value * cgs::mbarn;
+}
+
 }  // namespace XS4GCR

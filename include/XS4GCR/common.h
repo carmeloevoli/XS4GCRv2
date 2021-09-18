@@ -11,6 +11,8 @@ double T2gamma(const double& T);
 
 double T2pc(const double& T, const PID& pid);
 
+double ppInelastic(const double T);
+
 }  // namespace XS4GCR
 
 #endif
