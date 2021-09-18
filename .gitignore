@@ -1,4 +1,4 @@
 build*
-plots*
+plots/*.pdf
 .DS_Store*
 *.code-workspace

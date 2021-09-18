@@ -21,7 +21,7 @@
                 "BAR=100"
             ],
             "forcedInclude": [
-                "${workspaceFolder}/include/cgs.h"
+                "${workspaceFolder}/include/XS4GCR/cgs.h"
             ],
             "compilerPath": "/usr/local/bin/gcc-10",
             "cStandard": "gnu17",
