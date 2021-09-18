@@ -1,6 +1,7 @@
 #include <fstream>
 
 #include "XS4GCR.h"
+using namespace XS4GCR;
 
 /**
  * @example antiprotons.cpp
@@ -27,8 +28,8 @@
  * @param model production model identifier, e.g. Winkler2017
  * @param filename output file name
  */
-void get_secondary_production(XS4GCR::SecondaryAntiprotonsModels model, double T_proj, std::string filename) {
-  XS4GCR::XSECS xsec;
+void get_secondary_production(SecondaryAntiprotonsModels model, double T_proj, std::string filename) {
+  XSECS xsec;
   xsec.setSecondaryAntiprotons(model);
   auto x_ap = xsec.createSecondaryAntiprotons();
 
@@ -36,16 +37,14 @@ void get_secondary_production(XS4GCR::SecondaryAntiprotonsModels model, double T
   outfile << "#T_ap [GeV] - sigma_pp - sigma_phe - sigma_hep [mbarn/GeV]\n";
   outfile << std::scientific;
 
-  using XS4GCR::cgs::GeV;
-  using XS4GCR::cgs::mbarn;
-  const double units = mbarn / GeV;
+  const double units = cgs::mbarn / cgs::GeV;
 
-  auto T_ap = XS4GCR::UTILS::LogAxis(0.1 * GeV, T_proj, 100);
+  auto T_ap = UTILS::LogAxis(0.1 * cgs::GeV, T_proj, 100);
   for (auto T : T_ap) {
-    auto sigma_pp = x_ap->get(XS4GCR::H1, XS4GCR::TARGET::H, T_proj, T);
-    auto sigma_phe = x_ap->get(XS4GCR::H1, XS4GCR::TARGET::He, T_proj, T);
-    auto sigma_hep = x_ap->get(XS4GCR::He4, XS4GCR::TARGET::H, T_proj, T);
-    outfile << T / GeV << "\t";
+    auto sigma_pp = x_ap->get(H1, TARGET::H, T_proj, T);
+    auto sigma_phe = x_ap->get(H1, TARGET::He, T_proj, T);
+    auto sigma_hep = x_ap->get(He4, TARGET::H, T_proj, T);
+    outfile << T / cgs::GeV << "\t";
     outfile << sigma_pp / units << "\t" << sigma_phe / units << "\t" << sigma_hep / units << "\n";
   }
   outfile.close();
