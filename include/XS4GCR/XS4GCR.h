@@ -14,8 +14,8 @@
 #include "XS4GCR/inelastic/Tripathi1999.h"
 #include "XS4GCR/leptons/HuangPohl2007.h"
 #include "XS4GCR/leptons/Kamae2006.h"
+#include "XS4GCR/nucleiChart.h"
 
-// #include "XS4GCR/cr_chart.h"
 // #include "XS4GCR/particlenames.h"
 // #include "XS4GCR/protons.h"
 // #include "XS4GCR/spallation/Evoli2019.h"
@@ -46,7 +46,8 @@ class XSECS {
   std::shared_ptr<TotalInelastic> createTotalInelastic();
   std::shared_ptr<SecondaryAntiprotons> createSecondaryAntiprotons();
   std::shared_ptr<SecondaryLeptons> createSecondaryLeptons(PID lepton = positron);
-  //   std::shared_ptr<CosmicRayChart> create_decay_chart();
+  std::shared_ptr<NucleiChart> createNucleiChart();
+
   //   std::shared_ptr<Spallation> create_secondary_nuclei();
 
   inline void setTotalInelastic(TotalInelasticModels model) { totalInelasticModel = model; }
@@ -64,10 +65,10 @@ class XSECS {
   std::shared_ptr<TotalInelastic> totalInelastic;
   std::shared_ptr<SecondaryLeptons> secondaryLeptons;
   std::shared_ptr<SecondaryAntiprotons> secondaryAntiprotons;
-  //   std::shared_ptr<CosmicRayChart> decay_chart;
+  std::shared_ptr<NucleiChart> nucleiChart;
   //   std::shared_ptr<Spallation> secondary_nuclei;
 };
 
 }  // namespace XS4GCR
 
-#endif  // INCLUDE_XS4GCR_XS4GCR_H_
+#endif  // INCLUDE_XS4GCR_XS4GCR_H

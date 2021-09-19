@@ -64,11 +64,10 @@ std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
 //   return secondary_nuclei->clone();
 // }
 
-// std::shared_ptr<CosmicRayChart> XSECS::create_decay_chart() {
-//   decay_chart = std::make_shared<DefaultCosmicRayChart>();
-//   decay_chart->print();
-//   decay_chart->init();
-//   return decay_chart->clone();
-// }
+std::shared_ptr<NucleiChart> XSECS::createNucleiChart() {
+  nucleiChart = std::make_shared<NucleiChart>();
+  nucleiChart->print();
+  return nucleiChart->clone();
+}
 
 }  // namespace XS4GCR

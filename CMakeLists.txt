@@ -40,6 +40,7 @@ set(XS4GCR_SRCS
 	src/leptons/Kamae2006.cpp
 	src/leptons/HuangPohl2007.cpp
 	src/common.cpp
+	src/nucleiChart.cpp
 	src/utilities.cpp
 	src/XS4GCR.cpp
     "${git_revision_cpp}"
@@ -91,6 +92,9 @@ target_link_libraries (leptons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 add_executable(inelastic examples/inelastic.cpp)
 target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
+add_executable(decay examples/decay.cpp)
+target_link_libraries (decay XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 # Show summary.
 message (STATUS "CMAKE_SYSTEM .......... = ${CMAKE_SYSTEM}")
