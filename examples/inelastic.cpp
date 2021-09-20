@@ -25,15 +25,14 @@ void get_inelastic_timescales(TotalInelasticModels model, std::string filename) 
 
   auto He = PID(2, 4);
   auto C = PID(6, 12);
-  auto O = PID(8, 16);
   auto Fe = PID(26, 56);
-  auto particles = std::vector<PID>{He, C, O, Fe};
+  auto particles = std::vector<PID>{He, C, Fe};
 
   std::ofstream outfile(filename.c_str());
   outfile << "#T_proj [GeV/n] - tau_inelastic He, C, O, Fe [Myr]\n";
   outfile << std::scientific;
 
-  auto T_proj = UTILS::LogAxis(0.1 * cgs::GeV, 1e3 * cgs::GeV, 100);
+  auto T_proj = UTILS::LogAxis(0.1 * cgs::GeV, 1e4 * cgs::GeV, 1000);
   for (auto T : T_proj) {
     outfile << T / cgs::GeV << "\t";
     auto v = cgs::c * T2beta(T);
@@ -55,9 +54,9 @@ int main() {
   try {
     LOG::startup_information();
     {
-      get_inelastic_timescales(CROSEC, "output/CROSEC_100GeV_in.txt");
-      get_inelastic_timescales(TRIPATHI1999, "output/Tripathi1999_100GeV_in.txt");
-      get_inelastic_timescales(LETAW1983, "output/Letaw1983_100GeV_in.txt");
+      get_inelastic_timescales(CROSEC, "output/CROSEC_in.txt");
+      get_inelastic_timescales(TRIPATHI1999, "output/Tripathi1999_in.txt");
+      get_inelastic_timescales(LETAW1983, "output/Letaw1983_in.txt");
     }
   } catch (const std::exception& e) {
     LOGF << "exception caught with message: " << e.what();
