@@ -19,7 +19,7 @@ std::shared_ptr<TotalInelastic> XSECS::createTotalInelastic() {
 }
 
 std::shared_ptr<SecondaryLeptons> XSECS::createSecondaryLeptons(PID lepton) {
-  if (secondaryLeptonsModel == KAMAE2006) {
+  if (secondaryLeptonsModel == l_KAMAE2006) {
     secondaryLeptons = std::make_shared<Kamae2006SecLep>(lepton);
   } else if (secondaryLeptonsModel == HUANGPOHL2007) {
     secondaryLeptons = std::make_shared<HuangPohl2007SecLep>(lepton);
@@ -28,6 +28,18 @@ std::shared_ptr<SecondaryLeptons> XSECS::createSecondaryLeptons(PID lepton) {
   }
   secondaryLeptons->print();
   return secondaryLeptons->clone();
+}
+
+std::shared_ptr<Pi0Gammas> XSECS::createPi0Gammas() {
+  if (pi0GammaModel == g_KAMAE2006) {
+    pi0Gammas = std::make_shared<Kamae2006Gammas>();
+  } else if (pi0GammaModel == g_KELNER2006) {
+    pi0Gammas = std::make_shared<Kelner2006Gammas>();
+  } else {
+    throw std::invalid_argument("Secondary Gamma model not found.");
+  }
+  pi0Gammas->print();
+  return pi0Gammas->clone();
 }
 
 std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {

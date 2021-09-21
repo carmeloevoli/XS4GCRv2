@@ -26,6 +26,7 @@ set(XS4GCR_SRCS
 	src/models/apDuperray03.cpp
 	src/models/apTanNg83.cpp
 	src/models/inTripathi99.cpp
+	src/models/secKamae06.cpp
 	src/antiprotons/SecondaryAntiprotons.cpp
 	src/antiprotons/AAfrag.cpp
 	src/antiprotons/DiMauro2014.cpp
@@ -39,6 +40,8 @@ set(XS4GCR_SRCS
 	src/leptons/SecondaryLeptons.cpp
 	src/leptons/Kamae2006.cpp
 	src/leptons/HuangPohl2007.cpp
+	src/gammas/Kamae2006.cpp
+	src/gammas/Kelner2006.cpp
 	src/common.cpp
 	src/nucleiChart.cpp
 	src/utilities.cpp
@@ -89,6 +92,9 @@ target_link_libraries (antiprotons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 add_executable(leptons examples/leptons.cpp)
 target_link_libraries (leptons XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
+add_executable(gammas examples/gammas.cpp)
+target_link_libraries (gammas XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 add_executable(inelastic examples/inelastic.cpp)
 target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
