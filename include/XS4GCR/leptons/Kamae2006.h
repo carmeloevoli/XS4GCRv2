@@ -5,8 +5,7 @@
 
 namespace XS4GCR {
 
-double getCparamlibSigma(PID lepton, double T_proton_GeV, double T_lepton_GeV);
-double HeFunction(double T_proton_GeV, double T_lepton_GeV);
+// double HeFunction(double T_proton_GeV, double T_lepton_GeV);
 
 class Kamae2006SecLep : public SecondaryLeptons {
  public:

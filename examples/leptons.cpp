@@ -58,17 +58,17 @@ int main() {
     XS4GCR::LOG::startup_information();
     {
       double T_proj = 1. * XS4GCR::cgs::TeV;
-      get_secondary_production(XS4GCR::KAMAE2006, T_proj, "output/Kamae2006_1TeV_pos.txt");
+      get_secondary_production(XS4GCR::l_KAMAE2006, T_proj, "output/Kamae2006_1TeV_pos.txt");
       get_secondary_production(XS4GCR::HUANGPOHL2007, T_proj, "output/HuangPohl2007_1TeV_pos.txt");
     }
     {
       double T_proj = 100. * XS4GCR::cgs::GeV;
-      get_secondary_production(XS4GCR::KAMAE2006, T_proj, "output/Kamae2006_100GeV_pos.txt");
+      get_secondary_production(XS4GCR::l_KAMAE2006, T_proj, "output/Kamae2006_100GeV_pos.txt");
       get_secondary_production(XS4GCR::HUANGPOHL2007, T_proj, "output/HuangPohl2007_100GeV_pos.txt");
     }
     {
       double T_proj = 10. * XS4GCR::cgs::GeV;
-      get_secondary_production(XS4GCR::KAMAE2006, T_proj, "output/Kamae2006_10GeV_pos.txt");
+      get_secondary_production(XS4GCR::l_KAMAE2006, T_proj, "output/Kamae2006_10GeV_pos.txt");
       get_secondary_production(XS4GCR::HUANGPOHL2007, T_proj, "output/HuangPohl2007_10GeV_pos.txt");
     }
   } catch (const std::exception& e) {
