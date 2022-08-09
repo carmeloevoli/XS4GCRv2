@@ -1,0 +1,11 @@
+Use this:
+
+cmake -D CMAKE_C_COMPILER=/usr/local/bin/gcc-12 -D CMAKE_CXX_COMPILER=/usr/local/bin/g++-12 -D CMAKE_Fortran_COMPILER=/usr/local/bin/gfortran-12 ..   
+
+or this:
+
+export GCC=/usr/local/bin/gcc-12 
+export GXX=/usr/local/bin/g++-12
+export GFORTRAN=/usr/local/bin/gfortran
+cmake ..
+ 

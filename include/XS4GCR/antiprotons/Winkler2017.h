@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "XS4GCR/antiprotons/SecondaryAntiprotons.h"
-#include "XS4GCR/grid.h"
+#include "XS4GCR/core/grid.h"
 
 namespace XS4GCR {
 

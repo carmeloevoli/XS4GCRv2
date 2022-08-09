@@ -1,4 +1,4 @@
-#include "XS4GCR/XS4GCR.h"
+#include "XS4GCR/core/xsecs.h"
 
 #include <memory>
 

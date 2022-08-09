@@ -6,8 +6,8 @@
 #include <limits>
 #include <utility>
 
-#include "XS4GCR/cgs.h"
-#include "XS4GCR/utilities.h"
+#include "XS4GCR/core/cgs.h"
+#include "XS4GCR/core/utilities.h"
 
 namespace XS4GCR {
 
@@ -24,7 +24,9 @@ AAfragSecAp::AAfragSecAp(const std::string& dataFilename) : m_dataFilename(dataF
 
 void AAfragSecAp::init() {
   std::cout << m_dataFilename << " " << UTILS::countFileLines(m_dataFilename) << " " << m_sigma_pp.size() << "\n";
-  if (UTILS::countFileLines(m_dataFilename) != m_sigma_pp.size() + 1) LOGE << "the AAfrag datafile seems incorrect";
+  if (UTILS::countFileLines(m_dataFilename) != m_sigma_pp.size() + 1) {
+    LOGE << "the AAfrag datafile seems incorrect";
+  }
 
   const double units = cgs::mbarn * cgs::GeV;
   {

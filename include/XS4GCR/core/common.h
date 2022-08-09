@@ -1,7 +1,7 @@
 #ifndef INCLUDE_XS4GCR_COMMON_H
 #define INCLUDE_XS4GCR_COMMON_H
 
-#include "XS4GCR/pid.h"
+#include "XS4GCR/core/pid.h"
 
 namespace XS4GCR {
 

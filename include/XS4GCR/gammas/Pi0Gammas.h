@@ -3,7 +3,7 @@
 
 #include <memory>
 
-#include "XS4GCR/pid.h"
+#include "XS4GCR/core/pid.h"
 
 namespace XS4GCR {
 

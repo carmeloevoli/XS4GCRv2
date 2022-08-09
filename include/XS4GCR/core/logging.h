@@ -9,7 +9,7 @@
 #include <plog/Init.h>
 #include <plog/Log.h>
 
-#include "XS4GCR/git_revision.h"
+#include "XS4GCR/core/git_revision.h"
 
 namespace XS4GCR {
 namespace LOG {

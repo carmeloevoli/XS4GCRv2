@@ -4,8 +4,8 @@
 
 #include <memory>
 
+#include "XS4GCR/core/pid.h"
 #include "XS4GCR/inelastic/TotalInelastic.h"
-#include "XS4GCR/pid.h"
 
 namespace XS4GCR {
 

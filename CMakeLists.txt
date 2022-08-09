@@ -1,11 +1,12 @@
-cmake_minimum_required(VERSION 3.0)
-
+cmake_minimum_required(VERSION 3.1)
 set(LANGS Fortran C CXX)
 project(XS4GCR LANGUAGES ${LANGS})
+set(VERSION 1.0)
 
 set(CMAKE_VERBOSE_MAKEFILE off )
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-set(CMAKE_CXX_COMPILER "/usr/local/bin/g++-10")
+set(CMAKE_C_COMPILER "gcc")
+set(CMAKE_CXX_COMPILER "g++")
 set(CMAKE_CXX_FLAGS "-std=c++14 -ftree-vectorize -O3 -DDEBUG")
 set(XS4GCR_INCLUDES)
 set(XS4GCR_LIBRARIES)
@@ -13,13 +14,11 @@ set(XS4GCR_LIBRARIES)
 include_directories("${CMAKE_SOURCE_DIR}")
 include_directories(include)
 
-file(STRINGS ${CMAKE_SOURCE_DIR}/VERSION VERSION)
-
 include(GetGitRevisionDescription)
 get_git_head_revision(GIT_REFSPEC GIT_SHA1)
 git_local_changes(GIT_HAS_LOCAL_CHANGES)
-set(git_revision_cpp "${CMAKE_CURRENT_BINARY_DIR}/git_revision.cpp")
-configure_file("src/git_revision.cpp.in" "${git_revision_cpp}" @ONLY)
+set(git_revision_cpp "${CMAKE_CURRENT_BINARY_DIR}/core/git_revision.cpp")
+configure_file("src/core/git_revision.cpp.in" "${git_revision_cpp}" @ONLY)
 
 set(XS4GCR_SRCS
 	src/models/apDiMauro14.cpp
@@ -42,10 +41,10 @@ set(XS4GCR_SRCS
 	src/leptons/HuangPohl2007.cpp
 	src/gammas/Kamae2006.cpp
 	src/gammas/Kelner2006.cpp
-	src/common.cpp
-	src/nucleiChart.cpp
-	src/utilities.cpp
-	src/XS4GCR.cpp
+	src/core/common.cpp
+	src/core/nucleiChart.cpp
+	src/core/utilities.cpp
+	src/core/xsecs.cpp
     "${git_revision_cpp}"
    )
 
@@ -83,24 +82,24 @@ include_directories(include ${XS4GCR_INCLUDES})
 add_library(XS4GCR_LIB ${XS4GCR_SRCS} ${XS4GCR_INCLUDES} )
 
 # make executable
-add_executable(sandbox src/sandbox.cpp)
-target_link_libraries (sandbox XS4GCR_LIB ${XS4GCR_LIBRARIES})
+#add_executable(sandbox src/sandbox.cpp)
+#target_link_libraries (sandbox XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 # make examples
-add_executable(antiprotons examples/antiprotons.cpp)
+add_executable(antiprotons apps/antiprotons.cpp)
 target_link_libraries (antiprotons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(leptons examples/leptons.cpp)
+add_executable(leptons apps/leptons.cpp)
 target_link_libraries (leptons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(gammas examples/gammas.cpp)
-target_link_libraries (gammas XS4GCR_LIB ${XS4GCR_LIBRARIES})
+# add_executable(gammas examples/gammas.cpp)
+# target_link_libraries (gammas XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(inelastic examples/inelastic.cpp)
-target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
+# add_executable(inelastic examples/inelastic.cpp)
+# target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(decay examples/decay.cpp)
-target_link_libraries (decay XS4GCR_LIB ${XS4GCR_LIBRARIES})
+# add_executable(decay examples/decay.cpp)
+# target_link_libraries (decay XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 # Show summary.
 message (STATUS "CMAKE_SYSTEM .......... = ${CMAKE_SYSTEM}")

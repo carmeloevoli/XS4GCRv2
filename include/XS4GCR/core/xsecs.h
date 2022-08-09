@@ -9,6 +9,7 @@
 #include "XS4GCR/antiprotons/Feng2016.h"
 #include "XS4GCR/antiprotons/TanNg1983.h"
 #include "XS4GCR/antiprotons/Winkler2017.h"
+#include "XS4GCR/core/nucleiChart.h"
 #include "XS4GCR/gammas/Kamae2006.h"
 #include "XS4GCR/gammas/Kelner2006.h"
 #include "XS4GCR/inelastic/CROSEC.h"
@@ -16,7 +17,6 @@
 #include "XS4GCR/inelastic/Tripathi1999.h"
 #include "XS4GCR/leptons/HuangPohl2007.h"
 #include "XS4GCR/leptons/Kamae2006.h"
-#include "XS4GCR/nucleiChart.h"
 
 // #include "XS4GCR/particlenames.h"
 // #include "XS4GCR/protons.h"

@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "XS4GCR/utilities.h"
+#include "XS4GCR/core/utilities.h"
 
 namespace XS4GCR {
 

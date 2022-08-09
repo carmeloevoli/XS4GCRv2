@@ -2,8 +2,8 @@
 
 #include <cmath>
 
-#include "XS4GCR/cgs.h"
-#include "XS4GCR/gsl.h"
+#include "XS4GCR/core/cgs.h"
+#include "XS4GCR/core/gsl.h"
 
 namespace XS4GCR {
 namespace apTanNg83 {

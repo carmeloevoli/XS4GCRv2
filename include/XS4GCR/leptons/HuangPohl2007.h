@@ -1,7 +1,7 @@
 #ifndef INCLUDE_XS4GCR_LEPTONS_HUANGPOHL2007_H
 #define INCLUDE_XS4GCR_LEPTONS_HUANGPOHL2007_H
 
-#include "XS4GCR/grid.h"
+#include "XS4GCR/core/grid.h"
 #include "XS4GCR/leptons/SecondaryLeptons.h"
 
 namespace XS4GCR {

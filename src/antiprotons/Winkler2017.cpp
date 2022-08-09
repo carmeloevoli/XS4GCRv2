@@ -5,9 +5,9 @@
 #include <limits>
 #include <utility>
 
-#include "XS4GCR/cgs.h"
-#include "XS4GCR/gsl.h"
-#include "XS4GCR/utilities.h"
+#include "XS4GCR/core/cgs.h"
+#include "XS4GCR/core/gsl.h"
+#include "XS4GCR/core/utilities.h"
 
 #define NHEADERS 1
 

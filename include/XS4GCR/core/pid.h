@@ -12,8 +12,12 @@ class PID {
   PID() { set(0, 0); }
 
   PID(const int& Z, const int& A) {
-    if (Z < 1) LOGE << "Nucleus must have charge >= 1";
-    if (A < 1) LOGE << "Nucleus must have atomic number >= 1";
+    if (Z < 1) {
+      LOGE << "Nucleus must have charge >= 1";
+    }
+    if (A < 1) {
+      LOGE << "Nucleus must have atomic number >= 1";
+    }
     set(Z, A);
   }
 

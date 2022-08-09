@@ -1,8 +1,9 @@
 #include "XS4GCR/models/secKamae06.h"
 
+#include <algorithm>
 #include <stdexcept>
 
-#include "XS4GCR/cgs.h"
+#include "XS4GCR/core/cgs.h"
 #include "cparamlib.h"
 
 namespace XS4GCR {

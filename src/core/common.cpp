@@ -1,6 +1,6 @@
-#include "XS4GCR/common.h"
+#include "XS4GCR/core/common.h"
 
-#include "XS4GCR/cgs.h"
+#include "XS4GCR/core/cgs.h"
 
 namespace XS4GCR {
 

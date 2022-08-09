@@ -1,7 +1,7 @@
-#include "XS4GCR/nucleichart.h"
+#include "XS4GCR/core/nucleiChart.h"
 
-#include "XS4GCR/cgs.h"
-#include "XS4GCR/utilities.h"
+#include "XS4GCR/core/cgs.h"
+#include "XS4GCR/core/utilities.h"
 
 namespace XS4GCR {
 

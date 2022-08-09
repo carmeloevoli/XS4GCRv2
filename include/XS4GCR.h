@@ -3,17 +3,10 @@
 #ifndef INCLUDE_XS4GCR_H
 #define INCLUDE_XS4GCR_H
 
-#include "XS4GCR/XS4GCR.h"
-#include "XS4GCR/cgs.h"
-#include "XS4GCR/common.h"
-#include "XS4GCR/logging.h"
-#include "XS4GCR/utilities.h"
-
-// #include "sofia/grid.h"
-// #include "sofia/params.h"
-// #include "sofia/pid.h"
-// #include "sofia/sofia.h"
-// #include "sofia/strongtype.h"
-// #include "sofia/timing.h"
+#include "XS4GCR/core/cgs.h"
+#include "XS4GCR/core/common.h"
+#include "XS4GCR/core/logging.h"
+#include "XS4GCR/core/utilities.h"
+#include "XS4GCR/core/xsecs.h"
 
 #endif  // INCLUDE_XS4GCR_H

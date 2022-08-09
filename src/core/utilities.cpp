@@ -1,4 +1,4 @@
-#include "XS4GCR/utilities.h"
+#include "XS4GCR/core/utilities.h"
 
 #include <cmath>
 #include <fstream>
