@@ -1,6 +1,6 @@
 Use this:
 
-cmake -D CMAKE_C_COMPILER=/usr/local/bin/gcc-12 -D CMAKE_CXX_COMPILER=/usr/local/bin/g++-12 -D CMAKE_Fortran_COMPILER=/usr/local/bin/gfortran-12 ..   
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_C_COMPILER=/usr/local/bin/gcc-12 -DCMAKE_CXX_COMPILER=/usr/local/bin/g++-12 -DCMAKE_Fortran_COMPILER=/usr/local/bin/gfortran-12 ..   
 
 or this:
 

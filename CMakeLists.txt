@@ -3,10 +3,12 @@ set(LANGS Fortran C CXX)
 project(XS4GCR LANGUAGES ${LANGS})
 set(VERSION 1.0)
 
-set(CMAKE_VERBOSE_MAKEFILE off )
+set(CMAKE_VERBOSE_MAKEFILE OFF)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-set(CMAKE_C_COMPILER "gcc")
-set(CMAKE_CXX_COMPILER "g++")
+set(CMAKE_C_COMPILER "/usr/local/bin/gcc-12")
+set(CMAKE_CXX_COMPILER "/usr/local/bin/g++-12")
+set(CMAKE_Fortran_COMPILER "/usr/local/bin/gfortran")
 set(CMAKE_CXX_FLAGS "-std=c++14 -ftree-vectorize -O3 -DDEBUG")
 set(XS4GCR_INCLUDES)
 set(XS4GCR_LIBRARIES)
@@ -24,10 +26,12 @@ set(XS4GCR_SRCS
 	src/models/apDiMauro14.cpp
 	src/models/apDuperray03.cpp
 	src/models/apTanNg83.cpp
+	src/models/gammaKelner06.cpp
 	src/models/inTripathi99.cpp
 	src/models/secKamae06.cpp
+	src/models/secAAfrag101.cpp
 	src/antiprotons/SecondaryAntiprotons.cpp
-	src/antiprotons/AAfrag.cpp
+	src/antiprotons/AAfragSecAp.cpp
 	src/antiprotons/DiMauro2014.cpp
 	src/antiprotons/Duperray2003.cpp
 	src/antiprotons/Feng2016.cpp
@@ -39,8 +43,10 @@ set(XS4GCR_SRCS
 	src/leptons/SecondaryLeptons.cpp
 	src/leptons/Kamae2006.cpp
 	src/leptons/HuangPohl2007.cpp
+	src/gammas/Kafexhiu2014.cpp
 	src/gammas/Kamae2006.cpp
 	src/gammas/Kelner2006.cpp
+	src/gammas/AAfragSecGammas.cpp
 	src/core/common.cpp
 	src/core/nucleiChart.cpp
 	src/core/utilities.cpp
@@ -81,19 +87,15 @@ file(COPY ${XS4GCR_DATA} DESTINATION ${PROJECT_BINARY_DIR}/data)
 include_directories(include ${XS4GCR_INCLUDES})
 add_library(XS4GCR_LIB ${XS4GCR_SRCS} ${XS4GCR_INCLUDES} )
 
-# make executable
-#add_executable(sandbox src/sandbox.cpp)
-#target_link_libraries (sandbox XS4GCR_LIB ${XS4GCR_LIBRARIES})
+# make apps
+add_executable(secAntiprotons apps/secAntiprotons.cpp)
+target_link_libraries (secAntiprotons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-# make examples
-add_executable(antiprotons apps/antiprotons.cpp)
-target_link_libraries (antiprotons XS4GCR_LIB ${XS4GCR_LIBRARIES})
+add_executable(secLeptons apps/secLeptons.cpp)
+target_link_libraries (secLeptons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(leptons apps/leptons.cpp)
-target_link_libraries (leptons XS4GCR_LIB ${XS4GCR_LIBRARIES})
-
-# add_executable(gammas examples/gammas.cpp)
-# target_link_libraries (gammas XS4GCR_LIB ${XS4GCR_LIBRARIES})
+add_executable(gammas apps/gammas.cpp)
+target_link_libraries (gammas XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 # add_executable(inelastic examples/inelastic.cpp)
 # target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
