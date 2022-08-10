@@ -18,6 +18,17 @@ def set_axes(fig, title):
     ax.set_title(title)
     return ax
 
+def plot_xsecs_1GeV():
+    fig = plt.figure(figsize=(10.5, 8))
+    ax = set_axes(fig, '1 GeV')
+
+    plot_model(ax, 'output/Kamae2006_1GeV_pos.txt', 'tab:red', 'Kamae2006')
+    plot_model(ax, 'output/HuangPohl2007_1GeV_pos.txt', 'tab:blue', 'HuangPohl2007')
+
+    ax.set_ylim([1e-1, 1e2])
+    ax.legend(fontsize=16)
+    plt.savefig('pos_xsecs_1GeV.pdf')
+
 def plot_xsecs_10GeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, '10 GeV')
@@ -52,6 +63,7 @@ def plot_xsecs_1TeV():
     plt.savefig('pos_xsecs_1TeV.pdf')
 
 if __name__== "__main__":
+    plot_xsecs_1GeV()
     plot_xsecs_10GeV()
     plot_xsecs_100GeV()
     plot_xsecs_1TeV()
