@@ -5,13 +5,13 @@
 #include <vector>
 
 #include "XS4GCR/antiprotons/SecondaryAntiprotons.h"
-#include "XS4GCR/core/grid.h"
+#include "XS4GCR/models/secAAfrag101.h"
 
 namespace XS4GCR {
 
 class AAfragSecAp : public SecondaryAntiprotons {
  public:
-  AAfragSecAp(const std::string &dataFilename);
+  AAfragSecAp();
 
   void print() const override;
 
@@ -20,17 +20,7 @@ class AAfragSecAp : public SecondaryAntiprotons {
   double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_ap) const override;
 
  protected:
-  using Range = std::pair<double, double>;
-  Range m_Tproj_range;
-  Range m_Tap_range;
-  Grid<double> m_sigma_pp;
-  Grid<double> m_sigma_pHe;
-  Grid<double> m_sigma_Hep;
-  Grid<double> m_sigma_HeHe;
-  std::string m_dataFilename;
-
- protected:
-  void init();
+  std::shared_ptr<AAfrag101::LookupTables> m_tables;
 };
 
 }  // namespace XS4GCR

@@ -76,8 +76,10 @@ std::vector<double> loadColumn(const std::string& filename, size_t useCol, size_
   while (getline(file, line)) {
     if (count >= nHeaderLines) {
       auto items = split(line, " ");
-      auto s = items.at(useCol);
-      v.push_back(atof(s.c_str()));
+      if (items.size() > 0) {
+        auto s = items.at(useCol);
+        v.push_back(atof(s.c_str()));
+      }
     }
     count++;
   }
@@ -85,7 +87,7 @@ std::vector<double> loadColumn(const std::string& filename, size_t useCol, size_
   return v;
 }
 
-bool inRange(double x, std::pair<double, double> range) { return (x > range.first && x < range.second); }
+bool inRange(double x, std::pair<double, double> range) { return (x >= range.first && x <= range.second); }
 
 }  // namespace UTILS
 }  // namespace XS4GCR

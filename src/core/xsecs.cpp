@@ -5,11 +5,11 @@
 namespace XS4GCR {
 
 std::shared_ptr<TotalInelastic> XSECS::createTotalInelastic() {
-  if (totalInelasticModel == LETAW1983) {
+  if (totalInelasticModel == TotalInelasticModels::LETAW1983) {
     totalInelastic = std::make_shared<Letaw1983TotalInel>();
-  } else if (totalInelasticModel == TRIPATHI1999) {
+  } else if (totalInelasticModel == TotalInelasticModels::TRIPATHI1999) {
     totalInelastic = std::make_shared<Tripathi1999TotalInel>();
-  } else if (totalInelasticModel == CROSEC) {
+  } else if (totalInelasticModel == TotalInelasticModels::CROSEC) {
     totalInelastic = std::make_shared<CrosecTotalInel>();
   } else {
     throw std::invalid_argument("Total inelastic model not found.");
@@ -19,9 +19,9 @@ std::shared_ptr<TotalInelastic> XSECS::createTotalInelastic() {
 }
 
 std::shared_ptr<SecondaryLeptons> XSECS::createSecondaryLeptons(PID lepton) {
-  if (secondaryLeptonsModel == l_KAMAE2006) {
+  if (secondaryLeptonsModel == SecondaryLeptonModels::KAMAE2006) {
     secondaryLeptons = std::make_shared<Kamae2006SecLep>(lepton);
-  } else if (secondaryLeptonsModel == HUANGPOHL2007) {
+  } else if (secondaryLeptonsModel == SecondaryLeptonModels::HUANGPOHL2007) {
     secondaryLeptons = std::make_shared<HuangPohl2007SecLep>(lepton);
   } else {
     throw std::invalid_argument("Secondary Leptons model not found.");
@@ -31,10 +31,12 @@ std::shared_ptr<SecondaryLeptons> XSECS::createSecondaryLeptons(PID lepton) {
 }
 
 std::shared_ptr<Pi0Gammas> XSECS::createPi0Gammas() {
-  if (pi0GammaModel == g_KAMAE2006) {
+  if (pi0GammaModel == Pi0GammaModels::KAMAE2006) {
     pi0Gammas = std::make_shared<Kamae2006Gammas>();
-  } else if (pi0GammaModel == g_KELNER2006) {
+  } else if (pi0GammaModel == Pi0GammaModels::KELNER2006) {
     pi0Gammas = std::make_shared<Kelner2006Gammas>();
+  } else if (pi0GammaModel == Pi0GammaModels::AAFRAG) {
+    pi0Gammas = std::make_shared<AAfragSecGammas>();
   } else {
     throw std::invalid_argument("Secondary Gamma model not found.");
   }
@@ -43,20 +45,20 @@ std::shared_ptr<Pi0Gammas> XSECS::createPi0Gammas() {
 }
 
 std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
-  if (secondaryAntiprotonsModel == TANNG1983) {
+  if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::TANNG1983) {
     secondaryAntiprotons = std::make_shared<TanNg1983SecAp>();
-  } else if (secondaryAntiprotonsModel == DIMAURO2014) {
+  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::DIMAURO2014) {
     secondaryAntiprotons = std::make_shared<DiMauro2014SecAp>();
-  } else if (secondaryAntiprotonsModel == DUPERRAY2003) {
+  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::DUPERRAY2003) {
     secondaryAntiprotons = std::make_shared<Duperray2003SecAp>();
-  } else if (secondaryAntiprotonsModel == WINKLER2017) {
-    secondaryAntiprotons = std::make_shared<Winkler2017SecAp>("data/Winkler2017_antiprotons.txt");
-  } else if (secondaryAntiprotonsModel == FENG2016QGSJET) {
+  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::WINKLER2017) {
+    secondaryAntiprotons = std::make_shared<Winkler2017SecAp>();
+  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::FENG2016QGSJET) {
     secondaryAntiprotons = std::make_shared<Feng2016SecAp>("data/Feng2016_QGSJET04_antiprotons.txt");
-  } else if (secondaryAntiprotonsModel == FENG2016EPOS) {
+  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::FENG2016EPOS) {
     secondaryAntiprotons = std::make_shared<Feng2016SecAp>("data/Feng2016_EPOS_LHC_antiprotons.txt");
-  } else if (secondaryAntiprotonsModel == AAFRAG) {
-    secondaryAntiprotons = std::make_shared<AAfragSecAp>("data/AAfrag_v101_antiprotons.txt");
+  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::AAFRAG) {
+    secondaryAntiprotons = std::make_shared<AAfragSecAp>();
   } else {
     throw std::invalid_argument("Secondary Antiprotons model not found.");
   }

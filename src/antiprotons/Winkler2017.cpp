@@ -13,7 +13,7 @@
 
 namespace XS4GCR {
 
-Winkler2017SecAp::Winkler2017SecAp(const std::string& dataFilename) : m_dataFilename(dataFilename) {
+Winkler2017SecAp::Winkler2017SecAp() {
   if (!UTILS::fileExist(m_dataFilename)) throw std::runtime_error("problem with reading data file");
   m_lgTproj = UTILS::LinAxis(std::log(5.49540874e0 * cgs::GeV), std::log(9.54992586e5 * cgs::GeV), 132);
   m_lgTap = UTILS::LinAxis(std::log(1e-2 * cgs::GeV), std::log(1e3 * cgs::GeV), 251);
@@ -21,10 +21,11 @@ Winkler2017SecAp::Winkler2017SecAp(const std::string& dataFilename) : m_dataFile
   m_sigma_pHe = Grid<double>(132, 251);
   m_sigma_Hep = Grid<double>(132, 251);
   m_sigma_HeHe = Grid<double>(132, 251);
-  init(cgs::mbarn / cgs::GeV);
+  init();
 }
 
-void Winkler2017SecAp::init(double units) {
+void Winkler2017SecAp::init() {
+  const double units = cgs::mbarn / cgs::GeV;
   if (UTILS::countFileLines(m_dataFilename) != m_sigma_pp.size() + NHEADERS)
     throw std::runtime_error("the datafile seems incompatible with the grid size");
   {
@@ -60,8 +61,8 @@ double Winkler2017SecAp::get(const PID& projectile, const TARGET& target, const 
                              const double& T_ap) const {
   using std::log;
 
-  const double lgT_proj = log(T_proj);
-  const double lgT_ap = log(T_ap);
+  const auto lgT_proj = log(T_proj);
+  const auto lgT_ap = log(T_ap);
   const auto lgT_proj_range = std::make_pair(m_lgTproj.front(), m_lgTproj.back());
   const auto lgT_ap_range = std::make_pair(m_lgTap.front(), m_lgTap.back());
 

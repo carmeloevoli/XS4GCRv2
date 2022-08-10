@@ -17,7 +17,7 @@ namespace XS4GCR {
 
 void Kamae2006SecLep::print() const {
   LOGI << "using KAMAE2006 lepton production model: ";
-  LOGI << "\n";
+  LOGI << "Kamae et al., 2006, The Astrophysical Journal, Volume 647, Issue 1";
 }
 
 std::shared_ptr<SecondaryLeptons> Kamae2006SecLep::clone() { return std::make_shared<Kamae2006SecLep>(*this); }

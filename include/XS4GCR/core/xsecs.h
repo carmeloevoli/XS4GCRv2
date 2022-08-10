@@ -3,13 +3,14 @@
 
 #include <memory>
 
-#include "XS4GCR/antiprotons/AAfrag.h"
+#include "XS4GCR/antiprotons/AAfragSecAp.h"
 #include "XS4GCR/antiprotons/DiMauro2014.h"
 #include "XS4GCR/antiprotons/Duperray2003.h"
 #include "XS4GCR/antiprotons/Feng2016.h"
 #include "XS4GCR/antiprotons/TanNg1983.h"
 #include "XS4GCR/antiprotons/Winkler2017.h"
 #include "XS4GCR/core/nucleiChart.h"
+#include "XS4GCR/gammas/AAfragSecGammas.h"
 #include "XS4GCR/gammas/Kamae2006.h"
 #include "XS4GCR/gammas/Kelner2006.h"
 #include "XS4GCR/inelastic/CROSEC.h"
@@ -26,7 +27,7 @@
 
 namespace XS4GCR {
 
-enum SecondaryAntiprotonModels {
+enum class SecondaryAntiprotonModels {
   DIMAURO2014,
   DUPERRAY2003,
   TANNG1983,
@@ -36,11 +37,11 @@ enum SecondaryAntiprotonModels {
   AAFRAG
 };
 
-enum SecondaryLeptonModels { l_KAMAE2006, HUANGPOHL2007 };
+enum class SecondaryLeptonModels { KAMAE2006, HUANGPOHL2007 };
 
-enum Pi0GammaModels { g_KAMAE2006, g_KELNER2006 };
+enum class Pi0GammaModels { KAMAE2006, KELNER2006, AAFRAG };
 
-enum TotalInelasticModels { TRIPATHI1999, CROSEC, LETAW1983 };
+enum class TotalInelasticModels { TRIPATHI1999, CROSEC, LETAW1983 };
 
 class XSECS {
  public:
@@ -63,10 +64,10 @@ class XSECS {
   //   inline void set_secondary_nuclei(const std::string &model_name) { secondary_nuclei_model = model_name; }
 
  private:
-  TotalInelasticModels totalInelasticModel = TRIPATHI1999;
-  SecondaryAntiprotonModels secondaryAntiprotonsModel = DIMAURO2014;
-  SecondaryLeptonModels secondaryLeptonsModel = l_KAMAE2006;
-  Pi0GammaModels pi0GammaModel = g_KAMAE2006;
+  TotalInelasticModels totalInelasticModel = TotalInelasticModels::TRIPATHI1999;
+  SecondaryAntiprotonModels secondaryAntiprotonsModel = SecondaryAntiprotonModels::DIMAURO2014;
+  SecondaryLeptonModels secondaryLeptonsModel = SecondaryLeptonModels::KAMAE2006;
+  Pi0GammaModels pi0GammaModel = Pi0GammaModels::KAMAE2006;
 
   //   std::string secondary_nuclei_model = "Webber1993";
 

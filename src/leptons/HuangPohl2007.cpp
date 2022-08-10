@@ -26,7 +26,7 @@ HuangPohl2007SecLep::HuangPohl2007SecLep(const PID& lepton) {
 
 void HuangPohl2007SecLep::print() const {
   LOGI << "using HUANGPOHL2007 lepton production model:";
-  LOGI << "";
+  LOGI << "Huang et al., 2007, Astropart. Phys., 27, 429";
 }
 
 std::shared_ptr<SecondaryLeptons> HuangPohl2007SecLep::clone() { return std::make_shared<HuangPohl2007SecLep>(*this); }

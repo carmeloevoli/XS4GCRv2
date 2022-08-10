@@ -11,7 +11,7 @@ namespace XS4GCR {
 
 class Winkler2017SecAp : public SecondaryAntiprotons {
  public:
-  Winkler2017SecAp(const std::string &dataFilename);
+  Winkler2017SecAp();
 
   void print() const override;
 
@@ -28,10 +28,10 @@ class Winkler2017SecAp : public SecondaryAntiprotons {
   Grid<double> m_sigma_Hep;
   Grid<double> m_sigma_HeHe;
 
-  std::string m_dataFilename;
+  std::string m_dataFilename = "data/Winkler2017_antiprotons.txt";
 
  protected:
-  void init(double units);
+  void init();
 };
 
 }  // namespace XS4GCR
