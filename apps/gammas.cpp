@@ -25,26 +25,32 @@ void get_secondary_production(Pi0GammaModels model, double T_proj, std::string f
   outfile.close();
 }
 
-/**
- * @brief Main function for example gammas
- */
 int main() {
   try {
     XS4GCR::LOG::startup_information();
     {
-      double T_proj = 1. * XS4GCR::cgs::TeV;
-      get_secondary_production(XS4GCR::g_KAMAE2006, T_proj, "output/Kamae2006_1TeV_gamma.txt");
-      // get_secondary_production(XS4GCR::HUANGPOHL2007, T_proj, "output/HuangPohl2007_1TeV_pos.txt");
+      double T_proj = 1. * cgs::TeV;
+      get_secondary_production(Pi0GammaModels::KAMAE2006, T_proj, "output/Kamae2006_1TeV_gamma.txt");
+      get_secondary_production(Pi0GammaModels::KELNER2006, T_proj, "output/Kelner2006_1TeV_gamma.txt");
+      get_secondary_production(Pi0GammaModels::AAFRAG, T_proj, "output/AAFRAG_1TeV_gamma.txt");
     }
     {
-      double T_proj = 100. * XS4GCR::cgs::GeV;
-      get_secondary_production(XS4GCR::g_KAMAE2006, T_proj, "output/Kamae2006_100GeV_gamma.txt");
-      // get_secondary_production(XS4GCR::HUANGPOHL2007, T_proj, "output/HuangPohl2007_100GeV_pos.txt");
+      double T_proj = 100. * cgs::GeV;
+      get_secondary_production(Pi0GammaModels::KAMAE2006, T_proj, "output/Kamae2006_100GeV_gamma.txt");
+      get_secondary_production(Pi0GammaModels::KELNER2006, T_proj, "output/Kelner2006_100GeV_gamma.txt");
+      get_secondary_production(Pi0GammaModels::AAFRAG, T_proj, "output/AAFRAG_100GeV_gamma.txt");
     }
     {
-      double T_proj = 10. * XS4GCR::cgs::GeV;
-      get_secondary_production(XS4GCR::g_KAMAE2006, T_proj, "output/Kamae2006_10GeV_gamma.txt");
-      // get_secondary_production(XS4GCR::HUANGPOHL2007, T_proj, "output/HuangPohl2007_10GeV_pos.txt");
+      double T_proj = 10. * cgs::GeV;
+      get_secondary_production(Pi0GammaModels::KAMAE2006, T_proj, "output/Kamae2006_10GeV_gamma.txt");
+      get_secondary_production(Pi0GammaModels::KELNER2006, T_proj, "output/Kelner2006_10GeV_gamma.txt");
+      get_secondary_production(Pi0GammaModels::AAFRAG, T_proj, "output/AAFRAG_10GeV_gamma.txt");
+    }
+    {
+      double T_proj = 5. * cgs::GeV;
+      get_secondary_production(Pi0GammaModels::KAMAE2006, T_proj, "output/Kamae2006_5GeV_gamma.txt");
+      get_secondary_production(Pi0GammaModels::KELNER2006, T_proj, "output/Kelner2006_5GeV_gamma.txt");
+      get_secondary_production(Pi0GammaModels::AAFRAG, T_proj, "output/AAFRAG_5GeV_gamma.txt");
     }
   } catch (const std::exception& e) {
     LOGF << "exception caught with message: " << e.what();
