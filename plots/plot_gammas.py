@@ -23,23 +23,19 @@ def plot_gammas_5GeV():
     ax = set_axes(fig, '5 GeV')
 
     plot_model(ax, 'output/Kafexhiu2014G4_5GeV_gamma.txt', 'tab:olive', 'Kafexhiu2014 / GEANT4')
-    #plot_model(ax, 'output/Kafexhiu2014P8_5GeV_gamma.txt', 'tab:pink', 'Kafexhiu2014 / PYTHIA8')
-    #plot_model(ax, 'output/Kafexhiu2014Sibyll_5GeV_gamma.txt', 'tab:cyan', 'Kafexhiu2014 / SIBYLL')
     plot_model(ax, 'output/Kamae2006_5GeV_gamma.txt', 'tab:red', 'Kamae2006')
     plot_model(ax, 'output/Kelner2006_5GeV_gamma.txt', 'tab:blue', 'Kelner2006')
     plot_model(ax, 'output/AAFRAG_5GeV_gamma.txt', 'tab:brown', 'AAFRAG')
 
-    ax.set_ylim([1e-3, 4e1])
+    ax.set_ylim([1e-2, 2e1])
     ax.legend(fontsize=16)
     plt.savefig('xsecs_gammas_5GeV.pdf')
-    
+
 def plot_gammas_10GeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, '10 GeV')
 
     plot_model(ax, 'output/Kafexhiu2014G4_10GeV_gamma.txt', 'tab:olive', 'Kafexhiu2014/GEANT4')
-    #plot_model(ax, 'output/Kafexhiu2014P8_10GeV_gamma.txt', 'tab:pink', 'Kafexhiu2014/PYTHIA8')
-    #plot_model(ax, 'output/Kafexhiu2014Sibyll_10GeV_gamma.txt', 'tab:cyan', 'Kafexhiu2014/SIBYLL')
     plot_model(ax, 'output/Kamae2006_10GeV_gamma.txt', 'tab:red', 'Kamae2006/PYTHIA6.2')
     plot_model(ax, 'output/Kelner2006_10GeV_gamma.txt', 'tab:blue', 'Kelner2006/SIBYLL')
     plot_model(ax, 'output/AAFRAG_10GeV_gamma.txt', 'tab:green', 'AAFRAG/QGSJET-II')
