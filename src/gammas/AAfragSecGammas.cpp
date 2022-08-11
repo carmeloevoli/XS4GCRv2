@@ -27,6 +27,14 @@ double AAfragSecGammas::get(const PID& projectile, const TARGET& target, const d
                             const double& T_g) const {
   if (projectile == H1 && target == TARGET::H) {
     return m_tables->get(AAfrag101::Channel::pp, T_proj, T_g);
+  } else if (projectile == H1 && target == TARGET::He) {
+    return m_tables->get(AAfrag101::Channel::pHe, T_proj, T_g);
+  } else if (projectile == He4 && target == TARGET::H) {
+    return m_tables->get(AAfrag101::Channel::Hep, T_proj, T_g);
+  } else if (projectile == He4 && target == TARGET::He) {
+    return m_tables->get(AAfrag101::Channel::HeHe, T_proj, T_g);
+  } else {
+    throw std::runtime_error("channel not implemented in AAFRAG model");
   }
   return 0.;
 }

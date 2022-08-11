@@ -88,10 +88,17 @@ double Orusa2022SecLep::get(const PID& projectile, const TARGET& target, const d
     if (projectile == H1 && target == TARGET::H) {
       auto z = m_sigma_pp.get();
       value = GSL::interpolate2d<double>(m_lgTprojAxis, m_lgTsecAxis, z, lgTproj, lgTsec);
-      //     } else if (projectile == He4 && target == TARGET::H) {
-      //       auto z = m_sigma_Hep.get();
-      //       value = GSL::interpolate2d<double>(m_lgEproj, m_lgTsec, z, lgE_proj, lgT_sec);
-      //     }
+    } else if (projectile == H1 && target == TARGET::He) {
+      auto z = m_sigma_pHe.get();
+      value = GSL::interpolate2d<double>(m_lgTprojAxis, m_lgTsecAxis, z, lgTproj, lgTsec);
+    } else if (projectile == He4 && target == TARGET::H) {
+      auto z = m_sigma_Hep.get();
+      value = GSL::interpolate2d<double>(m_lgTprojAxis, m_lgTsecAxis, z, lgTproj, lgTsec);
+    } else if (projectile == He4 && target == TARGET::He) {
+      auto z = m_sigma_HeHe.get();
+      value = GSL::interpolate2d<double>(m_lgTprojAxis, m_lgTsecAxis, z, lgTproj, lgTsec);
+    } else {
+      throw std::runtime_error("channel not implemented in Orusa2022 model");
     }
   }
   return value;

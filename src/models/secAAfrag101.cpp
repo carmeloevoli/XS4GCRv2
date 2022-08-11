@@ -41,6 +41,27 @@ void LookupTables::initGammaTables() {
     m_sigma_le_pp.readTable(2);
   }
   {
+    std::string filename = "data/AAfrag101/gam_p_He_04L";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto TprojAxis = UTILS::LinAxis(4. * cgs::GeV, 10. * cgs::GeV, 7);
+    m_sigma_le_pHe = AAfragTable(filename, TprojAxis, lgTsecAxis);
+    m_sigma_le_pHe.readTable(2);
+  }
+  {
+    std::string filename = "data/AAfrag101/gam_He_p_04L";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto TprojAxis = UTILS::LinAxis(5. * cgs::GeV, 10. * cgs::GeV, 6);
+    m_sigma_le_Hep = AAfragTable(filename, TprojAxis, lgTsecAxis);
+    m_sigma_le_Hep.readTable(2);
+  }
+  {
+    std::string filename = "data/AAfrag101/gam_He_He_04L";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto TprojAxis = UTILS::LinAxis(5. * cgs::GeV, 10. * cgs::GeV, 6);
+    m_sigma_le_HeHe = AAfragTable(filename, TprojAxis, lgTsecAxis);
+    m_sigma_le_HeHe.readTable(2);
+  }
+  {
     std::string filename = "data/AAfrag101/gam_p_p_04";
     if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
     auto lgTprojMin = std::log10(10. * cgs::GeV);
@@ -48,6 +69,33 @@ void LookupTables::initGammaTables() {
     auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 54);
     m_sigma_he_pp = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
     m_sigma_he_pp.readTable(2);
+  }
+  {
+    std::string filename = "data/AAfrag101/gam_p_He_04";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto lgTprojMin = std::log10(10. * cgs::GeV);
+    auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
+    auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
+    m_sigma_he_pHe = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
+    m_sigma_he_pHe.readTable(2);
+  }
+  {
+    std::string filename = "data/AAfrag101/gam_He_p_04";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto lgTprojMin = std::log10(10. * cgs::GeV);
+    auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
+    auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
+    m_sigma_he_Hep = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
+    m_sigma_he_Hep.readTable(2);
+  }
+  {
+    std::string filename = "data/AAfrag101/gam_He_He_04";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto lgTprojMin = std::log10(10. * cgs::GeV);
+    auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
+    auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
+    m_sigma_he_HeHe = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
+    m_sigma_he_HeHe.readTable(2);
   }
 }
 
@@ -63,6 +111,27 @@ void LookupTables::initPositronTables() {
     m_sigma_le_pp.readTable(3);
   }
   {
+    std::string filename = "data/AAfrag101/el_p_He_04L";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto TprojAxis = UTILS::LinAxis(4. * cgs::GeV, 10. * cgs::GeV, 7);
+    m_sigma_le_pHe = AAfragTable(filename, TprojAxis, lgTsecAxis);
+    m_sigma_le_pHe.readTable(3);
+  }
+  {
+    std::string filename = "data/AAfrag101/el_He_p_04L";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto TprojAxis = UTILS::LinAxis(5. * cgs::GeV, 10. * cgs::GeV, 6);
+    m_sigma_le_Hep = AAfragTable(filename, TprojAxis, lgTsecAxis);
+    m_sigma_le_Hep.readTable(3);
+  }
+  {
+    std::string filename = "data/AAfrag101/el_He_He_04L";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto TprojAxis = UTILS::LinAxis(5. * cgs::GeV, 10. * cgs::GeV, 6);
+    m_sigma_le_HeHe = AAfragTable(filename, TprojAxis, lgTsecAxis);
+    m_sigma_le_HeHe.readTable(3);
+  }
+  {
     std::string filename = "data/AAfrag101/el_p_p_04";
     if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
     auto lgTprojMin = std::log10(10. * cgs::GeV);
@@ -70,6 +139,33 @@ void LookupTables::initPositronTables() {
     auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 54);
     m_sigma_he_pp = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
     m_sigma_he_pp.readTable(3);
+  }
+  {
+    std::string filename = "data/AAfrag101/el_p_He_04";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto lgTprojMin = std::log10(10. * cgs::GeV);
+    auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
+    auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
+    m_sigma_he_pHe = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
+    m_sigma_he_pHe.readTable(3);
+  }
+  {
+    std::string filename = "data/AAfrag101/el_He_p_04";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto lgTprojMin = std::log10(10. * cgs::GeV);
+    auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
+    auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
+    m_sigma_he_Hep = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
+    m_sigma_he_Hep.readTable(3);
+  }
+  {
+    std::string filename = "data/AAfrag101/el_He_He_04";
+    if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
+    auto lgTprojMin = std::log10(10. * cgs::GeV);
+    auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
+    auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
+    m_sigma_he_HeHe = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
+    m_sigma_he_HeHe.readTable(3);
   }
 }
 
@@ -95,9 +191,9 @@ double LookupTables::get(Channel channel, double T_proj, double T_sec) const {
       case Channel::pHe:
         return m_sigma_le_pHe.get(T_proj, std::log10(T_sec));
       case Channel::Hep:
-        return m_sigma_le_Hep.get(T_proj, std::log10(T_sec));
+        return m_sigma_le_Hep.get(T_proj * 4., std::log10(T_sec));
       case Channel::HeHe:
-        return m_sigma_le_HeHe.get(T_proj, std::log10(T_sec));
+        return m_sigma_le_HeHe.get(T_proj * 4., std::log10(T_sec));
     }
   } else {
     switch (channel) {
@@ -106,9 +202,9 @@ double LookupTables::get(Channel channel, double T_proj, double T_sec) const {
       case Channel::pHe:
         return m_sigma_he_pHe.get(std::log10(T_proj), std::log10(T_sec));
       case Channel::Hep:
-        return m_sigma_he_Hep.get(std::log10(T_proj), std::log10(T_sec));
+        return m_sigma_he_Hep.get(std::log10(T_proj * 4.), std::log10(T_sec));
       case Channel::HeHe:
-        return m_sigma_he_HeHe.get(std::log10(T_proj), std::log10(T_sec));
+        return m_sigma_he_HeHe.get(std::log10(T_proj * 4.), std::log10(T_sec));
     }
   }
   return 0;

@@ -20,8 +20,12 @@ void get_secondary_production(SecondaryLeptonModels model, double T_proj, std::s
     auto sigma_pp = x_ap->get(H1, TARGET::H, T_proj, T);
     auto sigma_phe = x_ap->get(H1, TARGET::He, T_proj, T);
     auto sigma_hep = x_ap->get(He4, TARGET::H, T_proj, T);
+    auto sigma_hehe = x_ap->get(He4, TARGET::He, T_proj, T);
     outfile << T / cgs::GeV << "\t";
-    outfile << sigma_pp / units << "\t" << sigma_phe / units << "\t" << sigma_hep / units << "\n";
+    outfile << sigma_pp / units << "\t";
+    outfile << sigma_phe / units << "\t";
+    outfile << sigma_hep / units << "\t";
+    outfile << sigma_hehe / units << "\n";
   }
   outfile.close();
 }
