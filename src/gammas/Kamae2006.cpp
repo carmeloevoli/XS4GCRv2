@@ -13,13 +13,16 @@ void Kamae2006Gammas::print() const {
 std::shared_ptr<Pi0Gammas> Kamae2006Gammas::clone() { return std::make_shared<Kamae2006Gammas>(*this); }
 
 double Kamae2006Gammas::get(const PID& projectile, const TARGET& target, const double& T_proj,
-                            const double& T_g) const {
-  double sigma_pp = Kamae06::getCparamSigma(Kamae06::KGAMMA, T_proj, T_g);
+                            const double& T_ph) const {
+  double sigma_pp = 0;
   if (projectile == H1 && target == TARGET::H) {
-    return sigma_pp;
-  } else {
-    return 0;
+    if (m_type == NeutralParticleType::GAMMA) {
+      sigma_pp = Kamae06::getCparamSigma(Kamae06::KGAMMA, T_proj, T_ph);
+    } else if (m_type == NeutralParticleType::ALLNUS) {
+      sigma_pp = Kamae06::getCparamSigma(Kamae06::KNU, T_proj, T_ph);
+    }
   }
+  return sigma_pp;
 }
 
 }  // namespace  XS4GCR

@@ -4,7 +4,8 @@
 namespace XS4GCR {
 namespace Kelner06 {
 
-double dsigma_dT(double T_p, double T_gamma, bool doGamma = true);
+double sigma_gamma(double E_proj, double E_gamma);
+double sigma_neutrinos(double E_proj, double E_nu);
 
 }  // namespace Kelner06
 }  // namespace XS4GCR

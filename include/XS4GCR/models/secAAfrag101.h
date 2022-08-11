@@ -33,6 +33,16 @@ class AAfragTable {
     m_sigma.for_each([](double &s) { s *= cgs::mbarn; });
   }
 
+  void readNuTables() {
+    const auto sigma_nue = UTILS::loadColumn(m_filename, 2, NHEADERLINES);
+    const auto sigma_anue = UTILS::loadColumn(m_filename, 3, NHEADERLINES);
+    const auto sigma_numu = UTILS::loadColumn(m_filename, 4, NHEADERLINES);
+    const auto sigma_anumu = UTILS::loadColumn(m_filename, 5, NHEADERLINES);
+    for (size_t i = 0; i < m_sigma.size(); ++i)
+      m_sigma.get(i) = sigma_nue.at(i) + sigma_anue.at(i) + sigma_numu.at(i) + sigma_anumu.at(i);
+    m_sigma.for_each([](double &s) { s *= cgs::mbarn; });
+  }
+
   double get(double x, double y) const {
     double value = 0;
     if (UTILS::inRange(x, m_xRange) && UTILS::inRange(y, m_yRange)) {
@@ -52,7 +62,7 @@ class AAfragTable {
   Grid<double> m_sigma;
 };
 
-enum class ParticleTypes { ELECTRON, POSITRON, GAMMA, NU, PBAR };
+enum class ParticleTypes { ELECTRON, POSITRON, GAMMA, ALLNUS, PBAR };
 enum class Channel { pp, pHe, Hep, HeHe };
 
 class LookupTables {
@@ -64,6 +74,7 @@ class LookupTables {
  private:
   void initAntiprotonTables();
   void initGammaTables();
+  void initNeutrinoTables();
   void initPositronTables();
   void init();
 

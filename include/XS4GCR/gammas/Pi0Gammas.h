@@ -7,6 +7,8 @@
 
 namespace XS4GCR {
 
+enum class NeutralParticleType { GAMMA, ALLNUS };
+
 class Pi0Gammas {
  public:
   virtual ~Pi0Gammas() {}
@@ -15,7 +17,7 @@ class Pi0Gammas {
 
   virtual std::shared_ptr<Pi0Gammas> clone() = 0;
 
-  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_g) const = 0;
+  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_ph) const = 0;
 };
 
 }  // namespace XS4GCR

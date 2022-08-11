@@ -2,6 +2,25 @@
 
 #include <memory>
 
+#include "XS4GCR/antiprotons/AAfragSecAp.h"
+#include "XS4GCR/antiprotons/DiMauro2014.h"
+#include "XS4GCR/antiprotons/Duperray2003.h"
+#include "XS4GCR/antiprotons/Feng2016.h"
+#include "XS4GCR/antiprotons/TanNg1983.h"
+#include "XS4GCR/antiprotons/Winkler2017.h"
+#include "XS4GCR/core/nucleiChart.h"
+#include "XS4GCR/gammas/AAfragSecGammas.h"
+#include "XS4GCR/gammas/Kafexhiu2014.h"
+#include "XS4GCR/gammas/Kamae2006.h"
+#include "XS4GCR/gammas/Kelner2006.h"
+#include "XS4GCR/inelastic/CROSEC.h"
+#include "XS4GCR/inelastic/Letaw1983.h"
+#include "XS4GCR/inelastic/Tripathi1999.h"
+#include "XS4GCR/leptons/AAfragSecLeptons.h"
+#include "XS4GCR/leptons/HuangPohl2007.h"
+#include "XS4GCR/leptons/Kamae2006.h"
+#include "XS4GCR/leptons/Orusa2022.h"
+
 namespace XS4GCR {
 
 std::shared_ptr<TotalInelastic> XSECS::createTotalInelastic() {
@@ -34,19 +53,19 @@ std::shared_ptr<SecondaryLeptons> XSECS::createSecondaryLeptons(PID lepton) {
   return secondaryLeptons->clone();
 }
 
-std::shared_ptr<Pi0Gammas> XSECS::createPi0Gammas() {
+std::shared_ptr<Pi0Gammas> XSECS::createPi0Gammas(NeutralParticleType type) {
   if (pi0GammaModel == Pi0GammaModels::KAMAE2006) {
-    pi0Gammas = std::make_shared<Kamae2006Gammas>();
+    pi0Gammas = std::make_shared<Kamae2006Gammas>(type);
   } else if (pi0GammaModel == Pi0GammaModels::KELNER2006) {
-    pi0Gammas = std::make_shared<Kelner2006Gammas>();
+    pi0Gammas = std::make_shared<Kelner2006Gammas>(type);
   } else if (pi0GammaModel == Pi0GammaModels::KAFEXHIU2014GEANT4) {
-    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(Kafexhiu14::InteractionModel::GEANT4);
+    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::GEANT4);
   } else if (pi0GammaModel == Pi0GammaModels::KAFEXHIU2014PYTHIA8) {
-    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(Kafexhiu14::InteractionModel::PYTHIA8);
+    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::PYTHIA8);
   } else if (pi0GammaModel == Pi0GammaModels::KAFEXHIU2014SIBYLL) {
-    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(Kafexhiu14::InteractionModel::SIBYLL);
+    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::SIBYLL);
   } else if (pi0GammaModel == Pi0GammaModels::AAFRAG) {
-    pi0Gammas = std::make_shared<AAfragSecGammas>();
+    pi0Gammas = std::make_shared<AAfragSecGammas>(type);
   } else {
     throw std::invalid_argument("Secondary Gamma model not found.");
   }

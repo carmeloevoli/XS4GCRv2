@@ -3,24 +3,30 @@
 
 #include <memory>
 
-#include "XS4GCR/antiprotons/AAfragSecAp.h"
-#include "XS4GCR/antiprotons/DiMauro2014.h"
-#include "XS4GCR/antiprotons/Duperray2003.h"
-#include "XS4GCR/antiprotons/Feng2016.h"
-#include "XS4GCR/antiprotons/TanNg1983.h"
-#include "XS4GCR/antiprotons/Winkler2017.h"
-#include "XS4GCR/core/nucleiChart.h"
-#include "XS4GCR/gammas/AAfragSecGammas.h"
-#include "XS4GCR/gammas/Kafexhiu2014.h"
-#include "XS4GCR/gammas/Kamae2006.h"
-#include "XS4GCR/gammas/Kelner2006.h"
-#include "XS4GCR/inelastic/CROSEC.h"
-#include "XS4GCR/inelastic/Letaw1983.h"
-#include "XS4GCR/inelastic/Tripathi1999.h"
-#include "XS4GCR/leptons/AAfragSecLeptons.h"
-#include "XS4GCR/leptons/HuangPohl2007.h"
-#include "XS4GCR/leptons/Kamae2006.h"
-#include "XS4GCR/leptons/Orusa2022.h"
+#include "XS4GCR/antiprotons/SecondaryAntiprotons.h"
+#include "XS4GCR/core/NucleiChart.h"
+#include "XS4GCR/gammas/Pi0Gammas.h"
+#include "XS4GCR/inelastic/TotalInelastic.h"
+#include "XS4GCR/leptons/SecondaryLeptons.h"
+
+// #include "XS4GCR/antiprotons/AAfragSecAp.h"
+// #include "XS4GCR/antiprotons/DiMauro2014.h"
+// #include "XS4GCR/antiprotons/Duperray2003.h"
+// #include "XS4GCR/antiprotons/Feng2016.h"
+// #include "XS4GCR/antiprotons/TanNg1983.h"
+// #include "XS4GCR/antiprotons/Winkler2017.h"
+// #include "XS4GCR/core/nucleiChart.h"
+// #include "XS4GCR/gammas/AAfragSecGammas.h"
+// #include "XS4GCR/gammas/Kafexhiu2014.h"
+// #include "XS4GCR/gammas/Kamae2006.h"
+// #include "XS4GCR/gammas/Kelner2006.h"
+// #include "XS4GCR/inelastic/CROSEC.h"
+// #include "XS4GCR/inelastic/Letaw1983.h"
+// #include "XS4GCR/inelastic/Tripathi1999.h"
+// #include "XS4GCR/leptons/AAfragSecLeptons.h"
+// #include "XS4GCR/leptons/HuangPohl2007.h"
+// #include "XS4GCR/leptons/Kamae2006.h"
+// #include "XS4GCR/leptons/Orusa2022.h"
 
 // #include "XS4GCR/particlenames.h"
 // #include "XS4GCR/protons.h"
@@ -61,7 +67,7 @@ class XSECS {
   std::shared_ptr<TotalInelastic> createTotalInelastic();
   std::shared_ptr<SecondaryAntiprotons> createSecondaryAntiprotons();
   std::shared_ptr<SecondaryLeptons> createSecondaryLeptons(PID lepton = positron);
-  std::shared_ptr<Pi0Gammas> createPi0Gammas();
+  std::shared_ptr<Pi0Gammas> createPi0Gammas(NeutralParticleType type = NeutralParticleType::GAMMA);
   std::shared_ptr<NucleiChart> createNucleiChart();
 
   //   std::shared_ptr<Spallation> create_secondary_nuclei();

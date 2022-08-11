@@ -11,9 +11,16 @@
 
 namespace XS4GCR {
 
-AAfragSecGammas::AAfragSecGammas() {
-  auto particle = AAfrag101::ParticleTypes::GAMMA;
-  m_tables = std::make_shared<AAfrag101::LookupTables>(particle);
+AAfragSecGammas::AAfragSecGammas(NeutralParticleType type) {
+  if (type == NeutralParticleType::GAMMA) {
+    auto particle = AAfrag101::ParticleTypes::GAMMA;
+    m_tables = std::make_shared<AAfrag101::LookupTables>(particle);
+  } else if (type == NeutralParticleType::ALLNUS) {
+    auto particle = AAfrag101::ParticleTypes::ALLNUS;
+    m_tables = std::make_shared<AAfrag101::LookupTables>(particle);
+  } else {
+    throw std::runtime_error("problem in AAfragSecGammas constructor");
+  }
 }
 
 void AAfragSecGammas::print() const {
@@ -24,15 +31,15 @@ void AAfragSecGammas::print() const {
 std::shared_ptr<Pi0Gammas> AAfragSecGammas::clone() { return std::make_shared<AAfragSecGammas>(*this); }
 
 double AAfragSecGammas::get(const PID& projectile, const TARGET& target, const double& T_proj,
-                            const double& T_g) const {
+                            const double& T_ph) const {
   if (projectile == H1 && target == TARGET::H) {
-    return m_tables->get(AAfrag101::Channel::pp, T_proj, T_g);
+    return m_tables->get(AAfrag101::Channel::pp, T_proj, T_ph);
   } else if (projectile == H1 && target == TARGET::He) {
-    return m_tables->get(AAfrag101::Channel::pHe, T_proj, T_g);
+    return m_tables->get(AAfrag101::Channel::pHe, T_proj, T_ph);
   } else if (projectile == He4 && target == TARGET::H) {
-    return m_tables->get(AAfrag101::Channel::Hep, T_proj, T_g);
+    return m_tables->get(AAfrag101::Channel::Hep, T_proj, T_ph);
   } else if (projectile == He4 && target == TARGET::He) {
-    return m_tables->get(AAfrag101::Channel::HeHe, T_proj, T_g);
+    return m_tables->get(AAfrag101::Channel::HeHe, T_proj, T_ph);
   } else {
     throw std::runtime_error("channel not implemented in AAFRAG model");
   }

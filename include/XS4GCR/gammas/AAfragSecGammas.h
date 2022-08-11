@@ -11,13 +11,13 @@ namespace XS4GCR {
 
 class AAfragSecGammas : public Pi0Gammas {
  public:
-  AAfragSecGammas();
+  AAfragSecGammas(NeutralParticleType type);
 
   void print() const override;
 
   std::shared_ptr<Pi0Gammas> clone() override;
 
-  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_g) const override;
+  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_ph) const override;
 
  protected:
   std::shared_ptr<AAfrag101::LookupTables> m_tables;

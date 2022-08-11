@@ -6,18 +6,21 @@
 
 namespace XS4GCR {
 
+enum class InteractionModel { GEANT4, PYTHIA8, SIBYLL };
+
 class Kafexhiu2014Gammas : public Pi0Gammas {
  public:
-  Kafexhiu2014Gammas(Kafexhiu14::InteractionModel model) : m_model(model) {}
+  Kafexhiu2014Gammas(NeutralParticleType type, InteractionModel model) : m_type(type), m_model(model) {}
 
   void print() const override;
 
   std::shared_ptr<Pi0Gammas> clone() override;
 
-  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_g) const override;
+  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_ph) const override;
 
- private:
-  Kafexhiu14::InteractionModel m_model;
+ protected:
+  NeutralParticleType m_type;
+  InteractionModel m_model;
 };
 
 }  // namespace XS4GCR

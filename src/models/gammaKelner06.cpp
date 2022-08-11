@@ -2,10 +2,13 @@
 
 #include <cmath>
 
+#include "XS4GCR/core/cgs.h"
 #include "XS4GCR/core/common.h"
 
 namespace XS4GCR {
 namespace Kelner06 {
+
+#define sigma_pp(A) (ppInelastic(A) / cgs::mbarn)
 
 double sigma_gamma(double E_proj, double E_gamma) {
   const double proton_mass = 0.938272;
@@ -28,7 +31,7 @@ double sigma_gamma(double E_proj, double E_gamma) {
   double F_gamma = B_gamma * std::log(x) / x * std::pow(F_1, 4);  // Eq. 58
   F_gamma *= 1. / log(x) - F_2 - F_3;
 
-  return ppInelastic(E_p) * F_gamma / E_p;
+  return sigma_pp(E_p) * F_gamma / E_p;
 }
 
 double sigma_neutrinos(double E_proj, double E_nu) {
@@ -67,17 +70,7 @@ double sigma_neutrinos(double E_proj, double E_nu) {
 
   if (std::isnan(F_numu)) throw std::runtime_error("F_numu is NAN!");
 
-  return ppInelastic(E_p) * (F_numu + 2. * F_e) / E_p;
-}
-
-double dsigma_dT(double T_p, double T_gamma, bool doGamma) {
-  double value = 0;
-  if (doGamma) {
-    value = sigma_gamma(T_p, T_gamma);
-  } else {
-    value = sigma_neutrinos(T_p, T_gamma);
-  }
-  return value;
+  return sigma_pp(E_p) * (F_numu + 2. * F_e) / E_p;
 }
 
 }  // namespace Kelner06

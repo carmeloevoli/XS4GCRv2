@@ -7,13 +7,16 @@ namespace XS4GCR {
 
 class Kamae2006Gammas : public Pi0Gammas {
  public:
-  Kamae2006Gammas() {}
+  Kamae2006Gammas(NeutralParticleType type) : m_type(type) {}
 
   void print() const override;
 
   std::shared_ptr<Pi0Gammas> clone() override;
 
-  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_g) const override;
+  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_ph) const override;
+
+ protected:
+  NeutralParticleType m_type;
 };
 
 }  // namespace XS4GCR
