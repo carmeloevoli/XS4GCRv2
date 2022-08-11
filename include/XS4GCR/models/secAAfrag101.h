@@ -62,6 +62,9 @@ class LookupTables {
   double get(Channel channel, double T_proj, double T_sec) const;
 
  private:
+  void initAntiprotonTables();
+  void initGammaTables();
+  void initPositronTables();
   void init();
 
  private:

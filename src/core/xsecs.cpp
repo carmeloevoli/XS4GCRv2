@@ -19,10 +19,14 @@ std::shared_ptr<TotalInelastic> XSECS::createTotalInelastic() {
 }
 
 std::shared_ptr<SecondaryLeptons> XSECS::createSecondaryLeptons(PID lepton) {
-  if (secondaryLeptonsModel == SecondaryLeptonModels::KAMAE2006) {
+  if (secondaryLeptonModel == SecondaryLeptonModels::KAMAE2006) {
     secondaryLeptons = std::make_shared<Kamae2006SecLep>(lepton);
-  } else if (secondaryLeptonsModel == SecondaryLeptonModels::HUANGPOHL2007) {
+  } else if (secondaryLeptonModel == SecondaryLeptonModels::HUANGPOHL2007) {
     secondaryLeptons = std::make_shared<HuangPohl2007SecLep>(lepton);
+  } else if (secondaryLeptonModel == SecondaryLeptonModels::AAFRAG) {
+    secondaryLeptons = std::make_shared<AAfragSecLeptons>(lepton);
+  } else if (secondaryLeptonModel == SecondaryLeptonModels::ORUSA2022) {
+    secondaryLeptons = std::make_shared<Orusa2022SecLep>(lepton);
   } else {
     throw std::invalid_argument("Secondary Leptons model not found.");
   }
@@ -35,6 +39,12 @@ std::shared_ptr<Pi0Gammas> XSECS::createPi0Gammas() {
     pi0Gammas = std::make_shared<Kamae2006Gammas>();
   } else if (pi0GammaModel == Pi0GammaModels::KELNER2006) {
     pi0Gammas = std::make_shared<Kelner2006Gammas>();
+  } else if (pi0GammaModel == Pi0GammaModels::KAFEXHIU2014GEANT4) {
+    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(Kafexhiu14::InteractionModel::GEANT4);
+  } else if (pi0GammaModel == Pi0GammaModels::KAFEXHIU2014PYTHIA8) {
+    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(Kafexhiu14::InteractionModel::PYTHIA8);
+  } else if (pi0GammaModel == Pi0GammaModels::KAFEXHIU2014SIBYLL) {
+    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(Kafexhiu14::InteractionModel::SIBYLL);
   } else if (pi0GammaModel == Pi0GammaModels::AAFRAG) {
     pi0Gammas = std::make_shared<AAfragSecGammas>();
   } else {
@@ -45,19 +55,19 @@ std::shared_ptr<Pi0Gammas> XSECS::createPi0Gammas() {
 }
 
 std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
-  if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::TANNG1983) {
+  if (secondaryAntiprotonModel == SecondaryAntiprotonModels::TANNG1983) {
     secondaryAntiprotons = std::make_shared<TanNg1983SecAp>();
-  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::DIMAURO2014) {
+  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::DIMAURO2014) {
     secondaryAntiprotons = std::make_shared<DiMauro2014SecAp>();
-  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::DUPERRAY2003) {
+  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::DUPERRAY2003) {
     secondaryAntiprotons = std::make_shared<Duperray2003SecAp>();
-  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::WINKLER2017) {
+  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::WINKLER2017) {
     secondaryAntiprotons = std::make_shared<Winkler2017SecAp>();
-  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::FENG2016QGSJET) {
+  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::FENG2016QGSJET) {
     secondaryAntiprotons = std::make_shared<Feng2016SecAp>("data/Feng2016_QGSJET04_antiprotons.txt");
-  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::FENG2016EPOS) {
+  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::FENG2016EPOS) {
     secondaryAntiprotons = std::make_shared<Feng2016SecAp>("data/Feng2016_EPOS_LHC_antiprotons.txt");
-  } else if (secondaryAntiprotonsModel == SecondaryAntiprotonModels::AAFRAG) {
+  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::AAFRAG) {
     secondaryAntiprotons = std::make_shared<AAfragSecAp>();
   } else {
     throw std::invalid_argument("Secondary Antiprotons model not found.");

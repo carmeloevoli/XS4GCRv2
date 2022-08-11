@@ -26,10 +26,11 @@ set(XS4GCR_SRCS
 	src/models/apDiMauro14.cpp
 	src/models/apDuperray03.cpp
 	src/models/apTanNg83.cpp
+	src/models/gammaKafexhiu14.cpp
 	src/models/gammaKelner06.cpp
 	src/models/inTripathi99.cpp
-	src/models/secKamae06.cpp
 	src/models/secAAfrag101.cpp
+	src/models/secKamae06.cpp
 	src/antiprotons/SecondaryAntiprotons.cpp
 	src/antiprotons/AAfragSecAp.cpp
 	src/antiprotons/DiMauro2014.cpp
@@ -41,7 +42,9 @@ set(XS4GCR_SRCS
 	src/inelastic/Letaw1983.cpp
 	src/inelastic/Tripathi1999.cpp
 	src/leptons/SecondaryLeptons.cpp
+	src/leptons/AAfragSecLeptons.cpp
 	src/leptons/Kamae2006.cpp
+	src/leptons/Orusa2022.cpp
 	src/leptons/HuangPohl2007.cpp
 	src/gammas/Kafexhiu2014.cpp
 	src/gammas/Kamae2006.cpp

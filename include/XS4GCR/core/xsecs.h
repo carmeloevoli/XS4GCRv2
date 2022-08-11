@@ -11,13 +11,16 @@
 #include "XS4GCR/antiprotons/Winkler2017.h"
 #include "XS4GCR/core/nucleiChart.h"
 #include "XS4GCR/gammas/AAfragSecGammas.h"
+#include "XS4GCR/gammas/Kafexhiu2014.h"
 #include "XS4GCR/gammas/Kamae2006.h"
 #include "XS4GCR/gammas/Kelner2006.h"
 #include "XS4GCR/inelastic/CROSEC.h"
 #include "XS4GCR/inelastic/Letaw1983.h"
 #include "XS4GCR/inelastic/Tripathi1999.h"
+#include "XS4GCR/leptons/AAfragSecLeptons.h"
 #include "XS4GCR/leptons/HuangPohl2007.h"
 #include "XS4GCR/leptons/Kamae2006.h"
+#include "XS4GCR/leptons/Orusa2022.h"
 
 // #include "XS4GCR/particlenames.h"
 // #include "XS4GCR/protons.h"
@@ -37,9 +40,16 @@ enum class SecondaryAntiprotonModels {
   AAFRAG
 };
 
-enum class SecondaryLeptonModels { KAMAE2006, HUANGPOHL2007 };
+enum class SecondaryLeptonModels { KAMAE2006, HUANGPOHL2007, ORUSA2022, AAFRAG };
 
-enum class Pi0GammaModels { KAMAE2006, KELNER2006, AAFRAG };
+enum class Pi0GammaModels {
+  KAMAE2006,
+  KELNER2006,
+  KAFEXHIU2014GEANT4,
+  KAFEXHIU2014PYTHIA8,
+  KAFEXHIU2014SIBYLL,
+  AAFRAG
+};
 
 enum class TotalInelasticModels { TRIPATHI1999, CROSEC, LETAW1983 };
 
@@ -57,16 +67,16 @@ class XSECS {
   //   std::shared_ptr<Spallation> create_secondary_nuclei();
 
   inline void setTotalInelastic(TotalInelasticModels model) { totalInelasticModel = model; }
-  inline void setSecondaryAntiprotons(SecondaryAntiprotonModels model) { secondaryAntiprotonsModel = model; }
-  inline void setSecondaryLeptons(SecondaryLeptonModels model) { secondaryLeptonsModel = model; }
+  inline void setSecondaryAntiprotons(SecondaryAntiprotonModels model) { secondaryAntiprotonModel = model; }
+  inline void setSecondaryLeptons(SecondaryLeptonModels model) { secondaryLeptonModel = model; }
   inline void setPi0Gammas(Pi0GammaModels model) { pi0GammaModel = model; }
 
   //   inline void set_secondary_nuclei(const std::string &model_name) { secondary_nuclei_model = model_name; }
 
  private:
   TotalInelasticModels totalInelasticModel = TotalInelasticModels::TRIPATHI1999;
-  SecondaryAntiprotonModels secondaryAntiprotonsModel = SecondaryAntiprotonModels::DIMAURO2014;
-  SecondaryLeptonModels secondaryLeptonsModel = SecondaryLeptonModels::KAMAE2006;
+  SecondaryAntiprotonModels secondaryAntiprotonModel = SecondaryAntiprotonModels::DIMAURO2014;
+  SecondaryLeptonModels secondaryLeptonModel = SecondaryLeptonModels::KAMAE2006;
   Pi0GammaModels pi0GammaModel = Pi0GammaModels::KAMAE2006;
 
   //   std::string secondary_nuclei_model = "Webber1993";

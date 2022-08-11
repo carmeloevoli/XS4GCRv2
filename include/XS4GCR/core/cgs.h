@@ -65,6 +65,7 @@ static constexpr double electronRadius = 2.8179403227e-13 * centimeter;
 static constexpr double volt = electronvolt / c;
 static constexpr double gigavolt = giga * volt;
 static constexpr double electronMassC2 = electronMass * pow2(c);
+static constexpr double pionMassC2 = 134.9768 * megaelectronvolt;
 static constexpr double protonMassC2 = protonMass * pow2(c);
 
 // abbreviations

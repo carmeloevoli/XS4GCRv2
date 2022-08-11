@@ -1,7 +1,6 @@
 #include "XS4GCR/gammas/Kafexhiu2014.h"
 
 #include "XS4GCR/core/cgs.h"
-//#include "XS4GCR/models/secKamae06.h"
 
 namespace XS4GCR {
 
@@ -14,11 +13,12 @@ std::shared_ptr<Pi0Gammas> Kafexhiu2014Gammas::clone() { return std::make_shared
 
 double Kafexhiu2014Gammas::get(const PID& projectile, const TARGET& target, const double& T_proj,
                                const double& T_g) const {
-  //   double sigma_pp = Kamae06::getCparamSigma(Kamae06::KGAMMA, T_proj, T_g);
-  //   if (projectile == H1 && target == TARGET::H) {
-  //     return sigma_pp;
-  //   } else {
-  return 0;
+  double sigma_pp = Kafexhiu14::dsigma_dE_gamma(T_proj, T_g, m_model);
+  if (projectile == H1 && target == TARGET::H) {
+    return sigma_pp;
+  } else {
+    return 0;
+  }
 }
 
 }  // namespace  XS4GCR

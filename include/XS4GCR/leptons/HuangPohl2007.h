@@ -22,24 +22,18 @@ class HuangPohl2007SecLep : public SecondaryLeptons {
   void readDataFiles();
 
  private:
-  const std::string eminus_p_datafile = "data/espectra_eminus.decay.p.matrix.final.data";
-  const std::string eminus_he_datafile = "data/espectra_eminus.decay.he.matrix.final.data";
-  const std::string eplus_p_datafile = "data/espectra_eplus.decay.p.matrix.final.data";
-  const std::string eplus_he_datafile = "data/espectra_eplus.decay.he.matrix.final.data";
-  const std::string prodxsec_p_datafile = "data/prodxsection.p.matrix.final.data";
-  const std::string prodxsec_he_datafile = "data/prodxsection.he.matrix.final.data";
+  const std::string eminus_p_datafile = "data/HuangPohl2007/espectra_eminus.decay.p.matrix.final.data";
+  const std::string eminus_he_datafile = "data/HuangPohl2007/espectra_eminus.decay.he.matrix.final.data";
+  const std::string eplus_p_datafile = "data/HuangPohl2007/espectra_eplus.decay.p.matrix.final.data";
+  const std::string eplus_he_datafile = "data/HuangPohl2007/espectra_eplus.decay.he.matrix.final.data";
+  const std::string prodxsec_p_datafile = "data/HuangPohl2007/prodxsection.p.matrix.final.data";
+  const std::string prodxsec_he_datafile = "data/HuangPohl2007/prodxsection.he.matrix.final.data";
 
   std::vector<double> m_lgEproj;
   std::vector<double> m_lgTsec;
 
   Grid<double> m_sigma_pp;
   Grid<double> m_sigma_Hep;
-
-  //     grid2d dsigma_dT_H;
-  //     grid2d dsigma_dT_He;
-
-  //     void read_data_file();
-  //     void resize_sigma_grids();
 };
 
 }  // namespace XS4GCR
