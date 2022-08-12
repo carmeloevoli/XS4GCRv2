@@ -75,7 +75,7 @@ class LookupTables {
   void initAntiprotonTables();
   void initGammaTables();
   void initNeutrinoTables();
-  void initPositronTables();
+  void initPositronTables(size_t idColumn = 3);
   void init();
 
  private:

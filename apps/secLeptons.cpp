@@ -7,7 +7,8 @@ using namespace XS4GCR;
 void get_secondary_production(SecondaryLeptonModels model, double T_proj, std::string filename) {
   XSECS xsec;
   xsec.setSecondaryLeptons(model);
-  auto x_ap = xsec.createSecondaryLeptons();
+  auto x_pos = xsec.createSecondaryLeptons(positron);
+  auto x_ele = xsec.createSecondaryLeptons(electron);
 
   std::ofstream outfile(filename.c_str());
   outfile << "#T_pos [GeV] - sigma_pp - sigma_phe - sigma_hep [mbarn/GeV]\n";
@@ -17,15 +18,16 @@ void get_secondary_production(SecondaryLeptonModels model, double T_proj, std::s
 
   auto T_pos = UTILS::LogAxis(T_proj / 1e4, T_proj, 1000);
   for (auto T : T_pos) {
-    auto sigma_pp = x_ap->get(H1, TARGET::H, T_proj, T);
-    auto sigma_phe = x_ap->get(H1, TARGET::He, T_proj, T);
-    auto sigma_hep = x_ap->get(He4, TARGET::H, T_proj, T);
-    auto sigma_hehe = x_ap->get(He4, TARGET::He, T_proj, T);
     outfile << T / cgs::GeV << "\t";
-    outfile << sigma_pp / units << "\t";
-    outfile << sigma_phe / units << "\t";
-    outfile << sigma_hep / units << "\t";
-    outfile << sigma_hehe / units << "\n";
+    outfile << x_pos->get(H1, TARGET::H, T_proj, T) / units << "\t";
+    outfile << x_pos->get(H1, TARGET::He, T_proj, T) / units << "\t";
+    outfile << x_pos->get(He4, TARGET::H, T_proj, T) / units << "\t";
+    outfile << x_pos->get(He4, TARGET::He, T_proj, T) / units << "\t";
+    outfile << x_ele->get(H1, TARGET::H, T_proj, T) / units << "\t";
+    outfile << x_ele->get(H1, TARGET::He, T_proj, T) / units << "\t";
+    outfile << x_ele->get(He4, TARGET::H, T_proj, T) / units << "\t";
+    outfile << x_ele->get(He4, TARGET::He, T_proj, T) / units << "\t";
+    outfile << "\n";
   }
   outfile.close();
 }

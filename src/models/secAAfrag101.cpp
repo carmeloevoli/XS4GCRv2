@@ -169,7 +169,7 @@ void LookupTables::initNeutrinoTables() {
   // }
 }
 
-void LookupTables::initPositronTables() {
+void LookupTables::initPositronTables(size_t idColumn) {
   auto lgTsecMin = std::log10(81283.051616409954 * cgs::eV);
   auto lgTsecMax = std::log10(7.9432823472427893E+020 * cgs::eV);
   auto lgTsecAxis = UTILS::LinAxis(lgTsecMin, lgTsecMax, 1600);
@@ -178,28 +178,28 @@ void LookupTables::initPositronTables() {
     if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
     auto TprojAxis = UTILS::LinAxis(4. * cgs::GeV, 10. * cgs::GeV, 7);
     m_sigma_le_pp = AAfragTable(filename, TprojAxis, lgTsecAxis);
-    m_sigma_le_pp.readTable(3);
+    m_sigma_le_pp.readTable(idColumn);
   }
   {
     std::string filename = "data/AAfrag101/el_p_He_04L";
     if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
     auto TprojAxis = UTILS::LinAxis(4. * cgs::GeV, 10. * cgs::GeV, 7);
     m_sigma_le_pHe = AAfragTable(filename, TprojAxis, lgTsecAxis);
-    m_sigma_le_pHe.readTable(3);
+    m_sigma_le_pHe.readTable(idColumn);
   }
   {
     std::string filename = "data/AAfrag101/el_He_p_04L";
     if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
     auto TprojAxis = UTILS::LinAxis(5. * cgs::GeV, 10. * cgs::GeV, 6);
     m_sigma_le_Hep = AAfragTable(filename, TprojAxis, lgTsecAxis);
-    m_sigma_le_Hep.readTable(3);
+    m_sigma_le_Hep.readTable(idColumn);
   }
   {
     std::string filename = "data/AAfrag101/el_He_He_04L";
     if (!UTILS::fileExist(filename)) throw std::runtime_error("problem with reading data file");
     auto TprojAxis = UTILS::LinAxis(5. * cgs::GeV, 10. * cgs::GeV, 6);
     m_sigma_le_HeHe = AAfragTable(filename, TprojAxis, lgTsecAxis);
-    m_sigma_le_HeHe.readTable(3);
+    m_sigma_le_HeHe.readTable(idColumn);
   }
   {
     std::string filename = "data/AAfrag101/el_p_p_04";
@@ -208,7 +208,7 @@ void LookupTables::initPositronTables() {
     auto lgTprojMax = std::log10(3.9686807552000000E+020 * cgs::eV);
     auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 54);
     m_sigma_he_pp = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
-    m_sigma_he_pp.readTable(3);
+    m_sigma_he_pp.readTable(idColumn);
   }
   {
     std::string filename = "data/AAfrag101/el_p_He_04";
@@ -217,7 +217,7 @@ void LookupTables::initPositronTables() {
     auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
     auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
     m_sigma_he_pHe = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
-    m_sigma_he_pHe.readTable(3);
+    m_sigma_he_pHe.readTable(idColumn);
   }
   {
     std::string filename = "data/AAfrag101/el_He_p_04";
@@ -226,7 +226,7 @@ void LookupTables::initPositronTables() {
     auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
     auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
     m_sigma_he_Hep = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
-    m_sigma_he_Hep.readTable(3);
+    m_sigma_he_Hep.readTable(idColumn);
   }
   {
     std::string filename = "data/AAfrag101/el_He_He_04";
@@ -235,7 +235,7 @@ void LookupTables::initPositronTables() {
     auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
     auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
     m_sigma_he_HeHe = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
-    m_sigma_he_HeHe.readTable(3);
+    m_sigma_he_HeHe.readTable(idColumn);
   }
 }
 
@@ -248,7 +248,10 @@ void LookupTables::init() {
     initGammaTables();
   } else if (m_particle == ParticleTypes::POSITRON) {
     LOGW << "loading AAfrag101 positron tables";
-    initPositronTables();
+    initPositronTables(3);
+  } else if (m_particle == ParticleTypes::ELECTRON) {
+    LOGW << "loading AAfrag101 electron tables";
+    initPositronTables(2);
   } else if (m_particle == ParticleTypes::ALLNUS) {
     LOGW << "loading AAfrag101 neutrino tables";
     initNeutrinoTables();

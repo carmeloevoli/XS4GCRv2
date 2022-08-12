@@ -5,8 +5,10 @@ plt.style.use('./xs4gcr.mplstyle')
 import numpy as np
 
 def plot_model(ax, filename, color, label, norm = 1):
-    T, sigma_pp = np.loadtxt(filename, usecols=(0,1), unpack=True, skiprows=1)
-    ax.plot(T / np.max(T), norm * T * T * sigma_pp, color=color, label=label)
+    T, sigma_pp_pos = np.loadtxt(filename, usecols=(0,1), unpack=True, skiprows=1)
+    T, sigma_pp_ele = np.loadtxt(filename, usecols=(0,5), unpack=True, skiprows=1)
+    ax.plot(T / np.max(T), norm * T * T * sigma_pp_pos, color=color, label=label)
+    ax.plot(T / np.max(T), norm * T * T * sigma_pp_ele, color=color, linestyle=":")
 
 def plot_model_helium(ax, filename, color, label, norm = 1):
     T, sigma_phe, sigma_hep, sigma_hehe = np.loadtxt(filename, usecols=(0,2,3,4), unpack=True, skiprows=1)
@@ -111,9 +113,9 @@ def plot_xsecs_1TeV_helium():
     plt.savefig('pos_xsecs_helium_1TeV.pdf')
 
 if __name__== "__main__":
-#    plot_xsecs_5GeV()
-#    plot_xsecs_10GeV()
-#    plot_xsecs_100GeV()
-    plot_xsecs_100GeV_helium()
-#    plot_xsecs_1TeV()
-    plot_xsecs_1TeV_helium()
+    plot_xsecs_5GeV()
+    plot_xsecs_10GeV()
+    plot_xsecs_100GeV()
+#    plot_xsecs_100GeV_helium()
+    plot_xsecs_1TeV()
+#    plot_xsecs_1TeV_helium()
