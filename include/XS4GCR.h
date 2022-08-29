@@ -5,6 +5,7 @@
 
 #include "XS4GCR/core/cgs.h"
 #include "XS4GCR/core/common.h"
+#include "XS4GCR/core/lis.h"
 #include "XS4GCR/core/logging.h"
 #include "XS4GCR/core/utilities.h"
 #include "XS4GCR/core/xsecs.h"

@@ -14,7 +14,7 @@
 namespace XS4GCR {
 
 Winkler2017SecAp::Winkler2017SecAp() {
-  if (!UTILS::fileExist(m_dataFilename)) throw std::runtime_error("problem with reading data file");
+  if (!UTILS::fileExists(m_dataFilename)) throw std::runtime_error("problem with reading data file");
   m_lgTproj = UTILS::LinAxis(std::log(5.49540874e0 * cgs::GeV), std::log(9.54992586e5 * cgs::GeV), 132);
   m_lgTap = UTILS::LinAxis(std::log(1e-2 * cgs::GeV), std::log(1e3 * cgs::GeV), 251);
   m_sigma_pp = Grid<double>(132, 251);

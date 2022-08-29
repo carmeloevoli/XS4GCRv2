@@ -64,7 +64,7 @@ void HuangPohl2007SecLep::checkDatafilesExist() {
   std::vector<std::string> inputfiles{eminus_p_datafile, eminus_he_datafile,  eplus_p_datafile,
                                       eplus_he_datafile, prodxsec_p_datafile, prodxsec_he_datafile};
   std::for_each(inputfiles.begin(), inputfiles.end(), [](std::string s) {
-    if (!UTILS::fileExist(s)) throw std::runtime_error("error in reading an input file for HuangPohl2007 model.");
+    if (!UTILS::fileExists(s)) throw std::runtime_error("error in reading an input file for HuangPohl2007 model.");
   });
 }
 

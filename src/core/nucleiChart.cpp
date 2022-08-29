@@ -8,7 +8,7 @@ namespace XS4GCR {
 void NucleiChart::print() { LOGI << "using DEFAULT nuclei chart"; }
 
 NucleiChart::NucleiChart() {
-  if (!UTILS::fileExist(m_chartFilename)) throw std::runtime_error("error in reading nuclei chart file.");
+  if (!UTILS::fileExists(m_chartFilename)) throw std::runtime_error("error in reading nuclei chart file.");
   readTable();
 }
 

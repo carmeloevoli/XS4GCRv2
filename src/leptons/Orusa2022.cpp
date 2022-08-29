@@ -28,7 +28,7 @@ void Orusa2022SecLep::init() {
 void Orusa2022SecLep::checkDatafilesExist() {
   std::vector<std::string> inputfiles{eminus_datafile, eplus_datafile};
   std::for_each(inputfiles.begin(), inputfiles.end(), [](std::string s) {
-    if (!UTILS::fileExist(s)) throw std::runtime_error("error in reading an input file for Orusa2022 model.");
+    if (!UTILS::fileExists(s)) throw std::runtime_error("error in reading an input file for Orusa2022 model.");
   });
 }
 

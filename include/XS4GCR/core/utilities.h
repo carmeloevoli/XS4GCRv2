@@ -16,7 +16,7 @@ std::vector<double> LogAxis(const double& min, const double& max, const size_t& 
 
 size_t countFileLines(const std::string& filename);
 
-bool fileExist(const std::string& filename);
+bool fileExists(const std::string& filename);
 
 std::vector<double> loadColumn(const std::string& filename, size_t useCol, size_t nHeaderLines);
 

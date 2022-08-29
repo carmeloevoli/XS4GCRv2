@@ -41,7 +41,7 @@ size_t countFileLines(const std::string& filename) {
   return count;
 }
 
-bool fileExist(const std::string& filename) {
+bool fileExists(const std::string& filename) {
   std::ifstream f(filename.c_str());
   return f.good();
 }

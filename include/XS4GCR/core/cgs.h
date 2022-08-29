@@ -73,6 +73,7 @@ static constexpr double fm = femtometre;
 static constexpr double cm = centimeter;
 static constexpr double cm2 = pow2(centimeter);
 static constexpr double cm3 = pow3(centimeter);
+static constexpr double m2 = pow2(meter);
 // static constexpr double km = kilometer;
 // static constexpr double pc = parsec;
 // static constexpr double kpc = kiloparsec;

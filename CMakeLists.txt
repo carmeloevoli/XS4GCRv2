@@ -51,6 +51,7 @@ set(XS4GCR_SRCS
 	src/gammas/Kelner2006.cpp
 	src/gammas/AAfragSecGammas.cpp
 	src/core/common.cpp
+	src/core/lis.cpp
 	src/core/nucleiChart.cpp
 	src/core/utilities.cpp
 	src/core/xsecs.cpp
@@ -97,8 +98,11 @@ target_link_libraries (secAntiprotons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 add_executable(secLeptons apps/secLeptons.cpp)
 target_link_libraries (secLeptons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(gammas apps/gammas.cpp)
-target_link_libraries (gammas XS4GCR_LIB ${XS4GCR_LIBRARIES})
+add_executable(secGammas apps/secGammas.cpp)
+target_link_libraries (secGammas XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
+add_executable(crFlux apps/crFlux.cpp)
+target_link_libraries (crFlux XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 # add_executable(inelastic examples/inelastic.cpp)
 # target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})

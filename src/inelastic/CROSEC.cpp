@@ -23,7 +23,7 @@ std::shared_ptr<TotalInelastic> CrosecTotalInel::clone() {
 }
 
 void CrosecTotalInel::init() {
-  if (!UTILS::fileExist(dataFilename)) throw std::invalid_argument("CROSEC data file not read properly.");
+  if (!UTILS::fileExists(dataFilename)) throw std::invalid_argument("CROSEC data file not read properly.");
   int ISS = -1;
   sigtap_cc(ISS);
 }

@@ -14,7 +14,7 @@
 namespace XS4GCR {
 
 Feng2016SecAp::Feng2016SecAp(const std::string& dataFilename) : m_dataFilename(dataFilename) {
-  if (!UTILS::fileExist(m_dataFilename)) throw std::runtime_error("problem with reading data file");
+  if (!UTILS::fileExists(m_dataFilename)) throw std::runtime_error("problem with reading data file");
   m_lgTproj = UTILS::LinAxis(std::log(5 * cgs::GeV), std::log(9.93651e5 * cgs::GeV), 129);
   m_lgTap = UTILS::LinAxis(std::log(0.01 * cgs::GeV), std::log(1.98730e3 * cgs::GeV), 129);
   m_sigma_pp = Grid<double>(129, 129);

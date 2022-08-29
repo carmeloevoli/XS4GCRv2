@@ -15,6 +15,7 @@ std::shared_ptr<Pi0Gammas> Kelner2006Gammas::clone() { return std::make_shared<K
 double Kelner2006Gammas::get(const PID& projectile, const TARGET& target, const double& T_proj,
                              const double& T_ph) const {
   double sigma_pp = 0;
+  if (T_proj <= T_ph) return sigma_pp;
   if (projectile == H1 && target == TARGET::H) {
     if (m_type == NeutralParticleType::GAMMA) {
       sigma_pp = Kelner06::sigma_gamma(T_proj / cgs::GeV, T_ph / cgs::GeV);

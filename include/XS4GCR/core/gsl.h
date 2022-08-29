@@ -7,6 +7,7 @@
 #include <gsl/gsl_spline2d.h>
 #include <gsl/gsl_vector.h>
 
+#include <algorithm>
 #include <functional>
 #include <vector>
 
@@ -103,6 +104,16 @@ T interpolate2d(const std::vector<T> &x, const std::vector<T> &y, const std::vec
   gsl_interp_accel_free(xacc);
   gsl_interp_accel_free(yacc);
   return zij;
+}
+
+template <typename T>
+T linearInterpolate(const std::vector<T> &X, const std::vector<T> &Y, T x) {
+  auto it = std::upper_bound(X.begin(), X.end(), x);
+  if (it == X.begin()) return 0;
+  if (it == X.end()) return 0;
+
+  const size_t i = it - X.begin() - 1;
+  return Y[i] + (x - X[i]) * (Y[i + 1] - Y[i]) / (X[i + 1] - X[i]);
 }
 
 }  // namespace GSL
