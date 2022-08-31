@@ -15,7 +15,7 @@ def get_model(filename):
     
 def set_axes(fig, title):
     ax = fig.add_subplot(111)
-    ax.set_xlim([.1, 1e4])
+    ax.set_xlim([.1, 1e6])
     ax.set_ylim([1e1, 1e4])
     ax.set_xscale('log')
     ax.set_xlabel(r'T [GeV/n]')
