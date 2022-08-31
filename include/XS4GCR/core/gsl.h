@@ -79,7 +79,7 @@ T gslQAGIUIntegration(std::function<T(T)> f, T start, int LIMIT, double rel_erro
 
 template <typename T>
 T interpolate2d(const std::vector<T> &x, const std::vector<T> &y, const std::vector<T> &z, T xi, T yj) {
-  const gsl_interp2d_type *I = gsl_interp2d_bilinear;
+  const gsl_interp2d_type *I = gsl_interp2d_bicubic;
   const T *xa = &x[0];
   const T *ya = &y[0];
   const size_t nx = x.size();

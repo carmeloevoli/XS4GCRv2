@@ -8,25 +8,25 @@ namespace AAfrag101 {
 LookupTables::LookupTables(ParticleTypes particle) : m_particle(particle) { init(); }
 
 void LookupTables::initAntiprotonTables() {
-  // auto lgTsecMin = std::log10(81283.0547 * cgs::eV);
-  // auto lgTsecMax = std::log10(7.94328225E+20 * cgs::eV);
-  // auto lgTsecAxis = UTILS::LinAxis(lgTsecMin, lgTsecMax, 1600);
-  // {
-  //   std::string filename = "data/AAfrag101_pap_p_p_04L";
-  //   if (!UTILS::fileExists(filename)) throw std::runtime_error("problem with reading data file");
-  //   auto TprojAxis = UTILS::LinAxis(4. * cgs::GeV, 10. * cgs::GeV, 7);
-  //   m_sigma_le_pp = AAfragTable(filename, TprojAxis, lgTsecAxis);
-  //   m_sigma_le_pp.readTable(3);
-  // }
-  // {
-  //   std::string filename = "data/AAfrag101_pap_p_p_04";
-  //   if (!UTILS::fileExists(filename)) throw std::runtime_error("problem with reading data file");
-  //   auto lgTprojMin = std::log10(10. * cgs::GeV);
-  //   auto lgTprojMax = std::log10(3.96868071E+20 * cgs::eV);
-  //   auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 54);
-  //   m_sigma_he_pp = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
-  //   m_sigma_he_pp.readTable(3);
-  // }
+  auto lgTsecMin = std::log10(81283.0547 * cgs::eV);
+  auto lgTsecMax = std::log10(7.94328225E+20 * cgs::eV);
+  auto lgTsecAxis = UTILS::LinAxis(lgTsecMin, lgTsecMax, 1600);
+  {
+    std::string filename = "data/AAfrag101/pap_p_p_04L";
+    if (!UTILS::fileExists(filename)) throw std::runtime_error("problem with reading data file");
+    auto TprojAxis = UTILS::LinAxis(4. * cgs::GeV, 10. * cgs::GeV, 7);
+    m_sigma_le_pp = AAfragTable(filename, TprojAxis, lgTsecAxis);
+    m_sigma_le_pp.readTable(3);
+  }
+  {
+    std::string filename = "data/AAfrag101/pap_p_p_04";
+    if (!UTILS::fileExists(filename)) throw std::runtime_error("problem with reading data file");
+    auto lgTprojMin = std::log10(10. * cgs::GeV);
+    auto lgTprojMax = std::log10(3.96868071E+20 * cgs::eV);
+    auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 54);
+    m_sigma_he_pp = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
+    m_sigma_he_pp.readTable(3);
+  }
 }
 
 void LookupTables::initGammaTables() {
@@ -149,24 +149,24 @@ void LookupTables::initNeutrinoTables() {
     m_sigma_he_pHe = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
     m_sigma_he_pHe.readNuTables();
   }
-  // {  // TODO wrong! see https://github.com/aafragpy/aafragpy/issues/1
-  //   std::string filename = "data/AAfrag101/nu_He_p_04";
-  //   if (!UTILS::fileExists(filename)) throw std::runtime_error("problem with reading data file");
-  //   auto lgTprojMin = std::log10(10. * cgs::GeV);
-  //   auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
-  //   auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
-  //   m_sigma_he_Hep = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
-  //   m_sigma_he_Hep.readTable(2);
-  // }
-  // {
-  //   std::string filename = "data/AAfrag101/nu_He_He_04";
-  //   if (!UTILS::fileExists(filename)) throw std::runtime_error("problem with reading data file");
-  //   auto lgTprojMin = std::log10(10. * cgs::GeV);
-  //   auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
-  //   auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
-  //   m_sigma_he_HeHe = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
-  //   m_sigma_he_HeHe.readTable(2);
-  // }
+  {
+    std::string filename = "data/AAfrag101/nu_He_p_04";
+    if (!UTILS::fileExists(filename)) throw std::runtime_error("problem with reading data file");
+    auto lgTprojMin = std::log10(10. * cgs::GeV);
+    auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
+    auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
+    m_sigma_he_Hep = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
+    m_sigma_he_Hep.readNuTables();
+  }
+  {
+    std::string filename = "data/AAfrag101/nu_He_He_04";
+    if (!UTILS::fileExists(filename)) throw std::runtime_error("problem with reading data file");
+    auto lgTprojMin = std::log10(10. * cgs::GeV);
+    auto lgTprojMax = std::log10(2.5056888000000000E+018 * cgs::eV);
+    auto lgTprojAxis = UTILS::LinAxis(lgTprojMin, lgTprojMax, 43);
+    m_sigma_he_HeHe = AAfragTable(filename, lgTprojAxis, lgTsecAxis);
+    m_sigma_he_HeHe.readNuTables();
+  }
 }
 
 void LookupTables::initPositronTables(size_t idColumn) {

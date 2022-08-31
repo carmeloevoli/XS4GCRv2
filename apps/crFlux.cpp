@@ -9,7 +9,7 @@ int main() {
 
     auto flux_H = Boschini2017::H_LIS();
     auto flux_He = Boschini2017::He_LIS();
-    auto TNucleon = UTILS::LogAxis(0.1 * cgs::GeV, 10. * cgs::TeV, 1000);
+    auto TNucleon = UTILS::LogAxis(0.1 * cgs::GeV, 1. * cgs::PeV, 1000);
 
     const double units = 1. / (cgs::GeV * cgs::m2 * cgs::second);
 
