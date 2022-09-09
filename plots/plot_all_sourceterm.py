@@ -11,9 +11,17 @@ def savefig(plt, filename):
 
 def plot_model(ax, filename, color, label, norm = 1.0):
     T, q1, q2, q3 = np.loadtxt(filename, usecols=(0,1,2,3), unpack=True, skiprows=1)
-    ax.plot(T, norm * np.power(T, 2.2) * q1, color=color, linestyle=':')
+    #ax.plot(T, norm * np.power(T, 2.2) * q1, color=color, linestyle=':')
     ax.plot(T, norm * np.power(T, 2.5) * q2, color=color, label=label)
-    ax.plot(T, norm * np.power(T, 2.8) * q3, color=color, linestyle='--')
+    #ax.plot(T, norm * np.power(T, 2.8) * q3, color=color, linestyle='--')
+
+def plot_model_ratio(ax, filename_0, filename_m, color, label, norm = 1.0):
+    T, q1, q2, q3 = np.loadtxt(filename_0, usecols=(0,1,2,3), unpack=True, skiprows=1)
+    T_m, q1_m, q2_m, q3_m = np.loadtxt(filename_m, usecols=(0,1,2,3), unpack=True, skiprows=1)
+    ax.plot(T, (q1_m - q1) / q1, color=color, label=label)
+    #ax.plot(T, norm * np.power(T, 2.2) * q1, color=color, linestyle=':')
+    #ax.plot(T, norm * np.power(T, 2.5) * q2, color=color, label=label)
+    #ax.plot(T, norm * np.power(T, 2.8) * q3, color=color, linestyle='--')
 
 def set_axes(fig, title):
     ax = fig.add_subplot(111)
@@ -27,17 +35,41 @@ def set_axes(fig, title):
     return ax
     
 def plot_gammas_sourceterm():
-    fig = plt.figure(figsize=(10.5, 8))
-    ax = set_axes(fig, r'$\gamma$ source term')
+    fig = plt.figure(figsize=(17.5, 7.5))
+    ax1 = fig.add_subplot(121)
     
-    plot_model(ax, 'output/Kamae2006_source_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1e20)
-    plot_model(ax, 'output/Kafexhiu2014G4_source_gammas.txt', 'tab:olive', 'Kafexhiu2014/GEANT4', 1e20)
-    plot_model(ax, 'output/Kafexhiu2014P8_source_gammas.txt', 'tab:pink', 'Kafexhiu2014/PYTHIA8', 1e20)
-    plot_model(ax, 'output/Kafexhiu2014Sibyll_source_gammas.txt', 'tab:cyan', 'Kafexhiu2014/SIBYLL', 1e20)
-    plot_model(ax, 'output/Kelner2006_source_gammas.txt', 'tab:blue', 'Kelner2006/SIBYLL', 1e20)
-    plot_model(ax, 'output/AAFRAG_source_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II', 1e20)
+    ax1.set_xscale('log')
+    ax1.set_xlim([1e1, 1e5])
+    ax1.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
 
-    ax.legend(fontsize=10)
+    ax1.set_yscale('log')
+    ax1.set_ylim([0.3, 10])
+    ax1.set_ylabel(r'E$_{\textrm{s}}^\alpha$ q$_{\textrm{s}}$ [a.u.]')
+
+    plot_model(ax1, 'output/Kamae2006_source_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1e20)
+    plot_model(ax1, 'output/Kafexhiu2014G4_source_gammas.txt', 'tab:olive', 'Kafexhiu2014/GEANT4', 1e20)
+    plot_model(ax1, 'output/Kafexhiu2014P8_source_gammas.txt', 'tab:pink', 'Kafexhiu2014/PYTHIA8', 1e20)
+    plot_model(ax1, 'output/Kafexhiu2014Sibyll_source_gammas.txt', 'tab:cyan', 'Kafexhiu2014/SIBYLL', 1e20)
+    plot_model(ax1, 'output/Kelner2006_source_gammas.txt', 'tab:blue', 'Kelner2006/SIBYLL', 1e20)
+    plot_model(ax1, 'output/AAFRAG_source_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II', 1e20)
+
+    ax1.legend(fontsize=12)
+    
+    ax2 = fig.add_subplot(122)
+
+    ax2.set_xscale('log')
+    ax2.set_xlim([1e1, 1e5])
+    ax2.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
+
+    ax2.set_ylim([-1.5, 1.5])
+    ax2.set_ylabel(r'relative ratio')
+
+    plot_model_ratio(ax2, 'output/AAFRAG_source_gammas.txt', 'output/Kamae2006_source_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1)
+    plot_model_ratio(ax2, 'output/AAFRAG_source_gammas.txt', 'output/Kafexhiu2014G4_source_gammas.txt', 'tab:olive', 'Kafexhiu2014/GEANT4', 1)
+    plot_model_ratio(ax2, 'output/AAFRAG_source_gammas.txt', 'output/Kafexhiu2014P8_source_gammas.txt', 'tab:pink', 'Kafexhiu2014/PYTHIA8', 1)
+    plot_model_ratio(ax2, 'output/AAFRAG_source_gammas.txt', 'output/Kafexhiu2014Sibyll_source_gammas.txt', 'tab:cyan', 'Kafexhiu2014/SIBYLL', 1)
+    plot_model_ratio(ax2, 'output/AAFRAG_source_gammas.txt', 'output/Kelner2006_source_gammas.txt', 'tab:blue', 'Kelner2006/SIBYLL', 1)
+
     savefig(plt, 'xsecs_gammas_source')
 
 def plot_neutrinos_sourceterm():
@@ -79,7 +111,7 @@ def plot_antiprotons_sourceterm():
     savefig(plt, 'xsecs_antiprotons_source')
     
 if __name__== "__main__":
-    plot_antiprotons_sourceterm()
+    #plot_antiprotons_sourceterm()
     plot_gammas_sourceterm()
-    plot_neutrinos_sourceterm()
-    plot_positrons_sourceterm()
+    #plot_neutrinos_sourceterm()
+    #plot_positrons_sourceterm()

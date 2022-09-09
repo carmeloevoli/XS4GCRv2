@@ -19,7 +19,7 @@ def set_axes(fig, title):
     ax.set_ylim([0, 6])
     ax.set_xscale('log')
     ax.set_xlabel(r'E$_{\mathrm{p}}$ [GeV]')
-    ax.set_ylabel(r'Y [\%]')
+    ax.set_ylabel(r'1 - Y [\%]')
     ax.set_title(title)
     return ax
     
