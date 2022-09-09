@@ -1,6 +1,10 @@
 ## XS4GCR
 
-XS4GCR computes the relevant cross-sections for galactic cosmic ray propagation models.
+XS4GCR provides a common interface to public models describing the relevant cross-sections for galactic cosmic-ray models.
+
+Credits own to the authors of the models. 
+
+References are printed at the command line when a model is used.
 
 ### Installation
 
@@ -27,11 +31,5 @@ make doc
 
 ### Data
 
-- Data size is approximately 10 Mb
-
-### References
-
-- arXiv:1904.10220 
-
-- arXiv:1711.09616
+- Data size is approximately 100 Mb
 
