@@ -22,7 +22,7 @@ void print_secondary_xsecs(SecondaryAntiprotonModels model, std::string filename
   const double units = cgs::mbarn;
 
   auto xAxis = UTILS::LogAxis(1e-5, 1., 100);
-  std::vector<double> T_proj = {5. * cgs::GeV, 10. * cgs::GeV, 100. * cgs::GeV, 1. * cgs::TeV, 10. * cgs::TeV};
+  std::vector<double> T_proj = {5. * cgs::GeV, 20. * cgs::GeV, 100. * cgs::GeV, 1. * cgs::TeV, 10. * cgs::TeV};
   for (auto& x : xAxis) {
     outfile << x << "\t";
     for (size_t i = 0; i < T_proj.size(); ++i) {
