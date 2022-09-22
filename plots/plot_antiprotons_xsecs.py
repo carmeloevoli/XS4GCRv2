@@ -20,7 +20,7 @@ def set_axes(fig, title):
     ax.set_xlabel(r'x')
     ax.set_ylabel(r'x$^2$ d$\sigma$/dx [mbarn]')
     ax.set_yscale('log')
-    ax.set_ylim([1e-3, 2e0])
+    ax.set_ylim([1e-3, 1])
     ax.set_title(title)
     return ax
 
@@ -39,9 +39,9 @@ def plot_antiprotons_5GeV():
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_pbar_5GeV')
 
-def plot_antiprotons_10GeV():
+def plot_antiprotons_20GeV():
     fig = plt.figure(figsize=(10.5, 8))
-    ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 10 GeV')
+    ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 20 GeV')
 
     plot_model(ax, 5, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
     plot_model(ax, 5, 'output/DiMauro2014_xsecs_pbar.txt', 'tab:red', 'DiMauro2014')
@@ -52,7 +52,7 @@ def plot_antiprotons_10GeV():
     plot_model(ax, 5, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017')
     
     ax.legend(fontsize=14)
-    savefig(plt, 'xsecs_pbar_10GeV')
+    savefig(plt, 'xsecs_pbar_20GeV')
     
 def plot_antiprotons_100GeV():
     fig = plt.figure(figsize=(10.5, 8))
@@ -100,7 +100,7 @@ def plot_antiprotons_10TeV():
     savefig(plt, 'xsecs_pbar_10TeV')
 
 if __name__== "__main__":
-    plot_antiprotons_10GeV()
+    plot_antiprotons_20GeV()
     plot_antiprotons_100GeV()
     plot_antiprotons_1TeV()
     plot_antiprotons_10TeV()
