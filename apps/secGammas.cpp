@@ -4,7 +4,7 @@
 #include "XS4GCR.h"
 using namespace XS4GCR;
 
-auto particleType = NeutralParticleType::ALLNUS;
+auto particleType = NeutralParticleType::GAMMA;
 
 std::string make_filename(const std::string& filename) {
   auto ofile = "output/" + filename;
@@ -112,14 +112,14 @@ void print_source(Pi0GammaModels model, std::string filename) {
   auto xs_gammas = xsecs.createPi0Gammas(particleType);
 
   std::ofstream outfile(make_filename(filename));
-  outfile << "#E_s [GeV] - q(2.2) - q(2.5) - q(2.8)\n";
+  outfile << "#E_s [GeV] - q(2.2) - q(2.4) - q(2.8)\n";
   outfile << std::scientific;
 
   auto E_secondary = UTILS::LogAxis(10. * cgs::GeV, 100. * cgs::TeV, 100);
   for (auto& E_s : E_secondary) {
     outfile << E_s / cgs::GeV << "\t";
-    outfile << compute_source(xs_gammas, 2.2, E_s) << "\t";
-    outfile << compute_source(xs_gammas, 2.5, E_s) << "\t";
+    outfile << compute_source(xs_gammas, 2.0, E_s) << "\t";
+    outfile << compute_source(xs_gammas, 2.4, E_s) << "\t";
     outfile << compute_source(xs_gammas, 2.8, E_s) << "\t";
     outfile << "\n";
   }
@@ -136,12 +136,75 @@ void main_source_term() {
   print_source(Model::KAFEXHIU2014SIBYLL, "Kafexhiu2014Sibyll_source");
 }
 
+double compute_yield(std::shared_ptr<Pi0Gammas> xs, double slope, double E_min) {
+  auto Y = GSL::gslQAGIntegration<double>(
+      [&](double lny) {
+        auto y = std::exp(lny);
+        auto E_p = y * E_min;
+        auto S = GSL::gslQAGIntegration<double>(
+            [&](double lnEs) {
+              double E_s = std::exp(lnEs);
+              return E_s * E_s * xs->get(H1, TARGET::H, E_p, E_s);
+            },
+            std::log(1e-5 * E_p), std::log(E_p), 1000, 1e-5);
+        return std::pow(y, 1. - slope) * S;
+      },
+      std::log(1.), std::log(1e5), 1000, 1e-4);
+
+  Y /= GSL::gslQAGIntegration<double>(
+      [&](double lny) {
+        auto y = std::exp(lny);
+        auto E_p = y * E_min;
+        auto S = GSL::gslQAGIntegration<double>(
+            [&](double lnEs) {
+              double E_s = std::exp(lnEs);
+              return E_s * xs->get(H1, TARGET::H, E_p, E_s);
+            },
+            std::log(1e-5 * E_p), std::log(E_p), 1000, 1e-5);
+        return std::pow(y, 1. - slope) * S;
+      },
+      std::log(1.), std::log(1e5), 1000, 1e-4);
+
+  return Y / E_min;
+}
+
+void print_yield(Pi0GammaModels model, std::string filename) {
+  XSECS xsecs;
+  xsecs.setPi0Gammas(model);
+  auto xs_gammas = xsecs.createPi0Gammas(particleType);
+
+  std::ofstream outfile(make_filename(filename));
+  outfile << "#E_s [GeV] - Y(2.2) - Y(2.4) - Y(2.8)\n";
+  outfile << std::scientific;
+
+  auto E_secondary = UTILS::LogAxis(10. * cgs::GeV, 100. * cgs::TeV, 100);
+  for (auto& E_s : E_secondary) {
+    outfile << E_s / cgs::GeV << "\t";
+    outfile << compute_yield(xs_gammas, 2.0, E_s) << "\t";
+    outfile << compute_yield(xs_gammas, 2.4, E_s) << "\t";
+    outfile << compute_yield(xs_gammas, 2.8, E_s) << "\t";
+    outfile << "\n";
+  }
+  outfile.close();
+}
+
+void main_yield() {
+  using Model = XS4GCR::Pi0GammaModels;
+  print_yield(Model::KAMAE2006, "Kamae2006_yield");
+  // print_source(Model::AAFRAG, "AAFRAG_source");
+  print_yield(Model::KELNER2006, "Kelner2006_yield");
+  print_yield(Model::KAFEXHIU2014GEANT4, "Kafexhiu2014G4_yield");
+  print_yield(Model::KAFEXHIU2014PYTHIA8, "Kafexhiu2014P8_yield");
+  print_yield(Model::KAFEXHIU2014SIBYLL, "Kafexhiu2014Sibyll_yield");
+}
+
 int main() {
   try {
     LOG::startup_information();
-    main_secondary_xsecs();
-    main_source_term();
-    main_inelasticity();
+    // main_secondary_xsecs();
+    // main_source_term();
+    // main_inelasticity();
+    main_yield();
   } catch (const std::exception& e) {
     LOGF << "exception caught with message: " << e.what();
   }
