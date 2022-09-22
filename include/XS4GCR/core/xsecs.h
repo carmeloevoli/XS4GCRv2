@@ -4,7 +4,7 @@
 #include <memory>
 
 #include "XS4GCR/antiprotons/SecondaryAntiprotons.h"
-#include "XS4GCR/core/NucleiChart.h"
+#include "XS4GCR/core/nucleiChart.h"
 #include "XS4GCR/gammas/Pi0Gammas.h"
 #include "XS4GCR/inelastic/TotalInelastic.h"
 #include "XS4GCR/leptons/SecondaryLeptons.h"
