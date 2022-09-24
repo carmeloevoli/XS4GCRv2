@@ -191,7 +191,7 @@ void print_yield(Pi0GammaModels model, std::string filename) {
 void main_yield() {
   using Model = XS4GCR::Pi0GammaModels;
   print_yield(Model::KAMAE2006, "Kamae2006_yield");
-  // print_source(Model::AAFRAG, "AAFRAG_source");
+  print_yield(Model::AAFRAG, "AAFRAG_yield");
   print_yield(Model::KELNER2006, "Kelner2006_yield");
   print_yield(Model::KAFEXHIU2014GEANT4, "Kafexhiu2014G4_yield");
   print_yield(Model::KAFEXHIU2014PYTHIA8, "Kafexhiu2014P8_yield");
@@ -203,7 +203,7 @@ int main() {
     LOG::startup_information();
     // main_secondary_xsecs();
     // main_source_term();
-    // main_inelasticity();
+    main_inelasticity();
     main_yield();
   } catch (const std::exception& e) {
     LOGF << "exception caught with message: " << e.what();
