@@ -26,6 +26,14 @@ std::shared_ptr<SecondaryAntiprotons> AAfragSecAp::clone() { return std::make_sh
 double AAfragSecAp::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& T_ap) const {
   if (projectile == H1 && target == TARGET::H) {
     return m_tables->get(AAfrag101::Channel::pp, T_proj, T_ap);
+  } else if (projectile == H1 && target == TARGET::He) {
+    return m_tables->get(AAfrag101::Channel::pHe, T_proj, T_ap);
+  } else if (projectile == He4 && target == TARGET::H) {
+    return m_tables->get(AAfrag101::Channel::Hep, T_proj, T_ap);
+  } else if (projectile == He4 && target == TARGET::He) {
+    return m_tables->get(AAfrag101::Channel::HeHe, T_proj, T_ap);
+  } else {
+    throw std::runtime_error("channel not implemented in AAFRAG model");
   }
   return 0.;
 }

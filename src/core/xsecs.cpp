@@ -20,6 +20,7 @@
 #include "XS4GCR/leptons/HuangPohl2007.h"
 #include "XS4GCR/leptons/Kamae2006.h"
 #include "XS4GCR/leptons/Orusa2022.h"
+#include "XS4GCR/tertiary/AAfragTerProtons.h"
 
 namespace XS4GCR {
 
@@ -93,6 +94,16 @@ std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
   }
   secondaryAntiprotons->print();
   return secondaryAntiprotons->clone();
+}
+
+std::shared_ptr<TertiaryProtons> XSECS::createTertiaryProtons() {
+  if (tertiaryProtonModel == TertiaryProtonModels::AAFRAG) {
+    tertiaryProtons = std::make_shared<AAfragTerProtons>();
+  } else {
+    throw std::invalid_argument("Tertiary Protons model not found.");
+  }
+  tertiaryProtons->print();
+  return tertiaryProtons->clone();
 }
 
 // std::shared_ptr<Spallation> XSECS::create_secondary_nuclei() {

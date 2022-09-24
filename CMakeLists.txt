@@ -50,6 +50,7 @@ set(XS4GCR_SRCS
 	src/gammas/Kamae2006.cpp
 	src/gammas/Kelner2006.cpp
 	src/gammas/AAfragSecGammas.cpp
+	src/tertiary/AAfragTerProtons.cpp
 	src/core/common.cpp
 	src/core/lis.cpp
 	src/core/nucleiChart.cpp
@@ -104,8 +105,11 @@ target_link_libraries (secGammas XS4GCR_LIB ${XS4GCR_LIBRARIES})
 add_executable(testBreak apps/testBreakGammas.cpp)
 target_link_libraries (testBreak XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(crFlux apps/crFlux.cpp)
-target_link_libraries (crFlux XS4GCR_LIB ${XS4GCR_LIBRARIES})
+add_executable(qism apps/qism.cpp)
+target_link_libraries (qism XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
+add_executable(terProtons apps/terProtons.cpp)
+target_link_libraries (terProtons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 # add_executable(inelastic examples/inelastic.cpp)
 # target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})

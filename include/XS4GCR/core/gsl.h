@@ -40,7 +40,7 @@ T gslQAGIntegration(std::function<T(T)> f, T start, T stop, int LIMIT, double re
   double a = static_cast<double>(start);
   double b = static_cast<double>(stop);
   double abs_error = 0.0;  // disabled
-  int key = GSL_INTEG_GAUSS31;
+  int key = GSL_INTEG_GAUSS41;
   double result;
   double error;
 

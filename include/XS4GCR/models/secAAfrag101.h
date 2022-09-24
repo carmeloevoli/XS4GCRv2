@@ -11,6 +11,7 @@
 #include "XS4GCR/core/utilities.h"
 
 #define NHEADERLINES 0
+#define MINXSEC (1e-20 * cgs::mbarn)
 
 namespace XS4GCR {
 namespace AAfrag101 {
@@ -49,8 +50,9 @@ class AAfragTable {
       auto z = m_sigma.get();
       value = GSL::interpolate2d<double>(m_xAxis, m_yAxis, z, x, y);
     }
-    auto T_sec = std::pow(10., y);
-    return value / T_sec;  // dsigma/dE_s
+    const auto T_sec = std::pow(10., y);
+    value /= T_sec;  // dsigma/dE_s
+    return ((value > 1e-40) ? value : 0.);
   }
 
  private:
@@ -62,7 +64,7 @@ class AAfragTable {
   Grid<double> m_sigma;
 };
 
-enum class ParticleTypes { ELECTRON, POSITRON, GAMMA, ALLNUS, PBAR };
+enum class ParticleTypes { ELECTRON, POSITRON, GAMMA, ALLNUS, PBAR, PROTON };
 enum class Channel { pp, pHe, Hep, HeHe };
 
 class LookupTables {
@@ -73,6 +75,7 @@ class LookupTables {
 
  private:
   void initAntiprotonTables();
+  void initTertiaryProtonTables();
   void initGammaTables();
   void initNeutrinoTables();
   void initPositronTables(size_t idColumn = 3);
