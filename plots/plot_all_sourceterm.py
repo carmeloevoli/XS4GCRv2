@@ -50,10 +50,10 @@ def plot_gammas_sourceterm():
     ax1.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
 
     ax1.set_yscale('log')
-    ax1.set_ylim([0.3, 10])
+    ax1.set_ylim([0.3, 6.])
     ax1.set_ylabel(r'E$_{\textrm{s}}^\alpha$ q$_{\textrm{s}}$ [a.u.]')
 
-    ax1.text(20, 7, r'$\alpha = 2.4$')
+    ax1.text(20, 4, r'$\alpha = 2.4$')
     
     plot_model(ax1, 'output/Kamae2006_source_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1e20)
     plot_model(ax1, 'output/Kafexhiu2014G4_source_gammas.txt', 'tab:olive', 'Kafexhiu2014/GEANT4', 1e20)
@@ -92,10 +92,10 @@ def plot_neutrinos_sourceterm():
     ax1.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
 
     ax1.set_yscale('log')
-    ax1.set_ylim([0.3, 10])
+    ax1.set_ylim([0.3, 6.])
     ax1.set_ylabel(r'E$_{\textrm{s}}^\alpha$ q$_{\textrm{s}}$ [a.u.]')
 
-    ax1.text(20, 7, r'$\alpha = 2.4$')
+    ax1.text(20, 4, r'$\alpha = 2.4$')
  
     plot_model(ax1, 'output/Kamae2006_source_nus.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1e20)
     plot_model(ax1, 'output/Kelner2006_source_nus.txt', 'tab:blue', 'Kelner2006/SIBYLL', 1e20)
@@ -128,10 +128,10 @@ def plot_positrons_sourceterm():
     ax1.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
 
     ax1.set_yscale('log')
-    ax1.set_ylim([0.03, 1])
+    ax1.set_ylim([0.1, 0.7])
     ax1.set_ylabel(r'E$_{\textrm{s}}^\alpha$ q$_{\textrm{s}}$ [a.u.]')
 
-    #ax1.text(20, 7, r'$\alpha = 2.4$')
+    ax1.text(20, .5, r'$\alpha = 2.4$')
 
     plot_model(ax1, 'output/Kamae2006_source_pos.txt', 'tab:red', 'Kamae2006', 1e20)
     plot_model(ax1, 'output/AAFRAG_source_pos.txt', 'tab:brown', 'AAFRAG', 1e20)
@@ -149,6 +149,8 @@ def plot_positrons_sourceterm():
     ax2.set_ylim([-1.5, 1.5])
     ax2.set_ylabel(r'relative ratio')
 
+    ax2.text(20, 1., r'$\alpha = 2.4/2.8$')
+
     plot_model_ratio(ax2, 'output/AAFRAG_source_pos.txt', 'output/Kamae2006_source_pos.txt', 'tab:red', 'Kamae2006', 1)
     plot_model_ratio(ax2, 'output/AAFRAG_source_pos.txt', 'output/HuangPohl2007_source_pos.txt', 'tab:blue', 'HuangPohl2007', 1)
     plot_model_ratio(ax2, 'output/AAFRAG_source_pos.txt', 'output/Orusa2022_source_pos.txt', 'tab:green', 'Orusa2022', 1)
@@ -164,7 +166,7 @@ def plot_antiprotons_sourceterm():
     ax1.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
 
     ax1.set_yscale('log')
-    ax1.set_ylim([0.01, 0.5])
+    ax1.set_ylim([0.02, 0.4 ])
     ax1.set_ylabel(r'E$_{\textrm{s}}^\alpha$ q$_{\textrm{s}}$ [a.u.]')
 
     plot_model(ax1, 'output/AAFRAG_source_pbar.txt', 'tab:brown', 'AAFRAG', 1e20)
@@ -214,6 +216,6 @@ def plot_all_sourceterm():
 if __name__== "__main__":
 #    plot_gammas_sourceterm()
 #    plot_neutrinos_sourceterm()
-#    plot_positrons_sourceterm()
-#    plot_antiprotons_sourceterm()
-    plot_all_sourceterm()
+    plot_positrons_sourceterm()
+    plot_antiprotons_sourceterm()
+#    plot_all_sourceterm()

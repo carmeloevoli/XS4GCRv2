@@ -20,7 +20,7 @@ def set_axes(fig, title):
     ax.set_xlabel(r'x')
     ax.set_ylabel(r'x$^2$ d$\sigma$/dx [mbarn]')
     ax.set_yscale('log')
-    ax.set_ylim([1e-3, 2e0])
+    ax.set_ylim([1e-3, 0.2])
     ax.set_title(title)
     return ax
 

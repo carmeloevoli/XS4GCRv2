@@ -9,9 +9,12 @@ def savefig(plt, filename):
     print ('- saving plot on ' + filename)
     plt.savefig(filename)
 
-def plot_model(ax, icol, filename, color, label, norm = 1.0):
+def plot_model(ax, icol, filename, color, label, linestyle = '-'):
     x, sigma_pp = np.loadtxt(filename, usecols=(0,icol), unpack=True, skiprows=1)
-    ax.plot(x, x * x * sigma_pp, color=color, label=label)
+    if linestyle == '-':
+        ax.plot(x, x * x * sigma_pp, color=color, label=label, linestyle=linestyle)
+    else:
+        ax.plot(x, x * x * sigma_pp, color=color, linestyle=linestyle)
 
 def set_axes(fig, title):
     ax = fig.add_subplot(111)
@@ -47,7 +50,7 @@ def plot_gammas_10GeV():
 
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_gammas_10GeV')
-    
+
 def plot_gammas_100GeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 100 GeV')
@@ -90,9 +93,65 @@ def plot_gammas_10TeV():
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_gammas_10TeV')
 
+def plot_gammas_He_10GeV():
+    fig = plt.figure(figsize=(10.5, 8))
+    ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 10 GeV')
+
+    plot_model(ax, 7, 'output/Kamae2006_xsecs_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2')
+    plot_model(ax, 7, 'output/AAFRAG_xsecs_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II')
+
+    plot_model(ax, 6, 'output/Kamae2006_xsecs_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', ':')
+    plot_model(ax, 6, 'output/AAFRAG_xsecs_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II', ':')
+
+    ax.legend(fontsize=14)
+    savefig(plt, 'xsecs_gammas_He_10GeV')
+
+def plot_gammas_He_100GeV():
+    fig = plt.figure(figsize=(10.5, 8))
+    ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 100 GeV')
+
+    plot_model(ax, 11, 'output/Kamae2006_xsecs_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2')
+    plot_model(ax, 11, 'output/AAFRAG_xsecs_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II')
+
+    plot_model(ax, 10, 'output/Kamae2006_xsecs_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', ':')
+    plot_model(ax, 10, 'output/AAFRAG_xsecs_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II', ':')
+
+    ax.legend(fontsize=14)
+    savefig(plt, 'xsecs_gammas_He_100GeV')
+
+def plot_gammas_He_1TeV():
+    fig = plt.figure(figsize=(10.5, 8))
+    ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 1 TeV')
+
+    plot_model(ax, 15, 'output/Kamae2006_xsecs_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2')
+    plot_model(ax, 15, 'output/AAFRAG_xsecs_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II')
+
+    plot_model(ax, 14, 'output/Kamae2006_xsecs_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', ':')
+    plot_model(ax, 14, 'output/AAFRAG_xsecs_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II', ':')
+
+    ax.legend(fontsize=14)
+    savefig(plt, 'xsecs_gammas_He_1TeV')
+
+def plot_gammas_He_10TeV():
+    fig = plt.figure(figsize=(10.5, 8))
+    ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 10 TeV')
+
+    plot_model(ax, 19, 'output/Kamae2006_xsecs_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2')
+    plot_model(ax, 19, 'output/AAFRAG_xsecs_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II')
+
+    plot_model(ax, 18, 'output/Kamae2006_xsecs_gammas.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', ':')
+    plot_model(ax, 18, 'output/AAFRAG_xsecs_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II', ':')
+
+    ax.legend(fontsize=14)
+    savefig(plt, 'xsecs_gammas_He_10TeV')
+
 if __name__== "__main__":
 #    plot_gammas_5GeV()
-    plot_gammas_10GeV()
-    plot_gammas_100GeV()
-    plot_gammas_1TeV()
-    plot_gammas_10TeV()
+#    plot_gammas_10GeV()
+#    plot_gammas_100GeV()
+#    plot_gammas_1TeV()
+#    plot_gammas_10TeV()
+    plot_gammas_He_10GeV()
+    plot_gammas_He_100GeV()
+    plot_gammas_He_1TeV()
+    plot_gammas_He_10TeV()

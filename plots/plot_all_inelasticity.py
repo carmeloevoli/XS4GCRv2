@@ -25,7 +25,7 @@ def set_axes(fig, title):
     ax.set_ylim([0, 6])
     ax.set_xscale('log')
     ax.set_xlabel(r'E$_{\mathrm{p}}$ [GeV]')
-    ax.set_ylabel(r'1 - Y [10$^{-2}$]')
+    ax.set_ylabel(r'1 - $\eta$ [10$^{-2}$]')
     #ax.set_title(title)
     return ax
     
@@ -65,9 +65,9 @@ def plot_neutrino_inelasticity():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, 'Inelasticity')
     
-    plot_model(ax, 'output/Kamae2006_inelasticity_nus.txt', 'tab:red', 'Kamae2006/PYTHIA6.2')
-    plot_model(ax, 'output/Kelner2006_inelasticity_nus.txt', 'tab:blue', 'Kelner2006/SIBYLL')
-    plot_model(ax, 'output/AAFRAG_inelasticity_nus.txt', 'tab:green', 'AAFRAG/QGSJET-II')
+    plot_model(ax, 'output/Kamae2006_inelasticity_nus.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 100.)
+    plot_model(ax, 'output/Kelner2006_inelasticity_nus.txt', 'tab:blue', 'Kelner2006/SIBYLL', 100.)
+    plot_model(ax, 'output/AAFRAG_inelasticity_nus.txt', 'tab:green', 'AAFRAG/QGSJET-II', 100.)
 
     ax.legend(fontsize=15)
     savefig(plt, 'xsecs_nus_inelasticity')
@@ -76,10 +76,10 @@ def plot_positrons_inelasticity():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, 'Inelasticity')
     
-    plot_model(ax, 'output/Kamae2006_inelasticity_pos.txt', 'tab:red', 'Kamae2006')
-    plot_model(ax, 'output/AAFRAG_inelasticity_pos.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 'output/HuangPohl2007_inelasticity_pos.txt', 'tab:blue', 'HuangPohl2007')
-    plot_model(ax, 'output/Orusa2022_inelasticity_pos.txt', 'tab:green', 'Orusa2022')
+    plot_model(ax, 'output/Kamae2006_inelasticity_pos.txt', 'tab:red', 'Kamae2006', 100.)
+    plot_model(ax, 'output/AAFRAG_inelasticity_pos.txt', 'tab:brown', 'AAFRAG', 100.)
+    plot_model(ax, 'output/HuangPohl2007_inelasticity_pos.txt', 'tab:blue', 'HuangPohl2007', 100.)
+    plot_model(ax, 'output/Orusa2022_inelasticity_pos.txt', 'tab:green', 'Orusa2022', 100.)
 
     ax.legend(fontsize=15)
     savefig(plt, 'xsecs_pos_inelasticity')
@@ -90,20 +90,48 @@ def plot_antiprotons_inelasticity():
     ax.set_ylim([1., 20.])
     #ax.set_yscale('log')
 
-    plot_model(ax, 'output/AAFRAG_inelasticity_pbar.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 'output/DiMauro2014_inelasticity_pbar.txt', 'tab:red', 'DiMauro2014')
-    plot_model(ax, 'output/Duperray2003_inelasticity_pbar.txt', 'tab:green', 'Duperray2004')
-    plot_model(ax, 'output/Feng2016_EPOS_inelasticity_pbar.txt', 'tab:orange', 'Feng2016/EPOS')
-    plot_model(ax, 'output/Feng2016_QGSJET_inelasticity_pbar.txt', 'tab:blue', 'Feng2016/QGSJET')
-    plot_model(ax, 'output/TanNg1983_inelasticity_pbar.txt', 'tab:purple', 'TanNg1983')
-    plot_model(ax, 'output/Winkler2017_inelasticity_pbar.txt', 'tab:cyan', 'Winkler2017')
+    plot_model(ax, 'output/AAFRAG_inelasticity_pbar.txt', 'tab:brown', 'AAFRAG', 100.)
+    plot_model(ax, 'output/DiMauro2014_inelasticity_pbar.txt', 'tab:red', 'DiMauro2014', 100.)
+    plot_model(ax, 'output/Duperray2003_inelasticity_pbar.txt', 'tab:green', 'Duperray2004', 100.)
+    plot_model(ax, 'output/Feng2016_EPOS_inelasticity_pbar.txt', 'tab:orange', 'Feng2016/EPOS', 100.)
+    plot_model(ax, 'output/Feng2016_QGSJET_inelasticity_pbar.txt', 'tab:blue', 'Feng2016/QGSJET', 100.)
+    plot_model(ax, 'output/TanNg1983_inelasticity_pbar.txt', 'tab:purple', 'TanNg1983', 100.)
+    plot_model(ax, 'output/Winkler2017_inelasticity_pbar.txt', 'tab:cyan', 'Winkler2017', 100.)
     
     ax.legend(fontsize=15)
     savefig(plt, 'xsecs_pbar_inelasticity')
 
+def plot_tertiary_inelasticity():
+    fig = plt.figure(figsize=(10.5, 8))
+    ax = set_axes(fig, 'Inelasticity')
+    ax.set_ylim([1., 40.])
+    #ax.set_yscale('log')
+
+    plot_model(ax, 'output/AAFRAG_inelasticity_terp.txt', 'tab:brown', 'AAFRAG', 100.)
+    
+    ax.legend(fontsize=15)
+    savefig(plt, 'xsecs_terp_inelasticity')
+
+def plot_all_inelasticity():
+    fig = plt.figure(figsize=(10.5, 8))
+    ax = set_axes(fig, 'Inelasticity')
+    ax.set_ylim([0.1, 50.])
+    ax.set_yscale('log')
+    
+    plot_model(ax, 'output/AAFRAG_inelasticity_terp.txt', 'tab:gray', 'p', 100.)
+    plot_model(ax, 'output/AAFRAG_inelasticity_pbar.txt', 'tab:red', r'$\bar{p}$', 100.)
+    plot_model(ax, 'output/AAFRAG_inelasticity_pos.txt', 'tab:orange', r'$e^+$', 100.)
+    plot_model(ax, 'output/AAFRAG_inelasticity_nus.txt', 'tab:green', r'$\nu$', 100.)
+    plot_model(ax, 'output/AAFRAG_inelasticity_gammas.txt', 'tab:brown', r'$\gamma$', 100.)
+
+    ax.legend(fontsize=15)
+    savefig(plt, 'xsecs_all_inelasticity')
+
 if __name__== "__main__":
-    plot_gamma_inelasticity()
-    plot_gamma_yield()
+#    plot_gamma_inelasticity()
+#    plot_gamma_yield()
 #    plot_neutrino_inelasticity()
 #    plot_positrons_inelasticity()
 #    plot_antiprotons_inelasticity()
+#    plot_tertiary_inelasticity()
+    plot_all_inelasticity()
