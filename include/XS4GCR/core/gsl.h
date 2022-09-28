@@ -78,6 +78,27 @@ T gslQAGIUIntegration(std::function<T(T)> f, T start, int LIMIT, double rel_erro
 }
 
 template <typename T>
+T simpsonIntegration(std::function<T(T)> f, T start, T stop, int N = 100) {
+  const T a = start;
+  const T b = stop;
+
+  const T h = (b - a) / N;
+  const T XI0 = f(a) + f(b);
+
+  T XI1 = 0, XI2 = 0;
+
+  for (int i = 1; i < N; ++i) {
+    const T X = a + i * h;
+    if (i % 2 == 0)
+      XI2 = XI2 + f(X);
+    else
+      XI1 = XI1 + f(X);
+  }
+
+  return h * (XI0 + 2 * XI2 + 4 * XI1) / 3.0;
+}
+
+template <typename T>
 T interpolate2d(const std::vector<T> &x, const std::vector<T> &y, const std::vector<T> &z, T xi, T yj) {
   const gsl_interp2d_type *I = gsl_interp2d_bicubic;
   const T *xa = &x[0];
