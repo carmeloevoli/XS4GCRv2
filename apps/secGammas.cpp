@@ -55,16 +55,16 @@ void main_secondary_xsecs() {
 double compute_inelasticity(std::shared_ptr<Pi0Gammas> xs, double T_p) {
   auto E_s = GSL::gslQAGIntegration<double>(
       [&](double y) {
-        double x = std::exp(y);
+        double x = std::pow(10., y);
         return x * x * xs->get(H1, TARGET::H, T_p, x * T_p);
       },
-      -12., 0., 1000, 1e-3);
+      -5., 0., 1000, 1e-4);
   E_s /= GSL::gslQAGIntegration<double>(
       [&](double y) {
-        double x = std::exp(y);
+        double x = std::pow(10., y);
         return x * xs->get(H1, TARGET::H, T_p, x * T_p);
       },
-      -12., 0., 1000, 1e-3);
+      -5., 0., 1000, 1e-4);
   return E_s;
 }
 
@@ -99,10 +99,10 @@ void main_inelasticity() {
 double compute_source(std::shared_ptr<Pi0Gammas> xs, double slope, double E_s) {
   auto q_s = GSL::gslQAGIntegration<double>(
       [&](double lnEp) {
-        double E_p = std::exp(lnEp);
+        double E_p = std::pow(10., lnEp);
         return std::pow(E_p, 1. - slope) * xs->get(H1, TARGET::H, E_p, E_s);
       },
-      std::log(E_s), std::log(1e4 * E_s), 1000, 1e-3);
+      std::log10(E_s), std::log10(1e4 * E_s), 1000, 1e-4);
   return q_s;
 }
 
@@ -112,10 +112,10 @@ void print_source(Pi0GammaModels model, std::string filename) {
   auto xs_gammas = xsecs.createPi0Gammas(particleType);
 
   std::ofstream outfile(make_filename(filename));
-  outfile << "#E_s [GeV] - q(2.2) - q(2.4) - q(2.8)\n";
+  outfile << "#E_s [GeV] - q(2.0) - q(2.4) - q(2.8)\n";
   outfile << std::scientific;
 
-  auto E_secondary = UTILS::LogAxis(10. * cgs::GeV, 100. * cgs::TeV, 100);
+  auto E_secondary = UTILS::LogAxis(10. * cgs::GeV, 100. * cgs::TeV, 80);
   for (auto& E_s : E_secondary) {
     outfile << E_s / cgs::GeV << "\t";
     outfile << compute_source(xs_gammas, 2.0, E_s) << "\t";
@@ -139,31 +139,31 @@ void main_source_term() {
 double compute_yield(std::shared_ptr<Pi0Gammas> xs, double slope, double E_min) {
   auto Y = GSL::gslQAGIntegration<double>(
       [&](double lny) {
-        auto y = std::exp(lny);
+        auto y = std::pow(10., lny);
         auto E_p = y * E_min;
         auto S = GSL::gslQAGIntegration<double>(
             [&](double lnEs) {
-              double E_s = std::exp(lnEs);
+              double E_s = std::pow(10., lnEs);
               return E_s * E_s * xs->get(H1, TARGET::H, E_p, E_s);
             },
-            std::log(1e-5 * E_p), std::log(E_p), 1000, 1e-5);
+            std::log10(1e-5 * E_p), std::log10(E_p), 1000, 1e-5);
         return std::pow(y, 1. - slope) * S;
       },
-      std::log(1.), std::log(1e5), 1000, 1e-4);
+      std::log10(1.), std::log10(1e5), 1000, 1e-4);
 
   Y /= GSL::gslQAGIntegration<double>(
       [&](double lny) {
-        auto y = std::exp(lny);
+        auto y = std::pow(10., lny);
         auto E_p = y * E_min;
         auto S = GSL::gslQAGIntegration<double>(
             [&](double lnEs) {
-              double E_s = std::exp(lnEs);
+              double E_s = std::pow(10., lnEs);
               return E_s * xs->get(H1, TARGET::H, E_p, E_s);
             },
-            std::log(1e-5 * E_p), std::log(E_p), 1000, 1e-5);
+            std::log10(1e-5 * E_p), std::log10(E_p), 1000, 1e-5);
         return std::pow(y, 1. - slope) * S;
       },
-      std::log(1.), std::log(1e5), 1000, 1e-4);
+      std::log10(1.), std::log10(1e5), 1000, 1e-4);
 
   return Y / E_min;
 }
@@ -174,10 +174,10 @@ void print_yield(Pi0GammaModels model, std::string filename) {
   auto xs_gammas = xsecs.createPi0Gammas(particleType);
 
   std::ofstream outfile(make_filename(filename));
-  outfile << "#E_s [GeV] - Y(2.2) - Y(2.4) - Y(2.8)\n";
+  outfile << "#E_s [GeV] - Y(2.0) - Y(2.4) - Y(2.8)\n";
   outfile << std::scientific;
 
-  auto E_secondary = UTILS::LogAxis(10. * cgs::GeV, 100. * cgs::TeV, 100);
+  auto E_secondary = UTILS::LogAxis(10. * cgs::GeV, 100. * cgs::TeV, 80);
   for (auto& E_s : E_secondary) {
     outfile << E_s / cgs::GeV << "\t";
     outfile << compute_yield(xs_gammas, 2.0, E_s) << "\t";

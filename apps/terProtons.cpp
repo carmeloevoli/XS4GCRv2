@@ -82,53 +82,47 @@ void main_inelasticity() {
   print_inelasticity(Model::AAFRAG, "AAFRAG_inelasticity");
 }
 
-// double compute_source(std::shared_ptr<SecondaryAntiprotons> xs, double slope, double E_s) {
-//   auto q_s = GSL::gslQAGIntegration<double>(
-//       [&](double lnEp) {
-//         double E_p = std::exp(lnEp);
-//         return std::pow(E_p, 1. - slope) * xs->get(H1, TARGET::H, E_p, E_s);
-//       },
-//       std::log(E_s), std::log(1e4 * E_s), 1000, 1e-3);
-//   return q_s;
-// }
+double compute_source(std::shared_ptr<TertiaryProtons> xs, double slope, double E_s) {
+  auto q_s = GSL::simpsonIntegration<double>(
+      [&](double lnEp) {
+        double E_p = std::pow(10., lnEp);
+        return std::pow(E_p, 1. - slope) * xs->get(H1, TARGET::H, E_p, E_s);
+      },
+      std::log10(E_s), std::log10(1e5 * E_s), 1000);
+  return q_s;
+}
 
-// void print_source(SecondaryAntiprotonModels model, std::string filename) {
-//   XSECS xsecs;
-//   xsecs.setSecondaryAntiprotons(model);
-//   auto xs_ap = xsecs.createSecondaryAntiprotons();
+void print_source(TertiaryProtonModels model, std::string filename) {
+  XSECS xsecs;
+  xsecs.setTertiaryProtons(model);
+  auto xs_ap = xsecs.createTertiaryProtons();
 
-//   std::ofstream outfile(make_filename(filename));
-//   outfile << "#E_s [GeV] - q(2.2) - q(2.5) - q(2.8)\n";
-//   outfile << std::scientific;
+  std::ofstream outfile(make_filename(filename));
+  outfile << "#E_s [GeV] - q(2.0) - q(2.4) - q(2.8)\n";
+  outfile << std::scientific;
 
-//   auto E_secondary = UTILS::LogAxis(10. * cgs::GeV, 100. * cgs::TeV, 100);
-//   for (auto& E_s : E_secondary) {
-//     outfile << E_s / cgs::GeV << "\t";
-//     outfile << compute_source(xs_ap, 2.2, E_s) << "\t";
-//     outfile << compute_source(xs_ap, 2.5, E_s) << "\t";
-//     outfile << compute_source(xs_ap, 2.8, E_s) << "\t";
-//     outfile << "\n";
-//   }
-//   outfile.close();
-// }
+  auto E_secondary = UTILS::LogAxis(10. * cgs::GeV, 100. * cgs::TeV, 10);
+  for (auto& E_s : E_secondary) {
+    outfile << E_s / cgs::GeV << "\t";
+    outfile << compute_source(xs_ap, 2.0, E_s) << "\t";
+    outfile << compute_source(xs_ap, 2.4, E_s) << "\t";
+    outfile << compute_source(xs_ap, 2.8, E_s) << "\t";
+    outfile << "\n";
+  }
+  outfile.close();
+}
 
-// void main_source_term() {
-//   using Model = XS4GCR::SecondaryAntiprotonModels;
-//   print_source(Model::AAFRAG, "AAFRAG_source");
-//   print_source(Model::TANNG1983, "TanNg1983_source");
-//   print_source(Model::DUPERRAY2003, "Duperray2003_source");
-//   print_source(Model::DIMAURO2014, "DiMauro2014_source");
-//   print_source(Model::WINKLER2017, "Winkler2017_source");
-//   print_source(Model::FENG2016EPOS, "Feng2016_EPOS_source");
-//   print_source(Model::FENG2016QGSJET, "Feng2016_QGSJET_source");
-// }
+void main_source_term() {
+  using Model = XS4GCR::TertiaryProtonModels;
+  print_source(Model::AAFRAG, "AAFRAG_source");
+}
 
 int main() {
   try {
     LOG::startup_information();
-    main_secondary_xsecs();
-    // main_source_term();
-    main_inelasticity();
+    //  main_secondary_xsecs();
+    //  main_inelasticity();
+    main_source_term();
   } catch (const std::exception& e) {
     LOGF << "exception caught with message: " << e.what();
   }
