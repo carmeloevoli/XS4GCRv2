@@ -64,18 +64,23 @@ class PID {
   int m_id;
 };
 
-enum TARGET { H, He };
-
-using FragmentationChannel = std::pair<PID, PID>;
-
-using Channel = std::pair<PID, TARGET>;
-
 static const PID H1 = PID(1, 1);
 static const PID H2 = PID(1, 2);
 static const PID He3 = PID(2, 3);
 static const PID He4 = PID(2, 4);
 static const PID positron = PID(0, 1);
 static const PID electron = PID(0, -1);
+
+enum TARGET { H, He };
+
+using FragmentationChannel = std::pair<PID, PID>;
+
+using Channel = std::pair<PID, TARGET>;
+
+static const Channel pp = std::make_pair(H1, H);
+static const Channel pHe = std::make_pair(H1, He);
+static const Channel Hep = std::make_pair(He4, H);
+static const Channel HeHe = std::make_pair(He4, He);
 
 }  // namespace XS4GCR
 
