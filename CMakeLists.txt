@@ -38,6 +38,7 @@ set(XS4GCR_SRCS
 	src/antiprotons/Feng2016.cpp
 	src/antiprotons/TanNg1983.cpp
 	src/antiprotons/Winkler2017.cpp
+	src/antiprotons/Korsmeier2018.cpp
 	src/inelastic/CROSEC.cpp
 	src/inelastic/Letaw1983.cpp
 	src/inelastic/Tripathi1999.cpp

@@ -6,6 +6,7 @@
 #include "XS4GCR/antiprotons/DiMauro2014.h"
 #include "XS4GCR/antiprotons/Duperray2003.h"
 #include "XS4GCR/antiprotons/Feng2016.h"
+#include "XS4GCR/antiprotons/Korsmeier2018.h"
 #include "XS4GCR/antiprotons/TanNg1983.h"
 #include "XS4GCR/antiprotons/Winkler2017.h"
 #include "XS4GCR/core/nucleiChart.h"
@@ -83,6 +84,8 @@ std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
     secondaryAntiprotons = std::make_shared<Duperray2003SecAp>();
   } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::WINKLER2017) {
     secondaryAntiprotons = std::make_shared<Winkler2017SecAp>();
+  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::KORSMEIER2018) {
+    secondaryAntiprotons = std::make_shared<Korsmeier2018SecAp>();
   } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::FENG2016QGSJET) {
     secondaryAntiprotons = std::make_shared<Feng2016SecAp>("data/Feng2016_QGSJET04_antiprotons.txt");
   } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::FENG2016EPOS) {
