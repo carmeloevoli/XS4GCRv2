@@ -43,6 +43,7 @@ void main_secondary_xsecs() {
   print_secondary_xsecs(Model::TANNG1983, "TanNg1983_xsecs");
   print_secondary_xsecs(Model::DUPERRAY2003, "Duperray2003_xsecs");
   print_secondary_xsecs(Model::DIMAURO2014, "DiMauro2014_xsecs");
+  print_secondary_xsecs(Model::KORSMEIER2018, "Korsmeier2018_xsecs");
   print_secondary_xsecs(Model::WINKLER2017, "Winkler2017_xsecs");
   print_secondary_xsecs(Model::FENG2016EPOS, "Feng2016_EPOS_xsecs");
   print_secondary_xsecs(Model::FENG2016QGSJET, "Feng2016_QGSJET_xsecs");
@@ -138,8 +139,8 @@ int main() {
   try {
     LOG::startup_information();
     main_secondary_xsecs();
-    main_source_term();
-    main_inelasticity();
+    // main_source_term();
+    // main_inelasticity();
   } catch (const std::exception& e) {
     LOGF << "exception caught with message: " << e.what();
   }

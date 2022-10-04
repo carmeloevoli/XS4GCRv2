@@ -4,7 +4,7 @@
 #include "XS4GCR.h"
 using namespace XS4GCR;
 
-auto particleType = NeutralParticleType::GAMMA;
+auto particleType = NeutralParticleType::ALLNUS;
 
 std::string make_filename(const std::string& filename) {
   auto ofile = "output/" + filename;
@@ -58,13 +58,13 @@ double compute_inelasticity(std::shared_ptr<Pi0Gammas> xs, double T_p) {
         double x = std::pow(10., y);
         return x * x * xs->get(H1, TARGET::H, T_p, x * T_p);
       },
-      -5., 0., 1000, 1e-4);
+      -4., 0., 1000, 1e-4);
   E_s /= GSL::gslQAGIntegration<double>(
       [&](double y) {
         double x = std::pow(10., y);
         return x * xs->get(H1, TARGET::H, T_p, x * T_p);
       },
-      -5., 0., 1000, 1e-4);
+      -4., 0., 1000, 1e-4);
   return E_s;
 }
 
@@ -149,7 +149,7 @@ double compute_yield(std::shared_ptr<Pi0Gammas> xs, double slope, double E_min) 
             std::log10(1e-5 * E_p), std::log10(E_p), 1000, 1e-5);
         return std::pow(y, 1. - slope) * S;
       },
-      std::log10(1.), std::log10(1e5), 1000, 1e-4);
+      0., 4., 1000, 1e-4);
 
   Y /= GSL::gslQAGIntegration<double>(
       [&](double lny) {
@@ -163,7 +163,7 @@ double compute_yield(std::shared_ptr<Pi0Gammas> xs, double slope, double E_min) 
             std::log10(1e-5 * E_p), std::log10(E_p), 1000, 1e-5);
         return std::pow(y, 1. - slope) * S;
       },
-      std::log10(1.), std::log10(1e5), 1000, 1e-4);
+      0., 4., 1000, 1e-4);
 
   return Y / E_min;
 }
@@ -201,8 +201,8 @@ void main_yield() {
 int main() {
   try {
     LOG::startup_information();
-    // main_secondary_xsecs();
-    // main_source_term();
+    main_secondary_xsecs();
+    main_source_term();
     main_inelasticity();
     main_yield();
   } catch (const std::exception& e) {
