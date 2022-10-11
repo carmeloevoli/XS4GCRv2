@@ -22,7 +22,7 @@ class Korsmeier2018SecAp : public SecondaryAntiprotons {
   void readDataFiles();
 
  private:
-  const std::string datafile = "data/Korsmeier/supplementary__XS_table_Param_II_B.txt";
+  const std::string datafile = "data/Korsmeier2018/supplementary__XS_table_Param_II_B.txt";
 
   std::vector<double> m_lgTprojAxis;
   std::vector<double> m_lgTapAxis;

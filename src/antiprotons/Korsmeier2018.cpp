@@ -1,6 +1,7 @@
 #include "XS4GCR/antiprotons/Korsmeier2018.h"
 
 #include "XS4GCR/core/cgs.h"
+#include "XS4GCR/core/gsl.h"
 #include "XS4GCR/core/utilities.h"
 
 #define NHEADERLINES 44
@@ -37,7 +38,7 @@ void Korsmeier2018SecAp::readDataFiles() {
   m_sigma_pHe = Grid<double>(TprojSize, TsecSize);
   m_sigma_HeHe = Grid<double>(TprojSize, TsecSize);
 
-  double units = cgs::mbarn / cgs::GeV;
+  double units = cgs::m2 / cgs::GeV;
   {
     const auto sigma = UTILS::loadColumn(datafile, 2, NHEADERLINES);
     m_sigma_pp.copy(sigma);
@@ -60,8 +61,35 @@ void Korsmeier2018SecAp::readDataFiles() {
   }
 }
 
-double Korsmeier2018SecAp::get(const PID& particle, const TARGET& target, const double& T_n, const double& T_ap) const {
-  if (particle == H1 && target == TARGET::H) return 0;
+double Korsmeier2018SecAp::get(const PID& projectile, const TARGET& target, const double& T_proj,
+                               const double& T_ap) const {
+  using std::log;
+  double value = 0;
+
+  const auto lgTproj = log(T_proj);
+  const auto lgTprojRange = std::make_pair(m_lgTprojAxis.front(), m_lgTprojAxis.back());
+
+  const auto lgTap = log(T_ap);
+  const auto lgTapRange = std::make_pair(m_lgTapAxis.front(), m_lgTapAxis.back());
+
+  if (UTILS::inRange(lgTproj, lgTprojRange) && UTILS::inRange(lgTap, lgTapRange)) {
+    if (projectile == H1 && target == TARGET::H) {
+      auto z = m_sigma_pp.get();
+      value = GSL::interpolate2d<double>(m_lgTprojAxis, m_lgTapAxis, z, lgTproj, lgTap);
+    } else if (projectile == H1 && target == TARGET::He) {
+      auto z = m_sigma_pHe.get();
+      value = GSL::interpolate2d<double>(m_lgTprojAxis, m_lgTapAxis, z, lgTproj, lgTap);
+    } else if (projectile == He4 && target == TARGET::H) {
+      auto z = m_sigma_Hep.get();
+      value = GSL::interpolate2d<double>(m_lgTprojAxis, m_lgTapAxis, z, lgTproj, lgTap);
+    } else if (projectile == He4 && target == TARGET::He) {
+      auto z = m_sigma_HeHe.get();
+      value = GSL::interpolate2d<double>(m_lgTprojAxis, m_lgTapAxis, z, lgTproj, lgTap);
+    } else {
+      throw std::runtime_error("channel not implemented in Korsmeier2018 model");
+    }
+  }
+  return std::max(value, 0.);
 }
 
 }  // namespace XS4GCR
