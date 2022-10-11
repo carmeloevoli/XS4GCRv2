@@ -27,31 +27,17 @@ def set_axes(fig, title):
     ax.set_title(title)
     return ax
 
-def plot_antiprotons_5GeV():
-    fig = plt.figure(figsize=(10.5, 8))
-    ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 5 GeV')
-
-    plot_model(ax, 1, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 1, 'output/DiMauro2014_xsecs_pbar.txt', 'tab:red', 'DiMauro2014')
-    plot_model(ax, 1, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
-    plot_model(ax, 1, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS')
-    plot_model(ax, 1, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET')
-    plot_model(ax, 1, 'output/TanNg1983_xsecs_pbar.txt', 'tab:purple', 'TanNg1983')
-    plot_model(ax, 1, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017')
-
-    ax.legend(fontsize=14)
-    savefig(plt, 'xsecs_pbar_5GeV')
-
 def plot_antiprotons_20GeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 20 GeV')
 
     plot_model(ax, 5, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
     plot_model(ax, 5, 'output/DiMauro2014_xsecs_pbar.txt', 'tab:red', 'DiMauro2014')
-    plot_model(ax, 5, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
+    plot_model(ax, 5, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018')
+#    plot_model(ax, 5, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
     plot_model(ax, 5, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS')
     plot_model(ax, 5, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET')
-    plot_model(ax, 5, 'output/TanNg1983_xsecs_pbar.txt', 'tab:purple', 'TanNg1983')
+#    plot_model(ax, 5, 'output/TanNg1983_xsecs_pbar.txt', 'tab:purple', 'TanNg1983')
     plot_model(ax, 5, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017')
     
     ax.legend(fontsize=14)
@@ -63,10 +49,11 @@ def plot_antiprotons_100GeV():
 
     plot_model(ax, 9, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
     plot_model(ax, 9, 'output/DiMauro2014_xsecs_pbar.txt', 'tab:red', 'DiMauro2014')
-    plot_model(ax, 9, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
+    plot_model(ax, 9, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018')
+#    plot_model(ax, 9, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
     plot_model(ax, 9, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS')
     plot_model(ax, 9, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET')
-    plot_model(ax, 9, 'output/TanNg1983_xsecs_pbar.txt', 'tab:purple', 'TanNg1983')
+#    plot_model(ax, 9, 'output/TanNg1983_xsecs_pbar.txt', 'tab:purple', 'TanNg1983')
     plot_model(ax, 9, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017')
     
     ax.legend(fontsize=14)
@@ -78,10 +65,11 @@ def plot_antiprotons_1TeV():
 
     plot_model(ax, 13, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
     plot_model(ax, 13, 'output/DiMauro2014_xsecs_pbar.txt', 'tab:red', 'DiMauro2014')
-    plot_model(ax, 13, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
+    plot_model(ax, 13, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018')
+#    plot_model(ax, 13, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
     plot_model(ax, 13, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS')
     plot_model(ax, 13, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET')
-    plot_model(ax, 13, 'output/TanNg1983_xsecs_pbar.txt', 'tab:purple', 'TanNg1983')
+#    plot_model(ax, 13, 'output/TanNg1983_xsecs_pbar.txt', 'tab:purple', 'TanNg1983')
     plot_model(ax, 13, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017')
  
     ax.legend(fontsize=14)
@@ -93,10 +81,11 @@ def plot_antiprotons_10TeV():
 
     plot_model(ax, 17, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
     plot_model(ax, 17, 'output/DiMauro2014_xsecs_pbar.txt', 'tab:red', 'DiMauro2014')
-    plot_model(ax, 17, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
+    plot_model(ax, 17, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018')
+#    plot_model(ax, 17, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
     plot_model(ax, 17, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS')
     plot_model(ax, 17, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET')
-    plot_model(ax, 17, 'output/TanNg1983_xsecs_pbar.txt', 'tab:purple', 'TanNg1983')
+#    plot_model(ax, 17, 'output/TanNg1983_xsecs_pbar.txt', 'tab:purple', 'TanNg1983')
     plot_model(ax, 17, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017')
 
     ax.legend(fontsize=14)
@@ -107,13 +96,13 @@ def plot_antiprotons_He_20GeV():
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 20 GeV')
 
     plot_model(ax, 7, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 7, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
+    plot_model(ax, 7, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018')
     plot_model(ax, 7, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS')
     plot_model(ax, 7, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET')
     plot_model(ax, 7, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017')
 
     plot_model(ax, 6, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG', ':')
-    plot_model(ax, 6, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004', ':')
+    plot_model(ax, 6, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018', ':')
     plot_model(ax, 6, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS', ':')
     plot_model(ax, 6, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET', ':')
     plot_model(ax, 6, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017', ':')
@@ -126,13 +115,13 @@ def plot_antiprotons_He_100GeV():
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 100 GeV')
 
     plot_model(ax, 10, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 10, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
+    plot_model(ax, 10, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018')
     plot_model(ax, 10, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS')
     plot_model(ax, 10, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET')
     plot_model(ax, 10, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017')
 
     plot_model(ax, 9, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG', ':')
-    plot_model(ax, 9, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004', ':')
+    plot_model(ax, 9, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018', ':')
     plot_model(ax, 9, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS', ':')
     plot_model(ax, 9, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET', ':')
     plot_model(ax, 9, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017', ':')
@@ -145,13 +134,13 @@ def plot_antiprotons_He_1TeV():
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 1 TeV')
 
     plot_model(ax, 15, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 15, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
+    plot_model(ax, 15, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018')
     plot_model(ax, 15, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS')
     plot_model(ax, 15, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET')
     plot_model(ax, 15, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017')
 
     plot_model(ax, 14, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG', ':')
-    plot_model(ax, 14, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004', ':')
+    plot_model(ax, 14, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018', ':')
     plot_model(ax, 14, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS', ':')
     plot_model(ax, 14, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET', ':')
     plot_model(ax, 14, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017', ':')
@@ -164,13 +153,13 @@ def plot_antiprotons_He_10TeV():
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 10 TeV')
 
     plot_model(ax, 19, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 19, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004')
+    plot_model(ax, 19, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018')
     plot_model(ax, 19, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS')
     plot_model(ax, 19, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET')
     plot_model(ax, 19, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017')
 
     plot_model(ax, 18, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG', ':')
-    plot_model(ax, 18, 'output/Duperray2003_xsecs_pbar.txt', 'tab:green', 'Duperray2004', ':')
+    plot_model(ax, 18, 'output/Korsmeier2018_xsecs_pbar.txt', 'tab:green', 'Korsmeier2018', ':')
     plot_model(ax, 18, 'output/Feng2016_EPOS_xsecs_pbar.txt', 'tab:orange', 'Feng2016/EPOS', ':')
     plot_model(ax, 18, 'output/Feng2016_QGSJET_xsecs_pbar.txt', 'tab:blue', 'Feng2016/QGSJET', ':')
     plot_model(ax, 18, 'output/Winkler2017_xsecs_pbar.txt', 'tab:cyan', 'Winkler2017', ':')
@@ -179,10 +168,10 @@ def plot_antiprotons_He_10TeV():
     savefig(plt, 'xsecs_pbar_He_10TeV')
 
 if __name__== "__main__":
-#    plot_antiprotons_20GeV()
-#    plot_antiprotons_100GeV()
-#    plot_antiprotons_1TeV()
-#    plot_antiprotons_10TeV()
+    plot_antiprotons_20GeV()
+    plot_antiprotons_100GeV()
+    plot_antiprotons_1TeV()
+    plot_antiprotons_10TeV()
     plot_antiprotons_He_20GeV()
     plot_antiprotons_He_100GeV()
     plot_antiprotons_He_1TeV()
