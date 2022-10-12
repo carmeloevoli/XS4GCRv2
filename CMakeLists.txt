@@ -112,6 +112,9 @@ target_link_libraries (qism XS4GCR_LIB ${XS4GCR_LIBRARIES})
 add_executable(terProtons apps/terProtons.cpp)
 target_link_libraries (terProtons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
+add_executable(lightXsecs apps/lightXsecs.cpp)
+target_link_libraries (lightXsecs XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
 # add_executable(inelastic examples/inelastic.cpp)
 # target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
