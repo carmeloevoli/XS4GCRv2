@@ -115,10 +115,6 @@ add_library(XS4GCR_LIB ${XS4GCR_SRCS} ${XS4GCR_INCLUDES} )
 add_executable(lightXsecs apps/lightXsecs.cpp)
 target_link_libraries (lightXsecs XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(lightSourceTerm apps/lightSourceTerm.cpp)
-target_link_libraries (lightSourceTerm XS4GCR_LIB ${XS4GCR_LIBRARIES})
-
-
 # add_executable(inelastic examples/inelastic.cpp)
 # target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
