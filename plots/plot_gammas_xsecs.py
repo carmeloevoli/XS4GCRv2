@@ -146,11 +146,10 @@ def plot_gammas_He_10TeV():
     savefig(plt, 'xsecs_gammas_He_10TeV')
 
 if __name__== "__main__":
-#    plot_gammas_5GeV()
-#    plot_gammas_10GeV()
-#    plot_gammas_100GeV()
-#    plot_gammas_1TeV()
-#    plot_gammas_10TeV()
+    plot_gammas_10GeV()
+    plot_gammas_100GeV()
+    plot_gammas_1TeV()
+    plot_gammas_10TeV()
     plot_gammas_He_10GeV()
     plot_gammas_He_100GeV()
     plot_gammas_He_1TeV()

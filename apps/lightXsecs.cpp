@@ -12,7 +12,7 @@ std::string make_filename(const std::string& filename) {
 
 template <typename T>
 void print_secondary_xsecs(std::shared_ptr<T> xs, std::string filename) {
-  std::ofstream outfile(make_filename(filename));
+  std::ofstream outfile(filename);
   outfile << "#T_sec [GeV] - sigma_pp - sigma_pHe - sigma_Hep - sigma_HeHe [mbarn]\n";
   outfile << std::scientific;
 
@@ -33,6 +33,8 @@ void print_secondary_xsecs(std::shared_ptr<T> xs, std::string filename) {
   outfile.close();
 }
 
+auto neutralParticleType = NeutralParticleType::GAMMA;
+
 void print_gamma_xsecs(Pi0GammaModels model, std::string filename) {
   XSECS xsecs;
   xsecs.setPi0Gammas(model);
@@ -47,16 +49,37 @@ void print_ap_xsecs(SecondaryAntiprotonModels model, std::string filename) {
   print_secondary_xsecs<SecondaryAntiprotons>(xs_ap, make_filename(filename));
 }
 
+void print_pos_xsecs(SecondaryLeptonModels model, std::string filename) {
+  XSECS xsecs;
+  xsecs.setSecondaryLeptons(model);
+  auto xs_pos = xsecs.createSecondaryLeptons(positron);
+  print_secondary_xsecs<SecondaryLeptons>(xs_pos, make_filename(filename));
+}
+
+void print_pter_xsecs(TertiaryProtonModels model, std::string filename) {
+  XSECS xsecs;
+  xsecs.setTertiaryProtons(model);
+  auto xs_pter = xsecs.createTertiaryProtons();
+  print_secondary_xsecs<TertiaryProtons>(xs_pter, make_filename(filename));
+}
+
 int main() {
   try {
     LOG::startup_information();
     {
+      neutralParticleType = NeutralParticleType::GAMMA;
       print_gamma_xsecs(Pi0GammaModels::AAFRAG, "AAFRAG_xsecs_gammas");
       print_gamma_xsecs(Pi0GammaModels::KAMAE2006, "Kamae2006_xsecs_gammas");
       print_gamma_xsecs(Pi0GammaModels::KELNER2006, "Kelner2006_xsecs_gammas");
       print_gamma_xsecs(Pi0GammaModels::KAFEXHIU2014GEANT4, "Kafexhiu2014G4_xsecs_gammas");
       print_gamma_xsecs(Pi0GammaModels::KAFEXHIU2014PYTHIA8, "Kafexhiu2014P8_xsecs_gammas");
       print_gamma_xsecs(Pi0GammaModels::KAFEXHIU2014SIBYLL, "Kafexhiu2014Sibyll_xsecs_gammas");
+    }
+    {
+      neutralParticleType = NeutralParticleType::ALLNUS;
+      print_gamma_xsecs(Pi0GammaModels::AAFRAG, "AAFRAG_xsecs_nus");
+      print_gamma_xsecs(Pi0GammaModels::KAMAE2006, "Kamae2006_xsecs_nus");
+      print_gamma_xsecs(Pi0GammaModels::KELNER2006, "Kelner2006_xsecs_nus");
     }
     {
       print_ap_xsecs(SecondaryAntiprotonModels::AAFRAG, "AAFRAG_xsecs_pbar");
@@ -68,6 +91,13 @@ int main() {
       print_ap_xsecs(SecondaryAntiprotonModels::FENG2016EPOS, "Feng2016_EPOS_xsecs_pbar");
       print_ap_xsecs(SecondaryAntiprotonModels::FENG2016QGSJET, "Feng2016_QGSJET_xsecs_pbar");
     }
+    {
+      print_pos_xsecs(SecondaryLeptonModels::KAMAE2006, "Kamae2006_xsecs_pos");
+      print_pos_xsecs(SecondaryLeptonModels::AAFRAG, "AAFRAG_xsecs_pos");
+      print_pos_xsecs(SecondaryLeptonModels::HUANGPOHL2007, "HuangPohl2007_xsecs_pos");
+      print_pos_xsecs(SecondaryLeptonModels::ORUSA2022, "Orusa2022_xsecs_pos");
+    }
+    { print_pter_xsecs(TertiaryProtonModels::AAFRAG, "AAFRAG_xsecs_ter"); }
   } catch (const std::exception& e) {
     LOGF << "exception caught with message: " << e.what();
   }

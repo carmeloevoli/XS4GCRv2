@@ -94,26 +94,30 @@ include_directories(include ${XS4GCR_INCLUDES})
 add_library(XS4GCR_LIB ${XS4GCR_SRCS} ${XS4GCR_INCLUDES} )
 
 # make apps
-add_executable(secAntiprotons apps/secAntiprotons.cpp)
-target_link_libraries (secAntiprotons XS4GCR_LIB ${XS4GCR_LIBRARIES})
+# add_executable(secAntiprotons apps/secAntiprotons.cpp)
+# target_link_libraries (secAntiprotons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(secLeptons apps/secLeptons.cpp)
-target_link_libraries (secLeptons XS4GCR_LIB ${XS4GCR_LIBRARIES})
+# add_executable(secLeptons apps/secLeptons.cpp)
+# target_link_libraries (secLeptons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(secGammas apps/secGammas.cpp)
-target_link_libraries (secGammas XS4GCR_LIB ${XS4GCR_LIBRARIES})
+# add_executable(secGammas apps/secGammas.cpp)
+# target_link_libraries (secGammas XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(testBreak apps/testBreakGammas.cpp)
-target_link_libraries (testBreak XS4GCR_LIB ${XS4GCR_LIBRARIES})
+# add_executable(testBreak apps/testBreakGammas.cpp)
+# target_link_libraries (testBreak XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(qism apps/qism.cpp)
-target_link_libraries (qism XS4GCR_LIB ${XS4GCR_LIBRARIES})
+# add_executable(qism apps/qism.cpp)
+# target_link_libraries (qism XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-add_executable(terProtons apps/terProtons.cpp)
-target_link_libraries (terProtons XS4GCR_LIB ${XS4GCR_LIBRARIES})
+# add_executable(terProtons apps/terProtons.cpp)
+# target_link_libraries (terProtons XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 add_executable(lightXsecs apps/lightXsecs.cpp)
 target_link_libraries (lightXsecs XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
+add_executable(lightSourceTerm apps/lightSourceTerm.cpp)
+target_link_libraries (lightSourceTerm XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
 
 # add_executable(inelastic examples/inelastic.cpp)
 # target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})

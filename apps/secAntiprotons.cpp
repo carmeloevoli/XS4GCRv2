@@ -10,45 +10,6 @@ std::string make_filename(const std::string& filename) {
   return ofile;
 }
 
-void print_secondary_xsecs(SecondaryAntiprotonModels model, std::string filename) {
-  XSECS xsecs;
-  xsecs.setSecondaryAntiprotons(model);
-  auto xs_ap = xsecs.createSecondaryAntiprotons();
-
-  std::ofstream outfile(make_filename(filename));
-  outfile << "#T_pos [GeV] - sigma_pp - sigma_pHe - sigma_Hep - sigma_HeHe [mbarn/GeV]\n";
-  outfile << std::scientific;
-
-  const double units = cgs::mbarn;
-
-  auto xAxis = UTILS::LogAxis(1e-5, 1., 100);
-  std::vector<double> T_proj = {5. * cgs::GeV, 20. * cgs::GeV, 100. * cgs::GeV, 1. * cgs::TeV, 10. * cgs::TeV};
-  for (auto& x : xAxis) {
-    outfile << x << "\t";
-    for (size_t i = 0; i < T_proj.size(); ++i) {
-      auto T_p = T_proj[i];
-      outfile << T_p * xs_ap->get(H1, TARGET::H, T_p, x * T_p) / units << "\t";
-      outfile << T_p * xs_ap->get(H1, TARGET::He, T_p, x * T_p) / units << "\t";
-      outfile << T_p * xs_ap->get(He4, TARGET::H, T_p, x * T_p) / units << "\t";
-      outfile << T_p * xs_ap->get(He4, TARGET::He, T_p, x * T_p) / units << "\t";
-    }
-    outfile << "\n";
-  }
-  outfile.close();
-}
-
-void main_secondary_xsecs() {
-  using Model = XS4GCR::SecondaryAntiprotonModels;
-  print_secondary_xsecs(Model::TANNG1983, "TanNg1983_xsecs");
-  print_secondary_xsecs(Model::DUPERRAY2003, "Duperray2003_xsecs");
-  print_secondary_xsecs(Model::DIMAURO2014, "DiMauro2014_xsecs");
-  print_secondary_xsecs(Model::KORSMEIER2018, "Korsmeier2018_xsecs");
-  print_secondary_xsecs(Model::WINKLER2017, "Winkler2017_xsecs");
-  print_secondary_xsecs(Model::FENG2016EPOS, "Feng2016_EPOS_xsecs");
-  print_secondary_xsecs(Model::FENG2016QGSJET, "Feng2016_QGSJET_xsecs");
-  print_secondary_xsecs(Model::AAFRAG, "AAFRAG_xsecs");
-}
-
 double compute_inelasticity(std::shared_ptr<SecondaryAntiprotons> xs, double T_p) {
   auto E_s = GSL::gslQAGIntegration<double>(
       [&](double y) {

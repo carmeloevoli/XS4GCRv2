@@ -12,7 +12,7 @@ def savefig(plt, filename):
 
 def plot_model(ax, filename, color, label, norm = 1.0):
     T, q20, q24, q28 = np.loadtxt(filename, usecols=(0,1,2,3), unpack=True, skiprows=1)
-    ax.plot(T, norm * np.power(T, 2.8) * q28, color=color, label=label)
+    ax.plot(T, norm * np.power(T, 2.4) * q24, color=color, label=label)
 
 def plot_model_slope(ax, filename, color, label, norm = 1.0):
     T, q20, q24, q28 = np.loadtxt(filename, usecols=(0,1,2,3), unpack=True, skiprows=1)
@@ -50,7 +50,7 @@ def plot_gammas_sourceterm():
     ax1.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
 
     ax1.set_yscale('log')
-    ax1.set_ylim([0.3, 6.])
+    ax1.set_ylim([0.1, 10.])
     ax1.set_ylabel(r'E$_{\textrm{s}}^\alpha$ q$_{\textrm{s}}$ [a.u.]')
 
     ax1.text(20, 4, r'$\alpha = 2.4$')
@@ -62,7 +62,7 @@ def plot_gammas_sourceterm():
     plot_model(ax1, 'output/Kelner2006_source_gammas.txt', 'tab:blue', 'Kelner2006/SIBYLL', 1e20)
     plot_model(ax1, 'output/AAFRAG_source_gammas.txt', 'tab:green', 'AAFRAG/QGSJET-II', 1e20)
 
-    ax1.legend(fontsize=14)
+    ax1.legend(loc='lower left', fontsize=14)
     
     ax2 = fig.add_subplot(122)
 
@@ -216,8 +216,8 @@ def plot_all_sourceterm():
     savefig(plt, 'xsecs_all_source')
     
 if __name__== "__main__":
-#    plot_gammas_sourceterm()
+    plot_gammas_sourceterm()
 #    plot_neutrinos_sourceterm()
 #    plot_positrons_sourceterm()
 #    plot_antiprotons_sourceterm()
-    plot_all_sourceterm()
+#    plot_all_sourceterm()

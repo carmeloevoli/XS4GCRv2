@@ -80,7 +80,6 @@ def plot_neutrinos_10TeV():
     savefig(plt, 'xsecs_nus_10TeV')
 
 if __name__== "__main__":
-#    plot_gammas_5GeV()
     plot_neutrinos_10GeV()
     plot_neutrinos_100GeV()
     plot_neutrinos_1TeV()
