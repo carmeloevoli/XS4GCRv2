@@ -106,8 +106,8 @@ add_library(XS4GCR_LIB ${XS4GCR_SRCS} ${XS4GCR_INCLUDES} )
 # add_executable(testBreak apps/testBreakGammas.cpp)
 # target_link_libraries (testBreak XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-# add_executable(qism apps/qism.cpp)
-# target_link_libraries (qism XS4GCR_LIB ${XS4GCR_LIBRARIES})
+add_executable(qism apps/qism.cpp)
+target_link_libraries (qism XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 # add_executable(terProtons apps/terProtons.cpp)
 # target_link_libraries (terProtons XS4GCR_LIB ${XS4GCR_LIBRARIES})

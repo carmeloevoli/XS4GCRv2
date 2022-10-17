@@ -31,10 +31,10 @@ def set_axes(fig, title):
 #    fig = plt.figure(figsize=(10.5, 8))
 #    ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 5 GeV')
 #
-#    plot_model(ax, 1, 'output/Kamae2006_xsecs_pos.txt', 'tab:red', 'Kamae2006')
-#    plot_model(ax, 1, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG')
-#    plot_model(ax, 1, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007')
-#    plot_model(ax, 1, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022')
+#    plot_model(ax, 1, 'output/Kamae2006_pos_xsecs.txt', 'tab:red', 'Kamae2006')
+#    plot_model(ax, 1, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG')
+#    plot_model(ax, 1, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007')
+#    plot_model(ax, 1, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022')
 #
 #    ax.legend(fontsize=14)
 #    savefig(plt, 'xsecs_pos_5GeV')
@@ -43,10 +43,10 @@ def plot_positrons_10GeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 10 GeV')
 
-    plot_model(ax, 5, 'output/Kamae2006_xsecs_pos.txt', 'tab:red', 'Kamae2006')
-    plot_model(ax, 5, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 5, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007')
-    plot_model(ax, 5, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022')
+    plot_model(ax, 5, 'output/Kamae2006_pos_xsecs.txt', 'tab:red', 'Kamae2006')
+    plot_model(ax, 5, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 5, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007')
+    plot_model(ax, 5, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022')
 
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_pos_10GeV')
@@ -55,10 +55,10 @@ def plot_positrons_100GeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 100 GeV')
 
-    plot_model(ax, 9, 'output/Kamae2006_xsecs_pos.txt', 'tab:red', 'Kamae2006')
-    plot_model(ax, 9, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 9, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007')
-    plot_model(ax, 9, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022')
+    plot_model(ax, 9, 'output/Kamae2006_pos_xsecs.txt', 'tab:red', 'Kamae2006')
+    plot_model(ax, 9, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 9, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007')
+    plot_model(ax, 9, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022')
 
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_pos_100GeV')
@@ -67,10 +67,10 @@ def plot_positrons_1TeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 1 TeV')
 
-    plot_model(ax, 13, 'output/Kamae2006_xsecs_pos.txt', 'tab:red', 'Kamae2006')
-    plot_model(ax, 13, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 13, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007')
-    plot_model(ax, 13, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022')
+    plot_model(ax, 13, 'output/Kamae2006_pos_xsecs.txt', 'tab:red', 'Kamae2006')
+    plot_model(ax, 13, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 13, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007')
+    plot_model(ax, 13, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022')
 
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_pos_1TeV')
@@ -79,10 +79,10 @@ def plot_positrons_10TeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 10 TeV')
 
-    plot_model(ax, 17, 'output/Kamae2006_xsecs_pos.txt', 'tab:red', 'Kamae2006')
-    plot_model(ax, 17, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 17, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007')
-    plot_model(ax, 17, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022')
+    plot_model(ax, 17, 'output/Kamae2006_pos_xsecs.txt', 'tab:red', 'Kamae2006')
+    plot_model(ax, 17, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 17, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007')
+    plot_model(ax, 17, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022')
 
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_pos_10TeV')
@@ -92,13 +92,13 @@ def plot_positrons_He_10GeV():
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 10 GeV')
     ax.set_ylim([1e-2, 3])
 
-    plot_model(ax, 7, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 7, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007')
-    plot_model(ax, 7, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022')
+    plot_model(ax, 7, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 7, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007')
+    plot_model(ax, 7, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022')
 
-    plot_model(ax, 6, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG', ':')
-    plot_model(ax, 6, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007', ':')
-    plot_model(ax, 6, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022', ':')
+    plot_model(ax, 6, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG', ':')
+    plot_model(ax, 6, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007', ':')
+    plot_model(ax, 6, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022', ':')
 
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_pos_He_10GeV')
@@ -108,13 +108,13 @@ def plot_positrons_He_100GeV():
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 100 GeV')
     ax.set_ylim([1e-2, 3])
 
-    plot_model(ax, 11, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 11, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007')
-    plot_model(ax, 11, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022')
+    plot_model(ax, 11, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 11, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007')
+    plot_model(ax, 11, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022')
 
-    plot_model(ax, 10, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG', ':')
-    plot_model(ax, 10, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007', ':')
-    plot_model(ax, 10, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022', ':')
+    plot_model(ax, 10, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG', ':')
+    plot_model(ax, 10, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007', ':')
+    plot_model(ax, 10, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022', ':')
 
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_pos_He_100GeV')
@@ -124,13 +124,13 @@ def plot_positrons_He_1TeV():
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 1 TeV')
     ax.set_ylim([1e-2, 3])
 
-    plot_model(ax, 15, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 15, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007')
-    plot_model(ax, 15, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022')
+    plot_model(ax, 15, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 15, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007')
+    plot_model(ax, 15, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022')
 
-    plot_model(ax, 14, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG', ':')
-    plot_model(ax, 14, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007', ':')
-    plot_model(ax, 14, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022', ':')
+    plot_model(ax, 14, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG', ':')
+    plot_model(ax, 14, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007', ':')
+    plot_model(ax, 14, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022', ':')
 
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_pos_He_1TeV')
@@ -140,13 +140,13 @@ def plot_positrons_He_10TeV():
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 10 TeV')
     ax.set_ylim([1e-2, 3])
 
-    plot_model(ax, 19, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG')
-    plot_model(ax, 19, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007')
-    plot_model(ax, 19, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022')
+    plot_model(ax, 19, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 19, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007')
+    plot_model(ax, 19, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022')
 
-    plot_model(ax, 18, 'output/AAFRAG_xsecs_pos.txt', 'tab:brown', 'AAFRAG', ':')
-    plot_model(ax, 18, 'output/HuangPohl2007_xsecs_pos.txt', 'tab:blue', 'HuangPohl2007', ':')
-    plot_model(ax, 18, 'output/Orusa2022_xsecs_pos.txt', 'tab:green', 'Orusa2022', ':')
+    plot_model(ax, 18, 'output/AAFRAG_pos_xsecs.txt', 'tab:brown', 'AAFRAG', ':')
+    plot_model(ax, 18, 'output/HuangPohl2007_pos_xsecs.txt', 'tab:blue', 'HuangPohl2007', ':')
+    plot_model(ax, 18, 'output/Orusa2022_pos_xsecs.txt', 'tab:green', 'Orusa2022', ':')
 
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_pos_He_10TeV')

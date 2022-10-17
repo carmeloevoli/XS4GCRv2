@@ -121,34 +121,19 @@ double Q_ISM_pos(double E_s, SecondaryLeptonModels model, Channel channel) {
   return q;
 }
 
-double grammage(double E) {
-  auto value = 10. * cgs::gram / cgs::cm2;
-  value *= std::pow(E / 10. / cgs::GeV, -0.5);
-  return value / cgs::protonMass;
-}
-
 void Q_ISM() {
   std::ofstream outfile("output/qism.txt");
-  outfile << "#E_s [GeV] - H->pbar - He->pbar - H->pos - He->pos - H->gamma - He->gamma\n";
+  outfile << "#E_s [GeV] - H->pbar - H->pos\n";
   outfile << std::scientific;
   auto secEnergy = UTILS::LogAxis(cgs::GeV, cgs::TeV, 30);
   const double units = 1. / cgs::GeV / cgs::second / cgs::steradian;
   for (auto E_s : secEnergy) {
     outfile << E_s / cgs::GeV << "\t";
     std::cout << E_s / cgs::GeV << "\n";
-    outfile << grammage(E_s) / (1. / cgs::m2) << "\t";
-    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::AAFRAG, pp) / units << "\t";
-    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::AAFRAG, pHe) / units << "\t";
-    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::AAFRAG, Hep) / units << "\t";
-    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::AAFRAG, HeHe) / units << "\t";
-    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::WINKLER2017, pp) / units << "\t";
-    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::WINKLER2017, pHe) / units << "\t";
-    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::WINKLER2017, Hep) / units << "\t";
-    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::WINKLER2017, HeHe) / units << "\t";
-    outfile << Q_ISM_pos(E_s, SecondaryLeptonModels::AAFRAG, pp) / units << "\t";
-    outfile << Q_ISM_pos(E_s, SecondaryLeptonModels::AAFRAG, pHe) / units << "\t";
-    outfile << Q_ISM_pos(E_s, SecondaryLeptonModels::AAFRAG, Hep) / units << "\t";
-    outfile << Q_ISM_pos(E_s, SecondaryLeptonModels::AAFRAG, HeHe) / units << "\t";
+    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::KORSMEIER2018, pp) / units << "\t";
+    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::KORSMEIER2018, pHe) / units << "\t";
+    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::KORSMEIER2018, Hep) / units << "\t";
+    outfile << Q_ISM_pbar(E_s, SecondaryAntiprotonModels::KORSMEIER2018, HeHe) / units << "\t";
     outfile << Q_ISM_pos(E_s, SecondaryLeptonModels::ORUSA2022, pp) / units << "\t";
     outfile << Q_ISM_pos(E_s, SecondaryLeptonModels::ORUSA2022, pHe) / units << "\t";
     outfile << Q_ISM_pos(E_s, SecondaryLeptonModels::ORUSA2022, Hep) / units << "\t";
