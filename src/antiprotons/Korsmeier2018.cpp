@@ -50,12 +50,12 @@ void Korsmeier2018SecAp::readDataFiles() {
     m_sigma_pHe.for_each([units](double& s) { s *= units; });
   }
   {
-    const auto sigma = UTILS::loadColumn(datafile, 4, NHEADERLINES);
+    const auto sigma = UTILS::loadColumn(datafile, 8, NHEADERLINES);
     m_sigma_Hep.copy(sigma);
     m_sigma_Hep.for_each([units](double& s) { s *= units; });
   }
   {
-    const auto sigma = UTILS::loadColumn(datafile, 5, NHEADERLINES);
+    const auto sigma = UTILS::loadColumn(datafile, 9, NHEADERLINES);
     m_sigma_HeHe.copy(sigma);
     m_sigma_HeHe.for_each([units](double& s) { s *= units; });
   }
