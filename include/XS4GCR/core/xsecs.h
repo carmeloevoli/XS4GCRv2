@@ -61,7 +61,7 @@ enum class Pi0GammaModels {
 
 enum class TertiaryProtonModels { AAFRAG };
 
-enum class TotalInelasticModels { TRIPATHI1999, CROSEC, LETAW1983 };
+enum class TotalInelasticModels { TRIPATHI1999, CROSEC, LETAW1983, GLAUBER };
 
 class XSECS {
  public:

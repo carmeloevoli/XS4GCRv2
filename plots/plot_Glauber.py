@@ -37,7 +37,8 @@ def plot_radii():
     color = 'tab:red'
     ax.errorbar(A, r, yerr=dr, fmt='o', markeredgecolor=color, color=color, label='Adani+2013')
 
-    ax.plot(A, 1.1 * np.power(A, 1. / 3.), label=r'$\propto$ A$^{1/3}$', color='tab:green')
+#    ax.plot(A, 1.1 * np.power(A, 1. / 3.), label=r'$\propto$ A$^{1/3}$', color='tab:green')
+#    ax.plot(A, 0.84 * np.power(A, 1. / 3.) + 0.55)
 
     A = np.arange(1, 80)
     Y = []
@@ -45,19 +46,8 @@ def plot_radii():
         Y.append(get_wilson_rms_radius(A_i))
     ax.plot(A, Y, label='Wilson radius', color='tab:blue')
 
-#    ax.plot(A, 0.84 * np.power(A, 1. / 3.) + 0.55)
-
     ax.legend()
     plt.savefig('nuclear_radii.pdf')
-
-#def sigma_ab(Z, B, Y1, Y2, s0, s1, eta1, eta2, s):
-#    return Z + B * np.log(s / s0)**2. + Y1 * np.power(s1 / s, eta1) - Y2 * np.power(s1 / s, eta2)
-
-def sigma_total_pp(plab):
-    m_p = 0.938
-    E = np.sqrt(plab * plab + m_p * m_p)
-    s = 2. * m_p**2. + 2. * m_p * E
-    return 21.7 * np.power(s, 0.0808) + 56.08 * np.power(s, -0.45)
 
 def plot_data_pp(ax):
     filename = '../data/rpp2022-pp_total.dat'
@@ -117,34 +107,38 @@ def plot_total_pp():
 
     plt.savefig('sigma_total_pp.pdf')
 
-def plot_pC():
-    fig = plt.figure(figsize=(11.5, 8))
-    ax = fig.add_subplot(111)
-    ax.set_xscale('log')
-    ax.set_ylim([220,280])
-    ax.set_ylabel(r'$\sigma$ [mb]')
-    ax.set_xlim([1,1e4])
-    ax.set_xlabel(r'E [GeV]')
-
-    E = np.logspace(0,4,1000)
-    
-    A = 12 # C12
+def get_glauber(A, E):
     fmSquare2mbarn = 10.
     mp = 0.938 # GeV
     
     piR2 = math.pi * np.power(get_wilson_rms_radius(A), 2.0) * fmSquare2mbarn
     p = np.sqrt(E * E + 2. * mp * E)
     AsigmaTot = float(A) * func_total(np.log(E), 20.52069,0.09001,30.59911,0.31521)
+        
     sigma = piR2 * np.log(1. + AsigmaTot / piR2)
-       
-    ax.text(300., 270., 'p+C12')
-    ax.plot(E, sigma)
+    return sigma
 
-    print(np.log(247./233.)/np.log(1e3/30.))
-    
-    ax.plot([1,1e4],[233,233],':',color='tab:gray')
-    ax.plot([1,1e4],[247,247],':',color='tab:gray')
+def plot_pC():
+    fig = plt.figure(figsize=(11.5, 8))
+    ax = fig.add_subplot(111)
+    ax.set_xscale('log')
+    ax.set_ylim([0.75,1.05])
+    ax.set_ylabel(r'$\sigma$(E)/$\sigma$(GeV)')
+    ax.set_xlim([1,1e4])
+    ax.set_xlabel(r'E [GeV]')
 
+    E = np.logspace(0,4,1000)
+
+    Fe56 = get_glauber(56, E)
+    ax.plot(E, Fe56 / Fe56[0], color='tab:green', label='p+Fe56')
+
+    C12 = get_glauber(12, E)
+    ax.plot(E, C12 / C12[0], color='tab:red', label='p+C12')
+
+    He4 = get_glauber(4, E)
+    ax.plot(E, He4 / He4[0], color='tab:blue', label='p+He4')
+
+    ax.legend()
     plt.savefig('sigma_pC.pdf')
 
 if __name__== "__main__":

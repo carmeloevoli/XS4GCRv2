@@ -6,9 +6,9 @@ set(VERSION 1.0)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-set(CMAKE_C_COMPILER "gcc")
-set(CMAKE_CXX_COMPILER "g++")
-set(CMAKE_Fortran_COMPILER "gfortran")
+set(CMAKE_C_COMPILER "/usr/local/Cellar/gcc/12.2.0/bin/gcc-12")
+set(CMAKE_CXX_COMPILER "/usr/local/Cellar/gcc/12.2.0/bin/g++-12")
+set(CMAKE_Fortran_COMPILER "/usr/local/Cellar/gcc/12.2.0/bin/gfortran-12")
 set(CMAKE_CXX_FLAGS "-std=c++14 -ftree-vectorize -O3 -DDEBUG")
 set(XS4GCR_INCLUDES)
 set(XS4GCR_LIBRARIES)
@@ -40,6 +40,7 @@ set(XS4GCR_SRCS
 	src/antiprotons/Winkler2017.cpp
 	src/antiprotons/Korsmeier2018.cpp
 	src/inelastic/CROSEC.cpp
+	src/inelastic/Glauber.cpp
 	src/inelastic/Letaw1983.cpp
 	src/inelastic/Tripathi1999.cpp
 	src/leptons/SecondaryLeptons.cpp
@@ -115,11 +116,14 @@ target_link_libraries (qism XS4GCR_LIB ${XS4GCR_LIBRARIES})
 add_executable(lightXsecs apps/lightXsecs.cpp)
 target_link_libraries (lightXsecs XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
-# add_executable(inelastic examples/inelastic.cpp)
-# target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
+add_executable(inelastic apps/inelastic.cpp)
+target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 # add_executable(decay examples/decay.cpp)
 # target_link_libraries (decay XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
+add_executable(hermes apps/hermesTables.cpp)
+target_link_libraries (hermes XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 # Show summary.
 message (STATUS "CMAKE_SYSTEM .......... = ${CMAKE_SYSTEM}")

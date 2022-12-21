@@ -15,6 +15,7 @@
 #include "XS4GCR/gammas/Kamae2006.h"
 #include "XS4GCR/gammas/Kelner2006.h"
 #include "XS4GCR/inelastic/CROSEC.h"
+#include "XS4GCR/inelastic/Glauber.h"
 #include "XS4GCR/inelastic/Letaw1983.h"
 #include "XS4GCR/inelastic/Tripathi1999.h"
 #include "XS4GCR/leptons/AAfragSecLeptons.h"
@@ -32,6 +33,8 @@ std::shared_ptr<TotalInelastic> XSECS::createTotalInelastic() {
     totalInelastic = std::make_shared<Tripathi1999TotalInel>();
   } else if (totalInelasticModel == TotalInelasticModels::CROSEC) {
     totalInelastic = std::make_shared<CrosecTotalInel>();
+  } else if (totalInelasticModel == TotalInelasticModels::GLAUBER) {
+    totalInelastic = std::make_shared<GlauberTotalInel>();
   } else {
     throw std::invalid_argument("Total inelastic model not found.");
   }
