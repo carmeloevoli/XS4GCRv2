@@ -100,7 +100,7 @@ T simpsonIntegration(std::function<T(T)> f, T start, T stop, int N = 100) {
 
 template <typename T>
 T interpolate2d(const std::vector<T> &x, const std::vector<T> &y, const std::vector<T> &z, T xi, T yj) {
-  const gsl_interp2d_type *I = gsl_interp2d_bicubic;
+  const gsl_interp2d_type *I = gsl_interp2d_bilinear;
   const T *xa = &x[0];
   const T *ya = &y[0];
   const size_t nx = x.size();
@@ -113,7 +113,7 @@ T interpolate2d(const std::vector<T> &x, const std::vector<T> &y, const std::vec
   /* set z grid values */
   for (size_t i = 0; i < nx; i++)
     for (size_t j = 0; j < ny; j++) {
-      gsl_spline2d_set(spline, za, i, j, z.at(j + ny * i));
+      gsl_spline2d_set(spline, za, i, j, z[j + ny * i]);
     }
 
   /* initialize interpolation */
