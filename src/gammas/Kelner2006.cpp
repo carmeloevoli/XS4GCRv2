@@ -18,12 +18,12 @@ double Kelner2006Gammas::get(const PID& projectile, const TARGET& target, const 
   if (T_proj <= T_ph) return sigma_pp;
   if (projectile == H1 && target == TARGET::H) {
     if (m_type == NeutralParticleType::GAMMA) {
-      sigma_pp = Kelner06::sigma_gamma(T_proj / cgs::GeV, T_ph / cgs::GeV);
+      sigma_pp = Kelner06::sigma_gamma(T_proj, T_ph);
     } else if (m_type == NeutralParticleType::ALLNUS) {
-      sigma_pp = Kelner06::sigma_neutrinos(T_proj / cgs::GeV, T_ph / cgs::GeV);
+      sigma_pp = Kelner06::sigma_neutrinos(T_proj, T_ph);
     }
   }
-  return sigma_pp * cgs::mbarn / cgs::GeV;
+  return sigma_pp;
 }
 
 }  // namespace  XS4GCR
