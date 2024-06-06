@@ -171,13 +171,13 @@ int main() {
       print_ap_xsecs(SecondaryAntiprotonModels::DIMAURO2014, "DiMauro2014_pbar");
       print_ap_xsecs(SecondaryAntiprotonModels::KORSMEIER2018, "Korsmeier2018_pbar");
       print_ap_xsecs(SecondaryAntiprotonModels::WINKLER2017, "Winkler2017_pbar");
-      print_ap_xsecs(SecondaryAntiprotonModels::FENG2016EPOS, "Feng2016_EPOS_pbar");
-      print_ap_xsecs(SecondaryAntiprotonModels::FENG2016QGSJET, "Feng2016_QGSJET_pbar");
+      // print_ap_xsecs(SecondaryAntiprotonModels::FENG2016EPOS, "Feng2016_EPOS_pbar");
+      // print_ap_xsecs(SecondaryAntiprotonModels::FENG2016QGSJET, "Feng2016_QGSJET_pbar");
     }
     {
       print_pos_xsecs(SecondaryLeptonModels::KAMAE2006, "Kamae2006_pos");
       print_pos_xsecs(SecondaryLeptonModels::AAFRAG, "AAFRAG_pos");
-      print_pos_xsecs(SecondaryLeptonModels::HUANGPOHL2007, "HuangPohl2007_pos");
+      // print_pos_xsecs(SecondaryLeptonModels::HUANGPOHL2007, "HuangPohl2007_pos");
       print_pos_xsecs(SecondaryLeptonModels::ORUSA2022, "Orusa2022_pos");
     }
     { print_terp_xsecs(TertiaryProtonModels::AAFRAG, "AAFRAG_terp"); }
