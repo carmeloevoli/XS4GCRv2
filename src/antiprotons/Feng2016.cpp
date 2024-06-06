@@ -56,9 +56,10 @@ void Feng2016SecAp::print() const {
 
 std::shared_ptr<SecondaryAntiprotons> Feng2016SecAp::clone() { return std::make_shared<Feng2016SecAp>(*this); }
 
-double Feng2016SecAp::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& T_ap) const {
+double Feng2016SecAp::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   using std::log;  // TODO check if sigma is ds/dT or ds/dp and correct
 
+  const double T_ap = x * T_proj;
   const double lgT_proj = log(T_proj);
   const double lgT_ap = log(T_ap);
   const auto lgT_proj_range = std::make_pair(m_lgTproj.front(), m_lgTproj.back());
@@ -84,7 +85,7 @@ double Feng2016SecAp::get(const PID& projectile, const TARGET& target, const dou
     }
   }
 
-  return value;
+  return T_proj * value;
 }
 
 }  // namespace XS4GCR

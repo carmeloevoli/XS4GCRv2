@@ -15,7 +15,7 @@ class Kamae2006SecLep : public SecondaryLeptons {
 
   std::shared_ptr<SecondaryLeptons> clone() override;
 
-  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_lepton) const override;
+  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const override;
 
  protected:
   const double HeCorrection = std::pow(4., 2.2 / 3.);

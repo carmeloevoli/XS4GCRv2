@@ -16,7 +16,7 @@ class SecondaryAntiprotons {
 
   virtual std::shared_ptr<SecondaryAntiprotons> clone() = 0;
 
-  virtual double get(const PID &projectile, const TARGET &target, const double &T_n, const double &T_ap) const = 0;
+  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
 
   double getTotalInelastic(const TARGET &target, const double &T_ap);
 

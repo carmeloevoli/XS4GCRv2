@@ -37,9 +37,10 @@ void HuangPohl2007SecLep::init() {
 }
 
 double HuangPohl2007SecLep::get(const PID& projectile, const TARGET& target, const double& T_proj,
-                                const double& T_lepton) const {
+                                const double& x) const {
   using std::log;
 
+  const double T_lepton = x * T_proj;
   const double lgE_proj = log(T_proj + cgs::protonMassC2);
   const auto lgE_proj_range = std::make_pair(m_lgEproj.front(), m_lgEproj.back());
 
@@ -57,7 +58,7 @@ double HuangPohl2007SecLep::get(const PID& projectile, const TARGET& target, con
       value = GSL::interpolate2d<double>(m_lgEproj, m_lgTsec, z, lgE_proj, lgT_sec);
     }
   }
-  return value;
+  return T_proj * value;
 }
 
 void HuangPohl2007SecLep::checkDatafilesExist() {

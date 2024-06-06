@@ -11,9 +11,10 @@ void TanNg1983SecAp ::print() const {
 
 std::shared_ptr<SecondaryAntiprotons> TanNg1983SecAp::clone() { return std::make_shared<TanNg1983SecAp>(*this); }
 
-double TanNg1983SecAp::get(const PID& particle, const TARGET& target, const double& T_n, const double& T_ap) const {
+double TanNg1983SecAp::get(const PID& particle, const TARGET& target, const double& T_proj, const double& x) const {
+  const auto T_ap = x * T_proj;
   if (particle == H1 && target == TARGET::H)
-    return apTanNg83::dsigma_dT(T_n, T_ap);
+    return T_proj * apTanNg83::dsigma_dT(T_proj, T_ap);
   else
     return 0;
 }

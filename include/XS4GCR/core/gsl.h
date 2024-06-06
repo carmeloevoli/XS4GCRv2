@@ -4,6 +4,7 @@
 #include <gsl/gsl_integration.h>
 #include <gsl/gsl_interp2d.h>
 #include <gsl/gsl_math.h>
+#include <gsl/gsl_roots.h>
 #include <gsl/gsl_spline2d.h>
 #include <gsl/gsl_vector.h>
 
@@ -135,6 +136,40 @@ T linearInterpolate(const std::vector<T> &X, const std::vector<T> &Y, T x) {
 
   const size_t i = it - X.begin() - 1;
   return Y[i] + (x - X[i]) * (Y[i + 1] - Y[i]) / (X[i + 1] - X[i]);
+}
+
+template <typename T>
+T rootFinder(std::function<T(T)> f, T xLower, T xUpper, int maxIter, double relError = 1e-4) {
+  int status;
+  int iter = 0;
+  const gsl_root_fsolver_type *solverType;
+  gsl_root_fsolver *solver;
+
+  T r = 0;
+
+  gsl_function F;
+  F.function = [](double x, void *vf) -> double {
+    auto &func = *static_cast<std::function<double(double)> *>(vf);
+    return func(x);
+  };
+  F.params = &f;
+
+  solverType = gsl_root_fsolver_brent;
+  solver = gsl_root_fsolver_alloc(solverType);
+  gsl_root_fsolver_set(solver, &F, xLower, xUpper);
+
+  do {
+    iter++;
+    status = gsl_root_fsolver_iterate(solver);
+    r = (T)gsl_root_fsolver_root(solver);
+    xLower = gsl_root_fsolver_x_lower(solver);
+    xUpper = gsl_root_fsolver_x_upper(solver);
+    status = gsl_root_test_interval(xLower, xUpper, 0, relError);
+  } while (status == GSL_CONTINUE && iter < maxIter);
+
+  gsl_root_fsolver_free(solver);
+
+  return r;
 }
 
 }  // namespace GSL

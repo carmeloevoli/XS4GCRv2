@@ -15,8 +15,7 @@ class TertiaryProtons {
 
   virtual std::shared_ptr<TertiaryProtons> clone() = 0;
 
-  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj,
-                     const double &T_proton) const = 0;
+  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
 };
 
 }  // namespace XS4GCR

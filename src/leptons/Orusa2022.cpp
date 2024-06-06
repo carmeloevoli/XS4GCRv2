@@ -73,11 +73,11 @@ void Orusa2022SecLep::readDataFiles() {
   }
 }
 
-double Orusa2022SecLep::get(const PID& projectile, const TARGET& target, const double& T_proj,
-                            const double& T_lepton) const {
+double Orusa2022SecLep::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   using std::log;
   double value = 0;
 
+  const auto T_lepton = x * T_proj;
   const auto lgTproj = log(T_proj);
   const auto lgTprojRange = std::make_pair(m_lgTprojAxis.front(), m_lgTprojAxis.back());
 
@@ -101,7 +101,7 @@ double Orusa2022SecLep::get(const PID& projectile, const TARGET& target, const d
       throw std::runtime_error("channel not implemented in Orusa2022 model");
     }
   }
-  return value;
+  return T_proj * value;
 }
 
 }  // namespace XS4GCR

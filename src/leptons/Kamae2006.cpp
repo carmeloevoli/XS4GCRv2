@@ -12,8 +12,8 @@ void Kamae2006SecLep::print() const {
 
 std::shared_ptr<SecondaryLeptons> Kamae2006SecLep::clone() { return std::make_shared<Kamae2006SecLep>(*this); }
 
-double Kamae2006SecLep::get(const PID& projectile, const TARGET& target, const double& T_proj,
-                            const double& T_lepton) const {
+double Kamae2006SecLep::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+  const double T_lepton = x * T_proj;
   double sigma_pp = 0;
   if (projectile == H1 && target == TARGET::H) {
     if (m_lepton == positron)
@@ -21,7 +21,7 @@ double Kamae2006SecLep::get(const PID& projectile, const TARGET& target, const d
     else
       sigma_pp = Kamae06::getCparamSigma(Kamae06::KELECTRON, T_proj, T_lepton);
   }
-  return sigma_pp;
+  return T_proj * sigma_pp;
 }
 
 }  // namespace XS4GCR

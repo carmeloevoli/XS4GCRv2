@@ -13,13 +13,14 @@ void Duperray2003SecAp::print() const {
 
 std::shared_ptr<SecondaryAntiprotons> Duperray2003SecAp::clone() { return std::make_shared<Duperray2003SecAp>(*this); }
 
-double Duperray2003SecAp::get(const PID& particle, const TARGET& target, const double& T_n, const double& T_ap) const {
+double Duperray2003SecAp::get(const PID& particle, const TARGET& target, const double& T_proj, const double& x) const {
+  const double T_ap = x * T_proj;
+  double value = 0;
   if (particle == H1 && target == TARGET::H)
-    return apDuperray03::dsigma_dT(T_n, T_ap, apDuperray03::PP);
+    value = apDuperray03::dsigma_dT(T_proj, T_ap, apDuperray03::PP);
   else if (particle == He4 || target == TARGET::He)
-    return apDuperray03::dsigma_dT(T_n, T_ap, apDuperray03::PHE);
-  else
-    return 0;
+    value = apDuperray03::dsigma_dT(T_proj, T_ap, apDuperray03::PHE);
+  return T_proj * value;
 }
 
 }  // namespace XS4GCR

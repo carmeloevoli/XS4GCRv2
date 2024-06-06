@@ -14,7 +14,7 @@ class Orusa2022SecLep : public SecondaryLeptons {
 
   std::shared_ptr<SecondaryLeptons> clone() override;
 
-  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_lepton) const override;
+  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const override;
 
  private:
   void init();

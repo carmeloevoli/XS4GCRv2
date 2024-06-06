@@ -3,7 +3,6 @@ matplotlib.use('MacOSX')
 import matplotlib.pyplot as plt
 plt.style.use('./xs4gcr.mplstyle')
 import numpy as np
-from scipy.misc import derivative
 
 def savefig(plt, filename):
     filename = filename + '.pdf'
@@ -11,25 +10,17 @@ def savefig(plt, filename):
     plt.savefig(filename)
 
 def plot_model(ax, filename, color, label, norm = 1.0):
-    T, q20, q24, q28 = np.loadtxt(filename, usecols=(0,1,2,3), unpack=True, skiprows=1)
-    ax.plot(T, norm * np.power(T, 2.4) * q24, color=color, label=label)
-    return T, np.power(T, 2.4) * q24
-    
-def plot_model_slope(ax, filename, color, label, norm = 1.0):
-    T, q20, q24, q28 = np.loadtxt(filename, usecols=(0,1,2,3), unpack=True, skiprows=1)
-    lnT = np.log(T)
-    q24 = np.power(T, 2.4) * q24
-    lnq = np.log(q24)
-    ax.plot(T[1:], np.diff(lnq) / np.diff(lnT), color=color, label=label)
-    q28 = np.power(T, 2.8) * q28
-    lnq = np.log(q28)
-    ax.plot(T[1:], np.diff(lnq) / np.diff(lnT), color=color, linestyle=':')
+    T, q22, q24, q28 = np.loadtxt(filename, usecols=(0,1,2,3), unpack=True, skiprows=1)
+    ax.plot(T, q24, color=color, label=label)
+#    cs = CubicSpline(np.log(T), np.log(q28))
+#    y = cs.derivative()
+#    ax.plot(T, y(np.log(T)), color=color, linestyle=':')
 
 def plot_model_ratio(ax, filename_0, filename, color, label, norm = 1.0):
-    T_0, q20_0, q24_0, q28_0 = np.loadtxt(filename_0, usecols=(0,1,2,3), unpack=True, skiprows=1)
-    T, q20, q24, q28 = np.loadtxt(filename, usecols=(0,1,2,3), unpack=True, skiprows=1)
-    ax.plot(T, (q24 - q24_0) / q24_0, color=color, label=label)
-    ax.plot(T, (q28 - q28_0) / q28_0, color=color, linestyle=':')
+    T_0, q22_0, q24_0, q28_0 = np.loadtxt(filename_0, usecols=(0,1,2,3), unpack=True, skiprows=1)
+    T, q22, q24, q28 = np.loadtxt(filename, usecols=(0,1,2,3), unpack=True, skiprows=1)
+    ax.plot(T, (q24 - q24_0) / q24_0 * 100., color=color, label=label)
+    ax.plot(T, (q28 - q28_0) / q28_0 * 100., color=color, linestyle=':')
 
 def set_axes(fig, title):
     ax = fig.add_subplot(111)
@@ -38,30 +29,29 @@ def set_axes(fig, title):
     ax.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
     ax.set_ylabel(r'E$_{\textrm{s}}^\alpha$ q$_{\textrm{s}}$ [a.u.]')
     ax.set_yscale('log')
-    ax.set_ylim([0.01, 50])
+    ax.set_ylim([0.05, 50])
     #ax.set_title(title)
     return ax
     
 def plot_gammas_sourceterm():
-    fig = plt.figure(figsize=(18.5, 8.5))
+    fig = plt.figure(figsize=(19.0, 8.5))
     ax1 = fig.add_subplot(121)
     
     ax1.set_xscale('log')
     ax1.set_xlim([1e1, 1e5])
     ax1.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
-
     ax1.set_yscale('log')
-    ax1.set_ylim([0.2, 2.])
-    ax1.set_ylabel(r'E$_{\textrm{s}}^\alpha$ q$_{\textrm{s}}$ [a.u.]')
+    ax1.set_ylabel(r'E$^\alpha$ q$_s$')
+    ax1.set_ylim([0.2, 30])
 
     #ax1.text(20, 4, r'$\alpha = 2.4$')
     
-    plot_model(ax1, 'output/Kamae2006_gammas_source.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1e20)
-    plot_model(ax1, 'output/Kafexhiu2014G4_gammas_source.txt', 'tab:olive', 'Kafexhiu2014/GEANT4', 1e20)
-    plot_model(ax1, 'output/Kafexhiu2014P8_gammas_source.txt', 'tab:pink', 'Kafexhiu2014/PYTHIA8', 1e20)
-    plot_model(ax1, 'output/Kafexhiu2014Sibyll_gammas_source.txt', 'tab:cyan', 'Kafexhiu2014/SIBYLL', 1e20)
-    plot_model(ax1, 'output/Kelner2006_gammas_source.txt', 'tab:blue', 'Kelner2006/SIBYLL', 1e20)
-    plot_model(ax1, 'output/AAFRAG_gammas_source.txt', 'tab:green', 'AAFRAG/QGSJET-II', 1e20)
+    plot_model(ax1, 'output/Kamae2006_gammas_source.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1)
+    plot_model(ax1, 'output/Kelner2006_gammas_source.txt', 'tab:blue', 'Kelner2006/SIBYLL', 1)
+    plot_model(ax1, 'output/Kafexhiu2014G4_gammas_source.txt', 'tab:olive', 'Kafexhiu2014/GEANT4', 1)
+    plot_model(ax1, 'output/Kafexhiu2014P8_gammas_source.txt', 'tab:pink', 'Kafexhiu2014/PYTHIA8', 1)
+    plot_model(ax1, 'output/Kafexhiu2014Sibyll_gammas_source.txt', 'tab:cyan', 'Kafexhiu2014/SIBYLL', 1)
+    plot_model(ax1, 'output/AAFRAG_gammas_source.txt', 'tab:green', 'AAFRAG/QGSJET-II', 1)
 
     ax1.legend(fontsize=14)
     
@@ -71,10 +61,10 @@ def plot_gammas_sourceterm():
     ax2.set_xlim([1e1, 1e5])
     ax2.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
 
-    ax2.set_ylim([-1.5, 1.5])
-    ax2.set_ylabel(r'relative ratio')
+    ax2.set_ylim([-100., 100.])
+    ax2.set_ylabel(r'relative ratio [\%]')
 
-    ax2.text(20, 1.2, r'$\alpha = 2.4/2.8$')
+    ax2.text(20, -80, r'$\alpha = 2.4/2.8$')
 
     plot_model_ratio(ax2, 'output/AAFRAG_gammas_source.txt', 'output/Kamae2006_gammas_source.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1)
     plot_model_ratio(ax2, 'output/AAFRAG_gammas_source.txt', 'output/Kafexhiu2014G4_gammas_source.txt', 'tab:olive', 'Kafexhiu2014/GEANT4', 1)
@@ -93,14 +83,14 @@ def plot_neutrinos_sourceterm():
     ax1.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
 
     ax1.set_yscale('log')
-    ax1.set_ylim([0.2   , 2.])
+    ax1.set_ylim([0.2, 3.])
     ax1.set_ylabel(r'E$_{\textrm{s}}^\alpha$ q$_{\textrm{s}}$ [a.u.]')
 
     #ax1.text(20, 4, r'$\alpha = 2.4$')
  
-    plot_model(ax1, 'output/Kamae2006_nus_source.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1e20)
-    plot_model(ax1, 'output/Kelner2006_nus_source.txt', 'tab:blue', 'Kelner2006/SIBYLL', 1e20)
-    plot_model(ax1, 'output/AAFRAG_nus_source.txt', 'tab:green', 'AAFRAG/QGSJET-II', 1e20)
+    plot_model(ax1, 'output/Kamae2006_nus_source.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1)
+    plot_model(ax1, 'output/Kelner2006_nus_source.txt', 'tab:blue', 'Kelner2006/SIBYLL', 1)
+    plot_model(ax1, 'output/AAFRAG_nus_source.txt', 'tab:green', 'AAFRAG/QGSJET-II', 1)
 
     ax1.legend(fontsize=14)
    
@@ -110,10 +100,10 @@ def plot_neutrinos_sourceterm():
     ax2.set_xlim([1e1, 1e5])
     ax2.set_xlabel(r'E$_{\textrm{s}}$ [GeV]')
 
-    ax2.set_ylim([-1.5, 1.5])
+    ax2.set_ylim([-1., 1.])
     ax2.set_ylabel(r'relative ratio')
 
-    ax2.text(20, 1.2, r'$\alpha = 2.4/2.8$')
+    ax2.text(20, -0.8, r'$\alpha = 2.4/2.8$')
 
     plot_model_ratio(ax2, 'output/AAFRAG_nus_source.txt', 'output/Kamae2006_nus_source.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 1)
     plot_model_ratio(ax2, 'output/AAFRAG_nus_source.txt', 'output/Kelner2006_nus_source.txt', 'tab:blue', 'Kelner2006/SIBYLL', 1)
@@ -217,7 +207,7 @@ def plot_all_sourceterm():
     
 if __name__== "__main__":
     plot_gammas_sourceterm()
-    plot_neutrinos_sourceterm()
-    plot_positrons_sourceterm()
-    plot_antiprotons_sourceterm()
-    plot_all_sourceterm()
+    #plot_neutrinos_sourceterm()
+    #plot_positrons_sourceterm()
+    #plot_antiprotons_sourceterm()
+    #plot_all_sourceterm()

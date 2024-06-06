@@ -13,7 +13,7 @@ class Kelner2006Gammas : public Pi0Gammas {
 
   std::shared_ptr<Pi0Gammas> clone() override;
 
-  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &T_ph) const override;
+  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const override;
 
  protected:
   NeutralParticleType m_type;

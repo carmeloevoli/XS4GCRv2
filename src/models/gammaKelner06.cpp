@@ -8,9 +8,8 @@
 namespace XS4GCR {
 namespace Kelner06 {
 
-double sigma_gamma(double E_proj, double E_gamma) {
+double sigma_gamma(double E_proj, double x) {
   const double L = std::log(E_proj / cgs::TeV);  // defined in pag. 9
-  const double x = E_gamma / E_proj;             // defined in pag. 9
 
   double B_gamma = 1.30 + 0.14 * L + 0.011 * L * L;            // Eq. 59
   double beta_gamma = 1. / (1.79 + 0.11 * L + 0.008 * L * L);  // Eq. 60
@@ -25,12 +24,11 @@ double sigma_gamma(double E_proj, double E_gamma) {
   double F_gamma = B_gamma * std::log(x) / x * std::pow(F_1, 4);  // Eq. 58
   F_gamma *= 1. / log(x) - F_2 - F_3;
 
-  return ppInelastic(E_proj) * F_gamma / E_proj;
+  return ppInelastic(E_proj) * F_gamma;
 }
 
-double sigma_neutrinos(double E_proj, double E_nu) {
+double sigma_neutrinos(double E_proj, double x) {
   const double L = std::log(E_proj / cgs::TeV);  // defined in pag. 9
-  const double x = E_nu / E_proj;
 
   const double B_e = 1.0 / (69.5 + 2.65 * L + 0.3 * L * L);                                // Eq. 63
   const double beta_e = 1. / std::pow(0.201 + 0.062 * L + 0.00042 * L * L, 0.25);          // Eq. 64
@@ -61,7 +59,7 @@ double sigma_neutrinos(double E_proj, double E_nu) {
 
   if (std::isnan(F_numu)) throw std::runtime_error("F_numu is NAN!");
 
-  return ppInelastic(E_proj) * (F_numu + 2. * F_e) / E_proj;
+  return ppInelastic(E_proj) * (F_numu + 2. * F_e);
 }
 
 }  // namespace Kelner06

@@ -12,20 +12,21 @@ void Kamae2006Gammas::print() const {
 
 std::shared_ptr<Pi0Gammas> Kamae2006Gammas::clone() { return std::make_shared<Kamae2006Gammas>(*this); }
 
-double Kamae2006Gammas::get(const PID& projectile, const TARGET& target, const double& T_proj,
-                            const double& T_ph) const {
-  double sigma_pp = 0;
+double Kamae2006Gammas::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+  if (x > 1.) return 0.;
+  const double T_ph = x * T_proj;
+  double value = 0;
   if (m_type == NeutralParticleType::GAMMA) {
-    sigma_pp = Kamae06::getCparamSigma(Kamae06::KGAMMA, T_proj, T_ph);
+    value = Kamae06::getCparamSigma(Kamae06::KGAMMA, T_proj, T_ph) * T_proj;
   } else if (m_type == NeutralParticleType::ALLNUS) {
-    sigma_pp = Kamae06::getCparamSigma(Kamae06::KNU, T_proj, T_ph);
+    value = Kamae06::getCparamSigma(Kamae06::KNU, T_proj, T_ph) * T_proj;
   }
   if (projectile == H1 && target == TARGET::H) {
-    return sigma_pp;
+    return value;
   } else if (projectile == He4 && target == TARGET::H) {
-    return std::pow(4., 2. / 3.) * sigma_pp;
+    return std::pow(4., 2. / 3.) * value;
   } else if (projectile == H1 && target == TARGET::He) {
-    return std::pow(4., 2. / 3.) * sigma_pp;
+    return std::pow(4., 2. / 3.) * value;
   } else {
     return 0;
   }

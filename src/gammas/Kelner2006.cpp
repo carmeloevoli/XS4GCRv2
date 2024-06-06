@@ -12,18 +12,17 @@ void Kelner2006Gammas::print() const {
 
 std::shared_ptr<Pi0Gammas> Kelner2006Gammas::clone() { return std::make_shared<Kelner2006Gammas>(*this); }
 
-double Kelner2006Gammas::get(const PID& projectile, const TARGET& target, const double& T_proj,
-                             const double& T_ph) const {
-  double sigma_pp = 0;
-  if (T_proj <= T_ph) return sigma_pp;
+double Kelner2006Gammas::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+  if (x > 1.) return 0.;
+  double value = 0.;
   if (projectile == H1 && target == TARGET::H) {
     if (m_type == NeutralParticleType::GAMMA) {
-      sigma_pp = Kelner06::sigma_gamma(T_proj, T_ph);
+      value = Kelner06::sigma_gamma(T_proj, x);
     } else if (m_type == NeutralParticleType::ALLNUS) {
-      sigma_pp = Kelner06::sigma_neutrinos(T_proj, T_ph);
+      value = Kelner06::sigma_neutrinos(T_proj, x);
     }
   }
-  return sigma_pp;
+  return value;
 }
 
 }  // namespace  XS4GCR

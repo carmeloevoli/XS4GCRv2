@@ -62,10 +62,11 @@ void Korsmeier2018SecAp::readDataFiles() {
 }
 
 double Korsmeier2018SecAp::get(const PID& projectile, const TARGET& target, const double& T_proj,
-                               const double& T_ap) const {
+                               const double& x) const {
   using std::log;
   double value = 0;
 
+  const auto T_ap = x * T_proj;
   const auto lgTproj = log(T_proj);
   const auto lgTprojRange = std::make_pair(m_lgTprojAxis.front(), m_lgTprojAxis.back());
 
@@ -89,7 +90,7 @@ double Korsmeier2018SecAp::get(const PID& projectile, const TARGET& target, cons
       throw std::runtime_error("channel not implemented in Korsmeier2018 model");
     }
   }
-  return std::max(value, 0.);
+  return T_proj * std::max(value, 0.);
 }
 
 }  // namespace XS4GCR

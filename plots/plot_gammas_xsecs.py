@@ -18,10 +18,10 @@ def plot_model(ax, icol, filename, color, label, linestyle = '-'):
 
 def set_axes(fig, title):
     ax = fig.add_subplot(111)
-    ax.set_xlim([1e-5, 1])
+    ax.set_xlim([1e-4, 1])
     ax.set_xscale('log')
     ax.set_xlabel(r'x')
-    ax.set_ylabel(r'x$^2$ d$\sigma$/dx [mbarn]')
+    ax.set_ylabel(r'x$^2$ d$\sigma$/dx [mb]')
     ax.set_yscale('log')
     ax.set_ylim([1e-2, 1e1])
     ax.set_title(title)

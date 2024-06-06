@@ -10,16 +10,16 @@ def savefig(plt, filename):
     plt.savefig(filename)
 
 def plot_model(ax, filename, color, label, norm = 1.0):
-    T, inel = np.loadtxt(filename, usecols=(0,1), unpack=True, skiprows=1)
-    ax.plot(T, inel * norm, color=color, label=label)
+    Es, Ep = np.loadtxt(filename, usecols=(0,1), unpack=True, skiprows=1)
+    ax.plot(Es, Ep / Es, color=color, label=label)
 
 def set_axes(fig, title):
     ax = fig.add_subplot(111)
-    ax.set_xlim([1e1, 1e4])
-    ax.set_ylim([0, 6])
+    ax.set_xlim([1e1, 1e5])
+    ax.set_ylim([5, 25])
     ax.set_xscale('log')
-    ax.set_xlabel(r'E$_{\mathrm{p}}$ [GeV]')
-    ax.set_ylabel(r'$\eta$ / 100')
+    ax.set_xlabel(r'E$_{\mathrm{s}}$ [GeV]')
+    ax.set_ylabel(r'$\langle$E$_{\mathrm{p}}$$\rangle$ / E$_{\mathrm{s}}$')
     #ax.set_title(title)
     return ax
     
@@ -27,13 +27,15 @@ def plot_gamma_inelasticity():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, 'Inelasticity')
     
-    plot_model(ax, 'output/Kafexhiu2014G4_gammas_inelasticity.txt', 'tab:olive', 'Kafexhiu2014/GEANT4', 100.)
-    plot_model(ax, 'output/Kafexhiu2014P8_gammas_inelasticity.txt', 'tab:pink', 'Kafexhiu2014/PYTHIA8', 100.)
-    plot_model(ax, 'output/Kafexhiu2014Sibyll_gammas_inelasticity.txt', 'tab:cyan', 'Kafexhiu2014/SIBYLL', 100.)
-    plot_model(ax, 'output/Kelner2006_gammas_inelasticity.txt', 'tab:blue', 'Kelner2006/SIBYLL', 100.)
-    plot_model(ax, 'output/Kamae2006_gammas_inelasticity.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 100.)
-    plot_model(ax, 'output/AAFRAG_gammas_inelasticity.txt', 'tab:green', 'AAFRAG/QGSJET-II', 100.)
+    plot_model(ax, 'output/Kafexhiu2014G4_gammas_primary.txt', 'tab:olive', 'Kafexhiu2014/GEANT4', 100.)
+    plot_model(ax, 'output/Kafexhiu2014P8_gammas_primary.txt', 'tab:pink', 'Kafexhiu2014/PYTHIA8', 100.)
+    plot_model(ax, 'output/Kafexhiu2014Sibyll_gammas_primary.txt', 'tab:cyan', 'Kafexhiu2014/SIBYLL', 100.)
+    plot_model(ax, 'output/Kelner2006_gammas_primary.txt', 'tab:blue', 'Kelner2006/SIBYLL')
+    plot_model(ax, 'output/Kamae2006_gammas_primary.txt', 'tab:red', 'Kamae2006/PYTHIA6.2', 100.)
+    #plot_model(ax, 'output/AAFRAG_gammas_primary.txt', 'tab:green', 'AAFRAG/QGSJET-II', 100.)
 
+    ax.hlines(1e1, 1e5, 10, ls=':', color='tab:gray')
+    
     ax.legend(fontsize=15)
     savefig(plt, 'xsecs_gammas_inelasticity')
 
@@ -103,8 +105,8 @@ def plot_all_inelasticity():
 
 if __name__== "__main__":
     plot_gamma_inelasticity()
-    plot_neutrino_inelasticity()
-    plot_positrons_inelasticity()
-    plot_antiprotons_inelasticity()
+#    plot_neutrino_inelasticity()
+#    plot_positrons_inelasticity()
+#    plot_antiprotons_inelasticity()
 #    plot_tertiary_inelasticity()
-    plot_all_inelasticity()
+#    plot_all_inelasticity()

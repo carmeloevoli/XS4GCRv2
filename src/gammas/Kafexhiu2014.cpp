@@ -12,18 +12,20 @@ void Kafexhiu2014Gammas::print() const {
 std::shared_ptr<Pi0Gammas> Kafexhiu2014Gammas::clone() { return std::make_shared<Kafexhiu2014Gammas>(*this); }
 
 double Kafexhiu2014Gammas::get(const PID& projectile, const TARGET& target, const double& T_proj,
-                               const double& T_ph) const {
-  double sigma_pp = 0;
+                               const double& x) const {
+  const double T_ph = x * T_proj;
+  const double units = cgs::mbarn / cgs::GeV;
+  double value = 0;
   if (projectile == H1 && target == TARGET::H && m_type == NeutralParticleType::GAMMA) {
     if (m_model == InteractionModel::GEANT4) {
-      sigma_pp = ppgam::dXSdEg_Geant4(T_proj / cgs::GeV, T_ph / cgs::GeV);
+      value = ppgam::dXSdEg_Geant4(T_proj / cgs::GeV, T_ph / cgs::GeV) * units;
     } else if (m_model == InteractionModel::PYTHIA8) {
-      sigma_pp = ppgam::dXSdEg_Pythia8(T_proj / cgs::GeV, T_ph / cgs::GeV);
+      value = ppgam::dXSdEg_Pythia8(T_proj / cgs::GeV, T_ph / cgs::GeV) * units;
     } else if (m_model == InteractionModel::SIBYLL) {
-      sigma_pp = ppgam::dXSdEg_SIBYLL(T_proj / cgs::GeV, T_ph / cgs::GeV);
+      value = ppgam::dXSdEg_SIBYLL(T_proj / cgs::GeV, T_ph / cgs::GeV) * units;
     }
   }
-  return sigma_pp * cgs::mbarn / cgs::GeV;
+  return T_proj * value;
 }
 
 }  // namespace  XS4GCR

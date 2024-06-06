@@ -13,9 +13,10 @@ void DiMauro2014SecAp::print() const {
 
 std::shared_ptr<SecondaryAntiprotons> DiMauro2014SecAp::clone() { return std::make_shared<DiMauro2014SecAp>(*this); }
 
-double DiMauro2014SecAp::get(const PID& particle, const TARGET& target, const double& T_n, const double& T_ap) const {
+double DiMauro2014SecAp::get(const PID& particle, const TARGET& target, const double& T_proj, const double& x) const {
+  const double T_ap = x * T_proj;
   if (particle == H1 && target == TARGET::H)
-    return apDiMauro14::dsigma_dT(T_n, T_ap);
+    return T_proj * apDiMauro14::dsigma_dT(T_proj, T_ap);
   else
     return 0;
 }

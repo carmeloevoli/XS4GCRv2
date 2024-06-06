@@ -15,8 +15,7 @@ class SecondaryLeptons {
 
   virtual std::shared_ptr<SecondaryLeptons> clone() = 0;
 
-  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj,
-                     const double &T_lepton) const = 0;
+  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
 
   virtual double annihilationXsec(const PID &target, const double &T_electron) const;
 

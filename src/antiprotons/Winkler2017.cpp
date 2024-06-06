@@ -57,10 +57,10 @@ void Winkler2017SecAp::print() const {
 
 std::shared_ptr<SecondaryAntiprotons> Winkler2017SecAp::clone() { return std::make_shared<Winkler2017SecAp>(*this); }
 
-double Winkler2017SecAp::get(const PID& projectile, const TARGET& target, const double& T_proj,
-                             const double& T_ap) const {
+double Winkler2017SecAp::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   using std::log;
 
+  const auto T_ap = x * T_proj;
   const auto lgT_proj = log(T_proj);
   const auto lgT_ap = log(T_ap);
   const auto lgT_proj_range = std::make_pair(m_lgTproj.front(), m_lgTproj.back());
@@ -86,7 +86,7 @@ double Winkler2017SecAp::get(const PID& projectile, const TARGET& target, const 
     }
   }
 
-  return value;
+  return T_proj * value;
 }
 
 }  // namespace XS4GCR

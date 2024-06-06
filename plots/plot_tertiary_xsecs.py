@@ -20,24 +20,15 @@ def set_axes(fig, title):
     ax.set_xlabel(r'x')
     ax.set_ylabel(r'x$^2$ d$\sigma$/dx [mbarn]')
     ax.set_yscale('log')
-    ax.set_ylim([1e-5, 0.2])
+    ax.set_ylim([1e-2, 1e2])
     ax.set_title(title)
     return ax
-
-def plot_tertiary_5GeV():
-    fig = plt.figure(figsize=(10.5, 8))
-    ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 5 GeV')
-
-    plot_model(ax, 1, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
-
-    ax.legend(fontsize=14)
-    savefig(plt, 'xsecs_terp_5GeV')
 
 def plot_tertiary_10GeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 10 GeV')
 
-    plot_model(ax, 5, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 5, 'output/AAFRAG_terp_xsecs.txt', 'tab:brown', 'AAFRAG')
     
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_terp_10GeV')
@@ -46,7 +37,7 @@ def plot_tertiary_100GeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 100 GeV')
 
-    plot_model(ax, 9, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 9, 'output/AAFRAG_terp_xsecs.txt', 'tab:brown', 'AAFRAG')
     
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_terp_100GeV')
@@ -55,7 +46,7 @@ def plot_tertiary_1TeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 1 TeV')
 
-    plot_model(ax, 13, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 13, 'output/AAFRAG_terp_xsecs.txt', 'tab:brown', 'AAFRAG')
  
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_terp_1TeV')
@@ -64,7 +55,7 @@ def plot_tertiary_10TeV():
     fig = plt.figure(figsize=(10.5, 8))
     ax = set_axes(fig, r'E$_{\mathrm{p}} =$ 10 TeV')
 
-    plot_model(ax, 17, 'output/AAFRAG_xsecs_pbar.txt', 'tab:brown', 'AAFRAG')
+    plot_model(ax, 17, 'output/AAFRAG_terp_xsecs.txt', 'tab:brown', 'AAFRAG')
 
     ax.legend(fontsize=14)
     savefig(plt, 'xsecs_terp_10TeV')
