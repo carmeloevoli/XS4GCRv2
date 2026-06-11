@@ -146,9 +146,9 @@ int main() {
     const auto useGhosts = do_ghosts(model);
     const std::string isotopeFile = "data/crchart_Z28_2020.txt";
     const std::string outputFile = output_filename(model);
-    const double TminGeV = 0.1;
-    const double TmaxGeV = 3e4;
-    const size_t nEnergy = 6 * 32;
+    const double TminGeV = 0.01;
+    const double TmaxGeV = 1e5;
+    const size_t nEnergy = 7 * 32;
 
     if (!(TminGeV > 0.0) || !(TmaxGeV > TminGeV)) throw std::invalid_argument("Require 0 < TminGeV < TmaxGeV");
     if (nEnergy < 2) throw std::invalid_argument("nEnergy must be at least 2");
