@@ -10,6 +10,8 @@
 #include "XS4GCR/antiprotons/TanNg1983.h"
 #include "XS4GCR/antiprotons/Winkler2017.h"
 #include "XS4GCR/core/nucleiChart.h"
+#include "XS4GCR/fragmentations/Fluka4Dragon.h"
+#include "XS4GCR/fragmentations/Webber1993.h"
 #include "XS4GCR/gammas/AAfragSecGammas.h"
 #include "XS4GCR/gammas/Kafexhiu2014.h"
 #include "XS4GCR/gammas/Kamae2006.h"
@@ -110,6 +112,18 @@ std::shared_ptr<TertiaryProtons> XSECS::createTertiaryProtons() {
   }
   tertiaryProtons->print();
   return tertiaryProtons->clone();
+}
+
+std::shared_ptr<Fragmentation> XSECS::createFragmentation() {
+  if (fragmentationModel == FragmentationModels::FLUKA4DRAGON) {
+    fragmentation = std::make_shared<Fluka4Dragon>();
+  } else if (fragmentationModel == FragmentationModels::WEBBER1993) {
+    fragmentation = std::make_shared<Webber1993>();
+  } else {
+    throw std::invalid_argument("Fragmentation model not found.");
+  }
+  fragmentation->print();
+  return fragmentation->clone();
 }
 
 // std::shared_ptr<Spallation> XSECS::create_secondary_nuclei() {

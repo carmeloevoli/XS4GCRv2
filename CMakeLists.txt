@@ -3,9 +3,6 @@ cmake_minimum_required(VERSION 3.5)
 set(CMAKE_VERBOSE_MAKEFILE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-set(CMAKE_C_COMPILER "/usr/local/Cellar/gcc/14.1.0/bin/gcc-14")
-set(CMAKE_CXX_COMPILER "/usr/local/Cellar/gcc/14.1.0/bin/g++-14")
-set(CMAKE_Fortran_COMPILER "/usr/local/Cellar/gcc/14.1.0/bin/gfortran-14")
 set(CMAKE_CXX_FLAGS "-std=c++14 -ftree-vectorize -O3 -DDEBUG")
 set(XS4GCR_INCLUDES)
 set(XS4GCR_LIBRARIES)
@@ -54,6 +51,8 @@ set(XS4GCR_SRCS
 	src/gammas/Kelner2006.cpp
 	src/gammas/AAfragSecGammas.cpp
 	src/tertiary/AAfragTerProtons.cpp
+	src/fragmentations/Fluka4Dragon.cpp
+	src/fragmentations/Webber1993.cpp
 	src/core/common.cpp
 	src/core/lis.cpp
 	src/core/nucleiChart.cpp
@@ -73,6 +72,17 @@ list(APPEND XS4GCR_INCLUDES external/cparamlib/include)
 # nuclear codes (provided)
 add_subdirectory(external/nuclear_codes)
 list(APPEND XS4GCR_LIBRARIES nuclear_codes)
+if(CMAKE_Fortran_COMPILER_ID STREQUAL "GNU")
+	execute_process(
+		COMMAND ${CMAKE_Fortran_COMPILER} -print-file-name=libgfortran${CMAKE_SHARED_LIBRARY_SUFFIX}
+		OUTPUT_VARIABLE GFORTRAN_RUNTIME
+		OUTPUT_STRIP_TRAILING_WHITESPACE)
+	if(EXISTS "${GFORTRAN_RUNTIME}")
+		list(APPEND XS4GCR_LIBRARIES "${GFORTRAN_RUNTIME}")
+	else()
+		list(APPEND XS4GCR_LIBRARIES gfortran)
+	endif()
+endif()
 
 # GSL (external)
 find_package(GSL)
@@ -116,6 +126,12 @@ add_library(XS4GCR_LIB ${XS4GCR_SRCS} ${XS4GCR_INCLUDES} )
 
 add_executable(lightXsecs apps/lightXsecs.cpp)
 target_link_libraries (lightXsecs XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
+add_executable(cramsInelastic apps/cramsInelastic.cpp)
+target_link_libraries (cramsInelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})
+
+add_executable(cramsFragmentation apps/cramsFragmentation.cpp)
+target_link_libraries (cramsFragmentation XS4GCR_LIB ${XS4GCR_LIBRARIES})
 
 #add_executable(inelastic apps/inelastic.cpp)
 #target_link_libraries (inelastic XS4GCR_LIB ${XS4GCR_LIBRARIES})

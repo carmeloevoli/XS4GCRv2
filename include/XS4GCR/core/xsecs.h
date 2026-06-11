@@ -5,6 +5,7 @@
 
 #include "XS4GCR/antiprotons/SecondaryAntiprotons.h"
 #include "XS4GCR/core/nucleiChart.h"
+#include "XS4GCR/fragmentations/fragmentations.h"
 #include "XS4GCR/gammas/Pi0Gammas.h"
 #include "XS4GCR/inelastic/TotalInelastic.h"
 #include "XS4GCR/leptons/SecondaryLeptons.h"
@@ -63,6 +64,8 @@ enum class TertiaryProtonModels { AAFRAG };
 
 enum class TotalInelasticModels { TRIPATHI1999, CROSEC, LETAW1983, GLAUBER };
 
+enum class FragmentationModels { FLUKA4DRAGON, WEBBER1993 };
+
 class XSECS {
  public:
   XSECS() {}
@@ -74,6 +77,7 @@ class XSECS {
   std::shared_ptr<Pi0Gammas> createPi0Gammas(NeutralParticleType type = NeutralParticleType::GAMMA);
   std::shared_ptr<TertiaryProtons> createTertiaryProtons();
   std::shared_ptr<NucleiChart> createNucleiChart();
+  std::shared_ptr<Fragmentation> createFragmentation();
 
   //   std::shared_ptr<Spallation> create_secondary_nuclei();
 
@@ -82,6 +86,7 @@ class XSECS {
   inline void setSecondaryLeptons(SecondaryLeptonModels model) { secondaryLeptonModel = model; }
   inline void setPi0Gammas(Pi0GammaModels model) { pi0GammaModel = model; }
   inline void setTertiaryProtons(TertiaryProtonModels model) { tertiaryProtonModel = model; }
+  inline void setFragmentation(FragmentationModels model) { fragmentationModel = model; }
 
   //   inline void set_secondary_nuclei(const std::string &model_name) { secondary_nuclei_model = model_name; }
 
@@ -91,6 +96,7 @@ class XSECS {
   SecondaryLeptonModels secondaryLeptonModel = SecondaryLeptonModels::KAMAE2006;
   Pi0GammaModels pi0GammaModel = Pi0GammaModels::KAMAE2006;
   TertiaryProtonModels tertiaryProtonModel = TertiaryProtonModels::AAFRAG;
+  FragmentationModels fragmentationModel = FragmentationModels::FLUKA4DRAGON;
 
   //   std::string secondary_nuclei_model = "Webber1993";
 
@@ -100,6 +106,7 @@ class XSECS {
   std::shared_ptr<Pi0Gammas> pi0Gammas;
   std::shared_ptr<TertiaryProtons> tertiaryProtons;
   std::shared_ptr<NucleiChart> nucleiChart;
+  std::shared_ptr<Fragmentation> fragmentation;
   //   std::shared_ptr<Spallation> secondary_nuclei;
 };
 
