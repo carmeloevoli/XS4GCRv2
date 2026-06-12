@@ -2,6 +2,7 @@
 
 #include <cerrno>
 #include <cstring>
+#include <ctime>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -13,6 +14,7 @@
 #include <vector>
 
 #include "XS4GCR.h"
+#include "XS4GCR/core/git_revision.h"
 
 using namespace XS4GCR;
 
@@ -28,6 +30,19 @@ struct ModelOutput {
   TotalInelasticModels model;
   std::string outputFile;
 };
+
+std::string current_date() {
+  std::time_t t = std::time(nullptr);
+  char buf[11];
+  std::strftime(buf, sizeof(buf), "%Y-%m-%d", std::localtime(&t));
+  return buf;
+}
+
+std::string code_version() {
+  const std::string sha = git_sha1().substr(0, 7);
+  const std::string dirty = git_has_local_changes() ? "+local" : "";
+  return "XS4GCR v" + get_version() + " (git: " + sha + dirty + ")";
+}
 
 std::string model_name(TotalInelasticModels model) {
   if (model == TotalInelasticModels::TRIPATHI1999) return "Tripathi1999";
@@ -55,13 +70,12 @@ std::vector<Isotope> read_isotopes(const std::string& filename) {
 
     int Z = 0;
     int A = 0;
-    std::string name;
-    std::string mode;
-    double halfLife = 0.0;
+    char sep = 0;
     std::istringstream row(line);
-    if (!(row >> Z >> A >> name >> mode >> halfLife)) continue;
+    if (!(row >> Z >> sep >> A)) continue;
 
     const int id = 1000 * A + Z;
+    const std::string name = std::to_string(A) + std::to_string(Z);
     if (seen.insert(id).second) isotopes.push_back(Isotope{Z, A, name});
   }
 
@@ -85,16 +99,22 @@ std::shared_ptr<TotalInelastic> make_model(TotalInelasticModels model) {
 }
 
 void write_common_header(std::ofstream& output, const std::string& modelName, const std::string& isotopeFile,
-                         double TminGeV, double TmaxGeV, size_t nEnergy, size_t nIsotopes) {
+                         double TminGeV, double TmaxGeV, size_t nEnergy, size_t nIsotopes,
+                         const std::vector<double>& energies) {
   output << "# XS4GCR CRAMS inelastic cross-section table\n";
+  output << "# created: " << current_date() << "\n";
+  output << "# code_version: " << code_version() << "\n";
   output << "# model: " << modelName << "\n";
+  output << "# reference: TODO\n";
   output << "# isotope_source: " << isotopeFile << "\n";
   output << "# projectile_count: " << nIsotopes << "\n";
   output << "# sigma_unit: mbarn for target H\n";
   output << std::scientific << std::setprecision(8);
   output << "# energy_grid_GeV_per_n: logspace " << TminGeV << " " << TmaxGeV << " " << nEnergy << "\n";
-  output << "# columns: Z A sigma_H_mb(T_0) ... sigma_H_mb(T_N-1)\n";
   output << "# note: 1H is skipped because XS4GCR::TotalInelastic does not provide proton-projectile sigma.\n";
+  output << "Z,A";
+  for (const auto& T : energies) output << "," << T / cgs::GeV;
+  output << "\n";
 }
 
 void write_sigma_h_table(const std::string& outputFile, const std::string& modelName, const std::string& isotopeFile,
@@ -103,13 +123,13 @@ void write_sigma_h_table(const std::string& outputFile, const std::string& model
   std::ofstream output(outputFile.c_str());
   if (!output) throw std::runtime_error("Cannot write table: " + outputFile);
 
-  write_common_header(output, modelName, isotopeFile, TminGeV, TmaxGeV, nEnergy, isotopes.size());
+  write_common_header(output, modelName, isotopeFile, TminGeV, TmaxGeV, nEnergy, isotopes.size(), energies);
   output << std::scientific << std::setprecision(8);
 
   for (const auto& isotope : isotopes) {
     const auto projectile = PID(isotope.Z, isotope.A);
-    output << isotope.Z << "\t" << isotope.A;
-    for (const auto& T : energies) output << "\t" << xsec->get(projectile, TARGET::H, T) / cgs::mbarn;
+    output << isotope.Z << "," << isotope.A;
+    for (const auto& T : energies) output << "," << xsec->get(projectile, TARGET::H, T) / cgs::mbarn;
     output << "\n";
   }
 }
@@ -129,14 +149,14 @@ void make_table(const ModelOutput& config, const std::string& isotopeFile, doubl
 
 int main() {
   try {
-    const std::string isotopeFile = "data/crchart_Z28_2020.txt";
+    const std::string isotopeFile = "data/crams_nucleilist.csv";
     const double TminGeV = 0.01;
     const double TmaxGeV = 1e5;
-    const size_t nEnergy = 7 * 32;
+    const size_t nEnergy = 7 * 64;
     const std::vector<ModelOutput> tables = {
-        {TotalInelasticModels::GLAUBER, "output/crams_inelastic_glauber.txt"},
-        {TotalInelasticModels::TRIPATHI1999, "output/crams_inelastic_tripathi99.txt"},
-        {TotalInelasticModels::CROSEC, "output/crams_inelastic_crosec.txt"},
+        {TotalInelasticModels::GLAUBER, "output/crams_inelastic_glauber.csv"},
+        {TotalInelasticModels::TRIPATHI1999, "output/crams_inelastic_tripathi99.csv"},
+        {TotalInelasticModels::CROSEC, "output/crams_inelastic_crosec.csv"},
     };
 
     if (!(TminGeV > 0.0) || !(TmaxGeV > TminGeV)) throw std::invalid_argument("Require 0 < TminGeV < TmaxGeV");

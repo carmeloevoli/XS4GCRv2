@@ -36,6 +36,8 @@ double Fluka4Dragon::get(const FragmentationChannel& ch, const TARGET& target, c
   const double lgTnMeV = std::log(T_n / cgs::MeV);
   const auto& table = it->second;
   const auto& sigma = selectTargetTable(table, target);
+  if (lgTnMeV < table.lgTnMeV.front()) return 0.;
+  if (lgTnMeV >= table.lgTnMeV.back()) return std::max(0., sigma.back());
   return std::max(0., GSL::linearInterpolate<double>(table.lgTnMeV, sigma, lgTnMeV));
 }
 
