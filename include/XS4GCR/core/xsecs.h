@@ -64,7 +64,13 @@ enum class TertiaryProtonModels { AAFRAG };
 
 enum class TotalInelasticModels { TRIPATHI1999, CROSEC, LETAW1983, GLAUBER };
 
-enum class FragmentationModels { FLUKA4DRAGON, WEBBER1993 };
+enum class FragmentationModels {
+  FLUKA4DRAGON,
+  WEBBER1993,
+  USINEGALPROP17OPT12,
+  USINEGALPROP17OPT22,
+  USINEWEBBER03COSTE12
+};
 
 class XSECS {
  public:

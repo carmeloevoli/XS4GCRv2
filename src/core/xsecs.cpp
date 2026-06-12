@@ -11,6 +11,7 @@
 #include "XS4GCR/antiprotons/Winkler2017.h"
 #include "XS4GCR/core/nucleiChart.h"
 #include "XS4GCR/fragmentations/Fluka4Dragon.h"
+#include "XS4GCR/fragmentations/UsineFragmentation.h"
 #include "XS4GCR/fragmentations/Webber1993.h"
 #include "XS4GCR/gammas/AAfragSecGammas.h"
 #include "XS4GCR/gammas/Kafexhiu2014.h"
@@ -119,6 +120,12 @@ std::shared_ptr<Fragmentation> XSECS::createFragmentation() {
     fragmentation = std::make_shared<Fluka4Dragon>();
   } else if (fragmentationModel == FragmentationModels::WEBBER1993) {
     fragmentation = std::make_shared<Webber1993>();
+  } else if (fragmentationModel == FragmentationModels::USINEGALPROP17OPT12) {
+    fragmentation = std::make_shared<UsineFragmentation>("data/usine-v3.5/sigProdGALPROP17_OPT12.dat");
+  } else if (fragmentationModel == FragmentationModels::USINEGALPROP17OPT22) {
+    fragmentation = std::make_shared<UsineFragmentation>("data/usine-v3.5/sigProdGALPROP17_OPT22.dat");
+  } else if (fragmentationModel == FragmentationModels::USINEWEBBER03COSTE12) {
+    fragmentation = std::make_shared<UsineFragmentation>("data/usine-v3.5/sigProdWebber03+Coste12.dat");
   } else {
     throw std::invalid_argument("Fragmentation model not found.");
   }
