@@ -1,43 +1,23 @@
 #include "XS4GCR/antiprotons/AAfragSecAp.h"
 
-#include <algorithm>
-#include <fstream>
-#include <iostream>
-#include <limits>
-#include <utility>
-
-#include "XS4GCR/core/cgs.h"
-#include "XS4GCR/core/utilities.h"
-
 namespace XS4GCR {
 
-AAfragSecAp::AAfragSecAp() {
-  auto particle = AAfrag101::ParticleTypes::PBAR;
-  m_tables = std::make_shared<AAfrag101::LookupTables>(particle);
-}
+AAfragSecAp::AAfragSecAp() { m_tables = std::make_shared<AAfrag202::LookupTables>(AAfrag202::Species::ANTIPROTON); }
 
 void AAfragSecAp::print() const {
-  LOGI << "using AAfrag(v101) antiproton model: ";
-  LOGI << "Kachelrieß et al., 2019, Computer Physics Communications, Volume 245, article id. 106846";
+  LOGI << "using AAfrag(v2.02) antiproton model: ";
+  LOGI << "Kachelrieß, Ostapchenko & Tjemsland, 2023, Computer Physics Communications, Volume 287, article id. 108698";
 }
 
 std::shared_ptr<SecondaryAntiprotons> AAfragSecAp::clone() { return std::make_shared<AAfragSecAp>(*this); }
 
-double AAfragSecAp::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double AAfragSecAp::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj,
+                                    const double& x) const {
+  if (x > 1.) return 0.;
   const double T_ap = x * T_proj;
-  double value = 0.;
-  if (projectile == H1 && target == TARGET::H) {
-    value = m_tables->get(AAfrag101::Channel::pp, T_proj, T_ap);
-  } else if (projectile == H1 && target == TARGET::He) {
-    value = m_tables->get(AAfrag101::Channel::pHe, T_proj, T_ap);
-  } else if (projectile == He4 && target == TARGET::H) {
-    value = m_tables->get(AAfrag101::Channel::Hep, T_proj, T_ap);
-  } else if (projectile == He4 && target == TARGET::He) {
-    value = m_tables->get(AAfrag101::Channel::HeHe, T_proj, T_ap);
-  } else {
-    throw std::runtime_error("channel not implemented in AAFRAG model");
-  }
-  return T_proj * value;
+  AAfrag202::Channel ch;
+  if (!AAfrag202::channelFor(projectile.getZ(), projectile.getA(), target == TARGET::He, ch)) return 0.;
+  return T_proj * m_tables->get(ch, T_proj, T_ap);
 }
 
 }  // namespace XS4GCR

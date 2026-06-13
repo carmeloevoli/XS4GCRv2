@@ -25,6 +25,7 @@
 #include "XS4GCR/leptons/HuangPohl2007.h"
 #include "XS4GCR/leptons/Kamae2006.h"
 #include "XS4GCR/leptons/Orusa2022.h"
+#include "XS4GCR/nuclei/AAfragSecNuclei.h"
 #include "XS4GCR/tertiary/AAfragTerProtons.h"
 
 namespace XS4GCR {
@@ -141,6 +142,18 @@ std::shared_ptr<TertiaryProtons> XSECS::createTertiaryProtons() {
   }
   tertiaryProtons->print();
   return tertiaryProtons->clone();
+}
+
+std::shared_ptr<SecondaryNuclei> XSECS::createSecondaryNuclei(NucleusSpecies species) {
+  switch (secondaryNucleiModel) {
+    case SecondaryNucleiModels::AAFRAG:
+      secondaryNuclei = std::make_shared<AAfragSecNuclei>(species);
+      break;
+    default:
+      throw std::invalid_argument("Secondary Nuclei model not found.");
+  }
+  secondaryNuclei->print();
+  return secondaryNuclei->clone();
 }
 
 std::shared_ptr<Fragmentation> XSECS::createFragmentation() {

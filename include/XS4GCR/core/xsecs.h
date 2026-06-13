@@ -9,6 +9,7 @@
 #include "XS4GCR/gammas/Pi0Gammas.h"
 #include "XS4GCR/inelastic/TotalInelastic.h"
 #include "XS4GCR/leptons/SecondaryLeptons.h"
+#include "XS4GCR/nuclei/SecondaryNuclei.h"
 #include "XS4GCR/tertiary/TertiaryProtons.h"
 
 namespace XS4GCR {
@@ -37,6 +38,8 @@ enum class Pi0GammaModels {
 
 enum class TertiaryProtonModels { AAFRAG };
 
+enum class SecondaryNucleiModels { AAFRAG };
+
 enum class TotalInelasticModels { TRIPATHI1999, CROSEC, LETAW1983, GLAUBER };
 
 enum class FragmentationModels {
@@ -57,6 +60,7 @@ class XSECS {
   std::shared_ptr<SecondaryLeptons> createSecondaryLeptons(PID lepton = positron);
   std::shared_ptr<Pi0Gammas> createPi0Gammas(NeutralParticleType type = NeutralParticleType::GAMMA);
   std::shared_ptr<TertiaryProtons> createTertiaryProtons();
+  std::shared_ptr<SecondaryNuclei> createSecondaryNuclei(NucleusSpecies species = NucleusSpecies::ANTIDEUTERON);
   std::shared_ptr<NucleiChart> createNucleiChart();
   std::shared_ptr<Fragmentation> createFragmentation();
 
@@ -65,6 +69,7 @@ class XSECS {
   inline void setSecondaryLeptons(SecondaryLeptonModels model) { secondaryLeptonModel = model; }
   inline void setPi0Gammas(Pi0GammaModels model) { pi0GammaModel = model; }
   inline void setTertiaryProtons(TertiaryProtonModels model) { tertiaryProtonModel = model; }
+  inline void setSecondaryNuclei(SecondaryNucleiModels model) { secondaryNucleiModel = model; }
   inline void setFragmentation(FragmentationModels model) { fragmentationModel = model; }
 
  private:
@@ -73,6 +78,7 @@ class XSECS {
   SecondaryLeptonModels secondaryLeptonModel = SecondaryLeptonModels::KAMAE2006;
   Pi0GammaModels pi0GammaModel = Pi0GammaModels::KAMAE2006;
   TertiaryProtonModels tertiaryProtonModel = TertiaryProtonModels::AAFRAG;
+  SecondaryNucleiModels secondaryNucleiModel = SecondaryNucleiModels::AAFRAG;
   FragmentationModels fragmentationModel = FragmentationModels::FLUKA4DRAGON;
 
   std::shared_ptr<TotalInelastic> totalInelastic;
@@ -80,6 +86,7 @@ class XSECS {
   std::shared_ptr<SecondaryAntiprotons> secondaryAntiprotons;
   std::shared_ptr<Pi0Gammas> pi0Gammas;
   std::shared_ptr<TertiaryProtons> tertiaryProtons;
+  std::shared_ptr<SecondaryNuclei> secondaryNuclei;
   std::shared_ptr<NucleiChart> nucleiChart;
   std::shared_ptr<Fragmentation> fragmentation;
 };

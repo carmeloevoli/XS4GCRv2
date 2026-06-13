@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "XS4GCR/antiprotons/SecondaryAntiprotons.h"
-#include "XS4GCR/shared/secAAfrag101.h"
+#include "XS4GCR/shared/secAAfrag202.h"
 
 namespace XS4GCR {
 
@@ -20,7 +20,7 @@ class AAfragSecAp : public SecondaryAntiprotons {
   double getDifferential(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const override;
 
  protected:
-  std::shared_ptr<AAfrag101::LookupTables> m_tables;
+  std::shared_ptr<AAfrag202::LookupTables> m_tables;
 };
 
 }  // namespace XS4GCR

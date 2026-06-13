@@ -18,7 +18,7 @@ set(git_revision_cpp "${CMAKE_CURRENT_BINARY_DIR}/core/git_revision.cpp")
 configure_file("src/core/git_revision.cpp.in" "${git_revision_cpp}" @ONLY)
 
 set(XS4GCR_SRCS
-    src/shared/secAAfrag101.cpp
+    src/shared/secAAfrag202.cpp
     src/shared/secKamae06.cpp
     src/antiprotons/SecondaryAntiprotons.cpp
     src/antiprotons/AAfragSecAp.cpp
@@ -42,6 +42,7 @@ set(XS4GCR_SRCS
     src/gammas/Kelner2006.cpp
     src/gammas/AAfragSecGammas.cpp
     src/tertiary/AAfragTerProtons.cpp
+    src/nuclei/AAfragSecNuclei.cpp
     src/fragmentations/Fluka4Dragon.cpp
     src/fragmentations/UsineFragmentation.cpp
     src/fragmentations/Webber1993.cpp
@@ -127,8 +128,8 @@ target_link_libraries(XS4GCR_LIB
 # add_executable(terProtons apps/terProtons.cpp)
 # target_link_libraries(terProtons PRIVATE XS4GCR_LIB)
 
-add_executable(lightXsecs apps/lightXsecs.cpp)
-target_link_libraries(lightXsecs PRIVATE XS4GCR_LIB)
+# add_executable(lightXsecs apps/lightXsecs.cpp)
+# target_link_libraries(lightXsecs PRIVATE XS4GCR_LIB)
 
 add_executable(cramsInelastic apps/cramsInelastic.cpp)
 target_link_libraries(cramsInelastic PRIVATE XS4GCR_LIB)
@@ -136,11 +137,12 @@ target_link_libraries(cramsInelastic PRIVATE XS4GCR_LIB)
 add_executable(cramsFragmentation apps/cramsFragmentation.cpp)
 target_link_libraries(cramsFragmentation PRIVATE XS4GCR_LIB)
 
+add_executable(hermesNeutrals apps/hermesNeutrals.cpp)
+target_link_libraries(hermesNeutrals PRIVATE XS4GCR_LIB)
+
 # add_executable(inelastic apps/inelastic.cpp)
 # target_link_libraries(inelastic PRIVATE XS4GCR_LIB)
 
-# add_executable(hermes apps/hermesTables.cpp)
-# target_link_libraries(hermes PRIVATE XS4GCR_LIB)
 
 # install rules
 install(TARGETS XS4GCR_LIB
