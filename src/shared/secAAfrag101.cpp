@@ -1,4 +1,4 @@
-#include "XS4GCR/models/secAAfrag101.h"
+#include "XS4GCR/shared/secAAfrag101.h"
 
 #include "XS4GCR/core/cgs.h"
 

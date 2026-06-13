@@ -5,7 +5,7 @@
 #include <vector>
 
 #include "XS4GCR/antiprotons/SecondaryAntiprotons.h"
-#include "XS4GCR/models/secAAfrag101.h"
+#include "XS4GCR/shared/secAAfrag101.h"
 
 namespace XS4GCR {
 

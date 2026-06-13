@@ -18,13 +18,8 @@ set(git_revision_cpp "${CMAKE_CURRENT_BINARY_DIR}/core/git_revision.cpp")
 configure_file("src/core/git_revision.cpp.in" "${git_revision_cpp}" @ONLY)
 
 set(XS4GCR_SRCS
-    src/models/apDiMauro14.cpp
-    src/models/apDuperray03.cpp
-    src/models/apTanNg83.cpp
-    src/models/gammaKelner06.cpp
-    src/models/inTripathi99.cpp
-    src/models/secAAfrag101.cpp
-    src/models/secKamae06.cpp
+    src/shared/secAAfrag101.cpp
+    src/shared/secKamae06.cpp
     src/antiprotons/SecondaryAntiprotons.cpp
     src/antiprotons/AAfragSecAp.cpp
     src/antiprotons/DiMauro2014.cpp

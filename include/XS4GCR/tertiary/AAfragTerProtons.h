@@ -1,7 +1,7 @@
 #ifndef INCLUDE_XS4GCR_TERTIARY_AAFRAG_H
 #define INCLUDE_XS4GCR_TERTIARY_AAFRAG_H
 
-#include "XS4GCR/models/secAAfrag101.h"
+#include "XS4GCR/shared/secAAfrag101.h"
 #include "XS4GCR/tertiary/TertiaryProtons.h"
 
 namespace XS4GCR {

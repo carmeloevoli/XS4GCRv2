@@ -2,7 +2,7 @@
 #define INCLUDE_XS4GCR_LEPTONS_AAFRAG_H
 
 #include "XS4GCR/leptons/SecondaryLeptons.h"
-#include "XS4GCR/models/secAAfrag101.h"
+#include "XS4GCR/shared/secAAfrag101.h"
 
 namespace XS4GCR {
 

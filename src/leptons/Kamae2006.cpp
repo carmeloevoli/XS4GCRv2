@@ -1,7 +1,7 @@
 #include "XS4GCR/leptons/Kamae2006.h"
 
 #include "XS4GCR/core/cgs.h"
-#include "XS4GCR/models/secKamae06.h"
+#include "XS4GCR/shared/secKamae06.h"
 
 namespace XS4GCR {
 

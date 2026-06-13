@@ -1,4 +1,4 @@
-#include "XS4GCR/models/secKamae06.h"
+#include "XS4GCR/shared/secKamae06.h"
 
 #include <algorithm>
 #include <stdexcept>
