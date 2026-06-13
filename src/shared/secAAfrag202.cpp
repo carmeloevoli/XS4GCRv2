@@ -52,7 +52,7 @@ SpeciesInfo speciesInfo(Species s) {
     case Species::NEUTRON:      return {"nan", {0}};
     case Species::ANTINEUTRON:  return {"nan", {1}};
     case Species::ANTIDEUTERON: return {"ad", {0}};
-    case Species::ANTIHELION:   return {"ah", {0}};
+    case Species::ANTIHELIUM:   return {"ah", {0}};
   }
   throw std::runtime_error("AAfrag202: unknown species");
 }

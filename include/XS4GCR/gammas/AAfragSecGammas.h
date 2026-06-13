@@ -1,28 +1,6 @@
 #ifndef INCLUDE_XS4GCR_GAMMAS_AAFRAG_H
 #define INCLUDE_XS4GCR_GAMMAS_AAFRAG_H
 
-#include <memory>
-#include <vector>
-
-#include "XS4GCR/gammas/Pi0Gammas.h"
-#include "XS4GCR/shared/secAAfrag202.h"
-
-namespace XS4GCR {
-
-class AAfragSecGammas : public Pi0Gammas {
- public:
-  AAfragSecGammas(NeutralParticleType type);
-
-  void print() const override;
-
-  std::shared_ptr<Pi0Gammas> clone() override;
-
-  double getDifferential(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const override;
-
- protected:
-  std::shared_ptr<AAfrag202::LookupTables> m_tables;
-};
-
-}  // namespace XS4GCR
+#include "XS4GCR/neutrals/AAfragSecNeutrals.h"
 
 #endif  // INCLUDE_XS4GCR_GAMMAS_AAFRAG_H

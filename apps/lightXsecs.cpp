@@ -113,13 +113,13 @@ void print_primary_energy(std::shared_ptr<T> xs, std::string filename) {
 
 auto neutralParticleType = NeutralParticleType::GAMMA;
 
-void print_gamma_xsecs(Pi0GammaModels model, std::string filename) {
+void print_neutral_xsecs(SecondaryNeutralModels model, std::string filename) {
   XSECS xsecs;
-  xsecs.setPi0Gammas(model);
-  auto xs_ph = xsecs.createPi0Gammas(neutralParticleType);
-  print_secondary_xsecs<Pi0Gammas>(xs_ph, make_filename(filename, "xsecs"));
-  print_secondary_source<Pi0Gammas>(xs_ph, make_filename(filename, "source"));
-  //  print_primary_energy<Pi0Gammas>(xs_ph, make_filename(filename, "primary"));
+  xsecs.setSecondaryNeutrals(model);
+  auto xs_ph = xsecs.createSecondaryNeutrals(neutralParticleType);
+  print_secondary_xsecs<SecondaryNeutrals>(xs_ph, make_filename(filename, "xsecs"));
+  print_secondary_source<SecondaryNeutrals>(xs_ph, make_filename(filename, "source"));
+  //  print_primary_energy<SecondaryNeutrals>(xs_ph, make_filename(filename, "primary"));
 }
 
 void print_ap_xsecs(SecondaryAntiprotonModels model, std::string filename) {
@@ -138,12 +138,12 @@ void print_pos_xsecs(SecondaryLeptonModels model, std::string filename) {
   print_secondary_source<SecondaryLeptons>(xs_pos, make_filename(filename, "source"));
 }
 
-void print_terp_xsecs(TertiaryProtonModels model, std::string filename) {
+void print_proton_nucleus_xsecs(SecondaryNucleiModels model, std::string filename) {
   XSECS xsecs;
-  xsecs.setTertiaryProtons(model);
-  auto xs_pter = xsecs.createTertiaryProtons();
-  print_secondary_xsecs<TertiaryProtons>(xs_pter, make_filename(filename, "xsecs"));
-  print_secondary_source<TertiaryProtons>(xs_pter, make_filename(filename, "source"));
+  xsecs.setSecondaryNuclei(model);
+  auto xs_pter = xsecs.createSecondaryNuclei(NucleusSpecies::PROTON);
+  print_secondary_xsecs<SecondaryNuclei>(xs_pter, make_filename(filename, "xsecs"));
+  print_secondary_source<SecondaryNuclei>(xs_pter, make_filename(filename, "source"));
 }
 
 int main() {
@@ -151,18 +151,18 @@ int main() {
     LOG::startup_information();
     {
       neutralParticleType = NeutralParticleType::GAMMA;
-      print_gamma_xsecs(Pi0GammaModels::KAMAE2006, "Kamae2006_gammas");
-      print_gamma_xsecs(Pi0GammaModels::KELNER2006, "Kelner2006_gammas");
-      print_gamma_xsecs(Pi0GammaModels::KAFEXHIU2014GEANT4, "Kafexhiu2014G4_gammas");
-      print_gamma_xsecs(Pi0GammaModels::KAFEXHIU2014PYTHIA8, "Kafexhiu2014P8_gammas");
-      print_gamma_xsecs(Pi0GammaModels::KAFEXHIU2014SIBYLL, "Kafexhiu2014Sibyll_gammas");
-      print_gamma_xsecs(Pi0GammaModels::AAFRAG, "AAFRAG_gammas");
+      print_neutral_xsecs(SecondaryNeutralModels::KAMAE2006, "Kamae2006_gammas");
+      print_neutral_xsecs(SecondaryNeutralModels::KELNER2006, "Kelner2006_gammas");
+      print_neutral_xsecs(SecondaryNeutralModels::KAFEXHIU2014GEANT4, "Kafexhiu2014G4_gammas");
+      print_neutral_xsecs(SecondaryNeutralModels::KAFEXHIU2014PYTHIA8, "Kafexhiu2014P8_gammas");
+      print_neutral_xsecs(SecondaryNeutralModels::KAFEXHIU2014SIBYLL, "Kafexhiu2014Sibyll_gammas");
+      print_neutral_xsecs(SecondaryNeutralModels::AAFRAG, "AAFRAG_gammas");
     }
     {
       neutralParticleType = NeutralParticleType::ALLNUS;
-      print_gamma_xsecs(Pi0GammaModels::KAMAE2006, "Kamae2006_nus");
-      print_gamma_xsecs(Pi0GammaModels::KELNER2006, "Kelner2006_nus");
-      print_gamma_xsecs(Pi0GammaModels::AAFRAG, "AAFRAG_nus");
+      print_neutral_xsecs(SecondaryNeutralModels::KAMAE2006, "Kamae2006_nus");
+      print_neutral_xsecs(SecondaryNeutralModels::KELNER2006, "Kelner2006_nus");
+      print_neutral_xsecs(SecondaryNeutralModels::AAFRAG, "AAFRAG_nus");
     }
     {
       print_ap_xsecs(SecondaryAntiprotonModels::AAFRAG, "AAFRAG_pbar");
@@ -180,7 +180,7 @@ int main() {
       // print_pos_xsecs(SecondaryLeptonModels::HUANGPOHL2007, "HuangPohl2007_pos");
       print_pos_xsecs(SecondaryLeptonModels::ORUSA2022, "Orusa2022_pos");
     }
-    { print_terp_xsecs(TertiaryProtonModels::AAFRAG, "AAFRAG_terp"); }
+    { print_proton_nucleus_xsecs(SecondaryNucleiModels::AAFRAG, "AAFRAG_terp"); }
   } catch (const std::exception& e) {
     LOGF << "exception caught with message: " << e.what();
   }

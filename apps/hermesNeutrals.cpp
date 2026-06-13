@@ -1,4 +1,5 @@
 #include <fstream>
+#include <functional>
 #include <iomanip>
 #include <memory>
 #include <stdexcept>
@@ -16,43 +17,77 @@ using crams::code_version;
 using crams::current_date;
 using crams::ensure_output_dir;
 
-// Neutral secondary species this tool tabulates for HERMES.
-enum class Secondary { GAMMA, NEUTRINO };
+// Secondary species this tool tabulates for HERMES.
+enum class Secondary { GAMMA, NEUTRINO, NEUTRON };
 
-std::string secondary_label(Secondary s) { return (s == Secondary::GAMMA) ? "gamma" : "neutrino"; }
+std::string secondary_label(Secondary s) {
+  switch (s) {
+    case Secondary::GAMMA:    return "gamma";
+    case Secondary::NEUTRINO: return "neutrino";
+    case Secondary::NEUTRON:  return "neutron";
+  }
+  throw std::invalid_argument("unknown secondary");
+}
 
 NeutralParticleType neutral_type(Secondary s) {
-  return (s == Secondary::GAMMA) ? NeutralParticleType::GAMMA : NeutralParticleType::ALLNUS;
+  switch (s) {
+    case Secondary::GAMMA:    return NeutralParticleType::GAMMA;
+    case Secondary::NEUTRINO: return NeutralParticleType::ALLNUS;
+    case Secondary::NEUTRON:  break;
+  }
+  throw std::invalid_argument("neutrons are secondary nuclei, not neutral particles");
 }
 
 // Single source of truth per model: enum, display name, file stem, and which secondaries
 // it can produce. Adding a model is one row here. (Kafexhiu2014 is gamma-only.)
 struct ModelInfo {
-  Pi0GammaModels model;
+  SecondaryNeutralModels model;
   std::string name;
   std::string stem;
-  bool gammas;
+  bool gamma;
   bool neutrinos;
+  bool neutrons;
 };
 
 const std::vector<ModelInfo>& model_catalog() {
   static const std::vector<ModelInfo> catalog = {
-      {Pi0GammaModels::KAMAE2006, "Kamae2006", "kamae2006", true, true},
-      {Pi0GammaModels::KELNER2006, "Kelner2006", "kelner2006", true, true},
-      {Pi0GammaModels::KAFEXHIU2014GEANT4, "Kafexhiu2014_Geant4", "kafexhiu2014_geant4", true, false},
-      {Pi0GammaModels::KAFEXHIU2014PYTHIA8, "Kafexhiu2014_Pythia8", "kafexhiu2014_pythia8", true, false},
-      {Pi0GammaModels::KAFEXHIU2014SIBYLL, "Kafexhiu2014_Sibyll", "kafexhiu2014_sibyll", true, false},
-      {Pi0GammaModels::AAFRAG, "AAfrag2021", "aafrag2021", true, true},
+      {SecondaryNeutralModels::KAMAE2006, "Kamae2006", "kamae2006", true, true, false},
+      {SecondaryNeutralModels::KELNER2006, "Kelner2006", "kelner2006", true, true, false},
+      {SecondaryNeutralModels::KAFEXHIU2014GEANT4, "Kafexhiu2014_Geant4", "kafexhiu2014_geant4", true, false, false},
+      {SecondaryNeutralModels::KAFEXHIU2014PYTHIA8, "Kafexhiu2014_Pythia8", "kafexhiu2014_pythia8", true, false, false},
+      {SecondaryNeutralModels::KAFEXHIU2014SIBYLL, "Kafexhiu2014_Sibyll", "kafexhiu2014_sibyll", true, false, false},
+      {SecondaryNeutralModels::AAFRAG, "AAfrag2021", "aafrag2021", true, true, true},
   };
   return catalog;
 }
 
-bool supports(const ModelInfo& info, Secondary s) { return (s == Secondary::GAMMA) ? info.gammas : info.neutrinos; }
+bool supports(const ModelInfo& info, Secondary s) {
+  switch (s) {
+    case Secondary::GAMMA:    return info.gamma;
+    case Secondary::NEUTRINO: return info.neutrinos;
+    case Secondary::NEUTRON:  return info.neutrons;
+  }
+  throw std::invalid_argument("unknown secondary");
+}
 
-std::shared_ptr<Pi0Gammas> make_model(Pi0GammaModels model, Secondary s) {
+using DifferentialXsec = std::function<double(const PID&, const TARGET&, const double&, const double&)>;
+
+DifferentialXsec make_model(const ModelInfo& info, Secondary s) {
   XSECS xsecs;
-  xsecs.setPi0Gammas(model);
-  return xsecs.createPi0Gammas(neutral_type(s));
+  if (s == Secondary::NEUTRON) {
+    if (!info.neutrons) throw std::invalid_argument("neutron production is only available for the AAfrag model");
+    xsecs.setSecondaryNuclei(SecondaryNucleiModels::AAFRAG);
+    const auto model = xsecs.createSecondaryNuclei(NucleusSpecies::NEUTRON);
+    return [model](const PID& projectile, const TARGET& target, const double& T_proj, const double& x) {
+      return model->getDifferential(projectile, target, T_proj, x);
+    };
+  }
+
+  xsecs.setSecondaryNeutrals(info.model);
+  const auto model = xsecs.createSecondaryNeutrals(neutral_type(s));
+  return [model](const PID& projectile, const TARGET& target, const double& T_proj, const double& x) {
+    return model->getDifferential(projectile, target, T_proj, x);
+  };
 }
 
 void write_common_header(std::ofstream& output, const std::string& modelName, Secondary s, double TpMinGeV,
@@ -78,7 +113,7 @@ void write_table(const ModelInfo& info, Secondary s, double TpMinGeV, double TpM
   std::ofstream output(outputFile.c_str());
   if (!output) throw std::runtime_error("Cannot write table: " + outputFile);
 
-  const auto xsec = make_model(info.model, s);
+  const auto xsec = make_model(info, s);
   const auto Tprimary = UTILS::LogAxis(TpMinGeV * cgs::GeV, TpMaxGeV * cgs::GeV, nT);
   const auto xGrid = UTILS::LogAxis(xMin, xMax, nX);
 
@@ -87,10 +122,10 @@ void write_table(const ModelInfo& info, Secondary s, double TpMinGeV, double TpM
 
   for (const auto& Tp : Tprimary) {
     for (const auto& x : xGrid) {
-      output << Tp / cgs::GeV << "\t" << x << "\t" << xsec->getDifferential(H1, TARGET::H, Tp, x) / cgs::mbarn << "\t"
-             << xsec->getDifferential(H1, TARGET::He, Tp, x) / cgs::mbarn << "\t"
-             << xsec->getDifferential(He4, TARGET::H, Tp, x) / cgs::mbarn << "\t"
-             << xsec->getDifferential(He4, TARGET::He, Tp, x) / cgs::mbarn << "\n";
+      output << Tp / cgs::GeV << "\t" << x << "\t" << xsec(H1, TARGET::H, Tp, x) / cgs::mbarn << "\t"
+             << xsec(H1, TARGET::He, Tp, x) / cgs::mbarn << "\t"
+             << xsec(He4, TARGET::H, Tp, x) / cgs::mbarn << "\t"
+             << xsec(He4, TARGET::He, Tp, x) / cgs::mbarn << "\n";
     }
   }
 
@@ -116,7 +151,7 @@ int main() {
 
     LOG::startup_information();
 
-    for (Secondary s : {Secondary::GAMMA, Secondary::NEUTRINO}) {
+    for (Secondary s : {Secondary::GAMMA, Secondary::NEUTRINO, Secondary::NEUTRON}) {
       for (const auto& info : model_catalog()) {
         if (!supports(info, s)) continue;
         write_table(info, s, TpMinGeV, TpMaxGeV, nT, xMin, xMax, nX);

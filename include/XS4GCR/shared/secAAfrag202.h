@@ -58,7 +58,7 @@ enum class Species {
   NEUTRON,
   ANTINEUTRON,
   ANTIDEUTERON,
-  ANTIHELION
+  ANTIHELIUM
 };
 
 // Reaction channels (projectile on target). C/Al/Fe are heavier projectiles on H; apP/apHe

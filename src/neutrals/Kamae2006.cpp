@@ -1,18 +1,19 @@
-#include "XS4GCR/gammas/Kamae2006.h"
+#include "XS4GCR/neutrals/Kamae2006.h"
 
 #include "XS4GCR/core/cgs.h"
 #include "XS4GCR/shared/secKamae06.h"
 
 namespace XS4GCR {
 
-void Kamae2006Gammas::print() const {
-  LOGI << "using KAMAE2006 gamma production model: ";
+void Kamae2006Neutrals::print() const {
+  LOGI << "using KAMAE2006 neutral production model: ";
   LOGI << "Kamae et al., 2006, The Astrophysical Journal, Volume 647, Issue 1, pp. 692-708";
 }
 
-std::shared_ptr<Pi0Gammas> Kamae2006Gammas::clone() { return std::make_shared<Kamae2006Gammas>(*this); }
+std::shared_ptr<SecondaryNeutrals> Kamae2006Neutrals::clone() { return std::make_shared<Kamae2006Neutrals>(*this); }
 
-double Kamae2006Gammas::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double Kamae2006Neutrals::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj,
+                                          const double& x) const {
   if (x > 1.) return 0.;
   const double T_ph = x * T_proj;
   double value = 0;

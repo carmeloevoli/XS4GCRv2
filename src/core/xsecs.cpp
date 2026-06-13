@@ -13,10 +13,6 @@
 #include "XS4GCR/fragmentations/Fluka4Dragon.h"
 #include "XS4GCR/fragmentations/UsineFragmentation.h"
 #include "XS4GCR/fragmentations/Webber1993.h"
-#include "XS4GCR/gammas/AAfragSecGammas.h"
-#include "XS4GCR/gammas/Kafexhiu2014.h"
-#include "XS4GCR/gammas/Kamae2006.h"
-#include "XS4GCR/gammas/Kelner2006.h"
 #include "XS4GCR/inelastic/CROSEC.h"
 #include "XS4GCR/inelastic/Glauber.h"
 #include "XS4GCR/inelastic/Letaw1983.h"
@@ -25,8 +21,11 @@
 #include "XS4GCR/leptons/HuangPohl2007.h"
 #include "XS4GCR/leptons/Kamae2006.h"
 #include "XS4GCR/leptons/Orusa2022.h"
+#include "XS4GCR/neutrals/AAfragSecNeutrals.h"
+#include "XS4GCR/neutrals/Kafexhiu2014.h"
+#include "XS4GCR/neutrals/Kamae2006.h"
+#include "XS4GCR/neutrals/Kelner2006.h"
 #include "XS4GCR/nuclei/AAfragSecNuclei.h"
-#include "XS4GCR/tertiary/AAfragTerProtons.h"
 
 namespace XS4GCR {
 
@@ -72,31 +71,35 @@ std::shared_ptr<SecondaryLeptons> XSECS::createSecondaryLeptons(PID lepton) {
   return secondaryLeptons->clone();
 }
 
-std::shared_ptr<Pi0Gammas> XSECS::createPi0Gammas(NeutralParticleType type) {
-  switch (pi0GammaModel) {
-    case Pi0GammaModels::KAMAE2006:
-      pi0Gammas = std::make_shared<Kamae2006Gammas>(type);
+std::shared_ptr<SecondaryNeutrals> XSECS::createSecondaryNeutrals(NeutralParticleType type) {
+  switch (secondaryNeutralModel) {
+    case SecondaryNeutralModels::KAMAE2006:
+      secondaryNeutrals = std::make_shared<Kamae2006Neutrals>(type);
       break;
-    case Pi0GammaModels::KELNER2006:
-      pi0Gammas = std::make_shared<Kelner2006Gammas>(type);
+    case SecondaryNeutralModels::KELNER2006:
+      secondaryNeutrals = std::make_shared<Kelner2006Neutrals>(type);
       break;
-    case Pi0GammaModels::KAFEXHIU2014GEANT4:
-      pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::GEANT4);
+    case SecondaryNeutralModels::KAFEXHIU2014GEANT4:
+      secondaryNeutrals = std::make_shared<Kafexhiu2014Neutrals>(type, InteractionModel::GEANT4);
       break;
-    case Pi0GammaModels::KAFEXHIU2014PYTHIA8:
-      pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::PYTHIA8);
+    case SecondaryNeutralModels::KAFEXHIU2014PYTHIA8:
+      secondaryNeutrals = std::make_shared<Kafexhiu2014Neutrals>(type, InteractionModel::PYTHIA8);
       break;
-    case Pi0GammaModels::KAFEXHIU2014SIBYLL:
-      pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::SIBYLL);
+    case SecondaryNeutralModels::KAFEXHIU2014SIBYLL:
+      secondaryNeutrals = std::make_shared<Kafexhiu2014Neutrals>(type, InteractionModel::SIBYLL);
       break;
-    case Pi0GammaModels::AAFRAG:
-      pi0Gammas = std::make_shared<AAfragSecGammas>(type);
+    case SecondaryNeutralModels::AAFRAG:
+      secondaryNeutrals = std::make_shared<AAfragSecNeutrals>(type);
       break;
     default:
-      throw std::invalid_argument("Secondary Gamma model not found.");
+      throw std::invalid_argument("Secondary neutral model not found.");
   }
-  pi0Gammas->print();
-  return pi0Gammas->clone();
+  secondaryNeutrals->print();
+  return secondaryNeutrals->clone();
+}
+
+std::shared_ptr<Pi0Gammas> XSECS::createPi0Gammas(NeutralParticleType type) {
+  return createSecondaryNeutrals(type);
 }
 
 std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
@@ -133,15 +136,7 @@ std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
 }
 
 std::shared_ptr<TertiaryProtons> XSECS::createTertiaryProtons() {
-  switch (tertiaryProtonModel) {
-    case TertiaryProtonModels::AAFRAG:
-      tertiaryProtons = std::make_shared<AAfragTerProtons>();
-      break;
-    default:
-      throw std::invalid_argument("Tertiary Protons model not found.");
-  }
-  tertiaryProtons->print();
-  return tertiaryProtons->clone();
+  return createSecondaryNuclei(NucleusSpecies::PROTON);
 }
 
 std::shared_ptr<SecondaryNuclei> XSECS::createSecondaryNuclei(NucleusSpecies species) {

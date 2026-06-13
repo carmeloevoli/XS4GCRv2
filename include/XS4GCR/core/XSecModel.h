@@ -6,7 +6,7 @@
 namespace XS4GCR {
 
 // Interface shared by every cross-section model family (inelastic, fragmentation,
-// secondary antiprotons/leptons/gammas, tertiary protons). It captures the two
+// secondary antiprotons/leptons/neutrals/nuclei). It captures the two
 // operations every family needs identically; the cross-section accessor get(...)
 // stays on each family base because its signature differs (total vs. differential).
 //

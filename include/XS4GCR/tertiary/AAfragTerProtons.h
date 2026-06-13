@@ -1,24 +1,19 @@
 #ifndef INCLUDE_XS4GCR_TERTIARY_AAFRAG_H
 #define INCLUDE_XS4GCR_TERTIARY_AAFRAG_H
 
-#include "XS4GCR/shared/secAAfrag202.h"
+#include "XS4GCR/nuclei/AAfragSecNuclei.h"
 #include "XS4GCR/tertiary/TertiaryProtons.h"
 
 namespace XS4GCR {
 
-class AAfragTerProtons : public TertiaryProtons {
+class AAfragTerProtons : public AAfragSecNuclei {
  public:
-  AAfragTerProtons();
-
-  void print() const override;
+  AAfragTerProtons() : AAfragSecNuclei(NucleusSpecies::PROTON) {}
 
   std::shared_ptr<TertiaryProtons> clone() override;
-
-  double getDifferential(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const override;
-
- protected:
-  std::shared_ptr<AAfrag202::LookupTables> m_tables;
 };
+
+inline std::shared_ptr<TertiaryProtons> AAfragTerProtons::clone() { return std::make_shared<AAfragTerProtons>(*this); }
 
 }  // namespace XS4GCR
 
