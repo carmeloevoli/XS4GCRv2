@@ -33,6 +33,8 @@ struct ModelInfo {
 
 ModelInfo model_info(FragmentationModels model) {
   switch (model) {
+    case FragmentationModels::EVOLI2026:
+      return {"Evoli2026", "output/crams_fragmentation_evoli2026.csv", true};
     case FragmentationModels::FLUKA4DRAGON:
       return {"Fluka4Dragon", "output/crams_fragmentation_fluka4dragon.csv", true};
     case FragmentationModels::WEBBER1993:
@@ -144,6 +146,7 @@ int main() {
     const size_t pointsPerDecade = 16;
     const size_t nEnergy = 7 * pointsPerDecade;  // 7 decades from TminGeV to TmaxGeV
     const std::vector<FragmentationModels> models = {
+        FragmentationModels::EVOLI2026,
         FragmentationModels::FLUKA4DRAGON,
         FragmentationModels::USINEGALPROP17OPT12,
         FragmentationModels::USINEGALPROP17OPT22,

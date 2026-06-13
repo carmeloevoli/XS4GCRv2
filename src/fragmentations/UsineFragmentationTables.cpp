@@ -1,4 +1,4 @@
-#include "XS4GCR/fragmentations/UsineFragmentation.h"
+#include "XS4GCR/fragmentations/UsineFragmentationTables.h"
 
 #include <plog/Log.h>
 

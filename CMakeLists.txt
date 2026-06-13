@@ -89,8 +89,11 @@ set(XS4GCR_SRCS
     src/neutrals/Kelner2006.cpp
     src/neutrals/AAfragSecNeutrals.cpp
     src/nuclei/AAfragSecNuclei.cpp
+    src/fragmentations/Evoli2026.cpp
+    src/core/fitting_functions.cpp
+    src/core/ghost_tree.cpp
     src/fragmentations/Fluka4Dragon.cpp
-    src/fragmentations/UsineFragmentation.cpp
+    src/fragmentations/UsineFragmentationTables.cpp
     src/fragmentations/Webber1993.cpp
     src/core/common.cpp
     src/core/lis.cpp
@@ -187,6 +190,7 @@ target_link_libraries(XS4GCR_LIB
 set(XS4GCR_APPS
     cramsInelastic
     cramsFragmentation
+    frag_table
     hermesNeutrals
 )
 

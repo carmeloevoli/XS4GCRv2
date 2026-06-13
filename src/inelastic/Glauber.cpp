@@ -40,7 +40,7 @@ inline double sigmappTot(double T) {
 double GlauberTotalInel::getTotal(const PID& projectile, const TARGET& target, const double& T_n) const {
   assert(projectile != PID(1, 1));
   auto A = projectile.getA();
-  auto Z = projectile.getZ();
+  // auto Z = projectile.getZ();
   auto piR2 = M_PI * pow2(wilsonRmsRadius(A));
   auto AsigmaTot = (double)A * sigmappTot(T_n);
   return piR2 * std::log(1. + AsigmaTot / piR2);
