@@ -15,7 +15,7 @@ class TanNg1983SecAp : public SecondaryAntiprotons {
 
   std::shared_ptr<SecondaryAntiprotons> clone() override;
 
-  double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const override;
+  double getDifferential(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const override;
 };
 
 }  // namespace XS4GCR

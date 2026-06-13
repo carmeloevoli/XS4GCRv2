@@ -14,7 +14,7 @@ void AAfragSecLeptons::print() const {
 
 std::shared_ptr<SecondaryLeptons> AAfragSecLeptons::clone() { return std::make_shared<AAfragSecLeptons>(*this); }
 
-double AAfragSecLeptons::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double AAfragSecLeptons::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   const double T_lepton = x * T_proj;
   double value = 0.;
   if (projectile == H1 && target == TARGET::H) {

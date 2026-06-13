@@ -57,7 +57,7 @@ void Winkler2017SecAp::print() const {
 
 std::shared_ptr<SecondaryAntiprotons> Winkler2017SecAp::clone() { return std::make_shared<Winkler2017SecAp>(*this); }
 
-double Winkler2017SecAp::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double Winkler2017SecAp::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   using std::log;
 
   const auto T_ap = x * T_proj;

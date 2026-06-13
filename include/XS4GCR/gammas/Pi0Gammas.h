@@ -3,21 +3,18 @@
 
 #include <memory>
 
+#include "XS4GCR/core/XSecModel.h"
 #include "XS4GCR/core/pid.h"
 
 namespace XS4GCR {
 
 enum class NeutralParticleType { GAMMA, ALLNUS };
 
-class Pi0Gammas {
+class Pi0Gammas : public XSecModel<Pi0Gammas> {
  public:
-  virtual ~Pi0Gammas() {}
-
-  virtual void print() const = 0;
-
-  virtual std::shared_ptr<Pi0Gammas> clone() = 0;
-
-  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
+  // Differential cross-section for a neutral secondary (gamma or neutrino) carrying
+  // fraction x = T_sec/T_proj of a projectile of kinetic energy per nucleon T_proj.
+  virtual double getDifferential(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
 };
 
 }  // namespace XS4GCR

@@ -17,7 +17,7 @@ class Letaw1983TotalInel : public TotalInelastic {
 
   std::shared_ptr<TotalInelastic> clone() override;
 
-  double get(const PID &projectile, const TARGET &target, const double &T_n) const override;
+  double getTotal(const PID &projectile, const TARGET &target, const double &T_n) const override;
 };
 
 }  // namespace XS4GCR

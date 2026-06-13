@@ -3,19 +3,16 @@
 
 #include <memory>
 
+#include "XS4GCR/core/XSecModel.h"
 #include "XS4GCR/core/pid.h"
 
 namespace XS4GCR {
 
-class TotalInelastic {
+class TotalInelastic : public XSecModel<TotalInelastic> {
  public:
-  virtual ~TotalInelastic() = default;
-
-  virtual void print() const = 0;
-
-  virtual std::shared_ptr<TotalInelastic> clone() = 0;
-
-  virtual double get(const PID &projectile, const TARGET &target, const double &T_n) const = 0;
+  // Total inelastic cross-section for a projectile on a target at kinetic energy
+  // per nucleon T_n.
+  virtual double getTotal(const PID &projectile, const TARGET &target, const double &T_n) const = 0;
 };
 
 }  // namespace XS4GCR

@@ -18,13 +18,13 @@ Fluka4Dragon::Fluka4Dragon(const std::string& dataFilename) : dataFilename(dataF
   readDataFile();
 }
 
-void Fluka4Dragon::print() { LOGI << "using Fluka4Dragon fragmentation model: FLUKA 2021 tables for DRAGON2"; }
+void Fluka4Dragon::print() const { LOGI << "using Fluka4Dragon fragmentation model: FLUKA 2021 tables for DRAGON2"; }
 
 std::shared_ptr<Fragmentation> Fluka4Dragon::clone() { return std::make_shared<Fluka4Dragon>(*this); }
 
 bool Fluka4Dragon::hasChannel(const FragmentationChannel& ch) const { return tables.find(ch) != tables.end(); }
 
-double Fluka4Dragon::get(const FragmentationChannel& ch, const TARGET& target, const double& T_n, bool do_ghosts) {
+double Fluka4Dragon::getTotal(const FragmentationChannel& ch, const TARGET& target, const double& T_n, bool do_ghosts) {
   if (!do_ghosts) {
     throw std::runtime_error("Fluka4Dragon tables contain only cumulative cross-sections");
   }

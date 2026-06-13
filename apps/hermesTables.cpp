@@ -24,10 +24,10 @@ int main() {
       counter++;
       for (auto& x : xAxis) {
         outfile << Tproj / cgs::GeV << "\t" << x << "\t";
-        outfile << xs->get(H1, TARGET::H, Tproj, x * Tproj) / units << "\t";
-        outfile << xs->get(H1, TARGET::He, Tproj, x * Tproj) / units << "\t";
-        outfile << xs->get(He4, TARGET::H, Tproj, x * Tproj) / units << "\t";
-        outfile << xs->get(He4, TARGET::He, Tproj, x * Tproj) / units << "\t";
+        outfile << xs->getDifferential(H1, TARGET::H, Tproj, x * Tproj) / units << "\t";
+        outfile << xs->getDifferential(H1, TARGET::He, Tproj, x * Tproj) / units << "\t";
+        outfile << xs->getDifferential(He4, TARGET::H, Tproj, x * Tproj) / units << "\t";
+        outfile << xs->getDifferential(He4, TARGET::He, Tproj, x * Tproj) / units << "\t";
         outfile << "\n";
       }
     }

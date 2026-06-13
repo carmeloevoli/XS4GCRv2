@@ -73,7 +73,7 @@ void Orusa2022SecLep::readDataFiles() {
   }
 }
 
-double Orusa2022SecLep::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double Orusa2022SecLep::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   using std::log;
   double value = 0;
 

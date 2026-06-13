@@ -30,120 +30,142 @@
 namespace XS4GCR {
 
 std::shared_ptr<TotalInelastic> XSECS::createTotalInelastic() {
-  if (totalInelasticModel == TotalInelasticModels::LETAW1983) {
-    totalInelastic = std::make_shared<Letaw1983TotalInel>();
-  } else if (totalInelasticModel == TotalInelasticModels::TRIPATHI1999) {
-    totalInelastic = std::make_shared<Tripathi1999TotalInel>();
-  } else if (totalInelasticModel == TotalInelasticModels::CROSEC) {
-    totalInelastic = std::make_shared<CrosecTotalInel>();
-  } else if (totalInelasticModel == TotalInelasticModels::GLAUBER) {
-    totalInelastic = std::make_shared<GlauberTotalInel>();
-  } else {
-    throw std::invalid_argument("Total inelastic model not found.");
+  switch (totalInelasticModel) {
+    case TotalInelasticModels::LETAW1983:
+      totalInelastic = std::make_shared<Letaw1983TotalInel>();
+      break;
+    case TotalInelasticModels::TRIPATHI1999:
+      totalInelastic = std::make_shared<Tripathi1999TotalInel>();
+      break;
+    case TotalInelasticModels::CROSEC:
+      totalInelastic = std::make_shared<CrosecTotalInel>();
+      break;
+    case TotalInelasticModels::GLAUBER:
+      totalInelastic = std::make_shared<GlauberTotalInel>();
+      break;
+    default:
+      throw std::invalid_argument("Total inelastic model not found.");
   }
   totalInelastic->print();
   return totalInelastic->clone();
 }
 
 std::shared_ptr<SecondaryLeptons> XSECS::createSecondaryLeptons(PID lepton) {
-  if (secondaryLeptonModel == SecondaryLeptonModels::KAMAE2006) {
-    secondaryLeptons = std::make_shared<Kamae2006SecLep>(lepton);
-  } else if (secondaryLeptonModel == SecondaryLeptonModels::HUANGPOHL2007) {
-    secondaryLeptons = std::make_shared<HuangPohl2007SecLep>(lepton);
-  } else if (secondaryLeptonModel == SecondaryLeptonModels::AAFRAG) {
-    secondaryLeptons = std::make_shared<AAfragSecLeptons>(lepton);
-  } else if (secondaryLeptonModel == SecondaryLeptonModels::ORUSA2022) {
-    secondaryLeptons = std::make_shared<Orusa2022SecLep>(lepton);
-  } else {
-    throw std::invalid_argument("Secondary Leptons model not found.");
+  switch (secondaryLeptonModel) {
+    case SecondaryLeptonModels::KAMAE2006:
+      secondaryLeptons = std::make_shared<Kamae2006SecLep>(lepton);
+      break;
+    case SecondaryLeptonModels::HUANGPOHL2007:
+      secondaryLeptons = std::make_shared<HuangPohl2007SecLep>(lepton);
+      break;
+    case SecondaryLeptonModels::AAFRAG:
+      secondaryLeptons = std::make_shared<AAfragSecLeptons>(lepton);
+      break;
+    case SecondaryLeptonModels::ORUSA2022:
+      secondaryLeptons = std::make_shared<Orusa2022SecLep>(lepton);
+      break;
+    default:
+      throw std::invalid_argument("Secondary Leptons model not found.");
   }
   secondaryLeptons->print();
   return secondaryLeptons->clone();
 }
 
 std::shared_ptr<Pi0Gammas> XSECS::createPi0Gammas(NeutralParticleType type) {
-  if (pi0GammaModel == Pi0GammaModels::KAMAE2006) {
-    pi0Gammas = std::make_shared<Kamae2006Gammas>(type);
-  } else if (pi0GammaModel == Pi0GammaModels::KELNER2006) {
-    pi0Gammas = std::make_shared<Kelner2006Gammas>(type);
-  } else if (pi0GammaModel == Pi0GammaModels::KAFEXHIU2014GEANT4) {
-    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::GEANT4);
-  } else if (pi0GammaModel == Pi0GammaModels::KAFEXHIU2014PYTHIA8) {
-    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::PYTHIA8);
-  } else if (pi0GammaModel == Pi0GammaModels::KAFEXHIU2014SIBYLL) {
-    pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::SIBYLL);
-  } else if (pi0GammaModel == Pi0GammaModels::AAFRAG) {
-    pi0Gammas = std::make_shared<AAfragSecGammas>(type);
-  } else {
-    throw std::invalid_argument("Secondary Gamma model not found.");
+  switch (pi0GammaModel) {
+    case Pi0GammaModels::KAMAE2006:
+      pi0Gammas = std::make_shared<Kamae2006Gammas>(type);
+      break;
+    case Pi0GammaModels::KELNER2006:
+      pi0Gammas = std::make_shared<Kelner2006Gammas>(type);
+      break;
+    case Pi0GammaModels::KAFEXHIU2014GEANT4:
+      pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::GEANT4);
+      break;
+    case Pi0GammaModels::KAFEXHIU2014PYTHIA8:
+      pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::PYTHIA8);
+      break;
+    case Pi0GammaModels::KAFEXHIU2014SIBYLL:
+      pi0Gammas = std::make_shared<Kafexhiu2014Gammas>(type, InteractionModel::SIBYLL);
+      break;
+    case Pi0GammaModels::AAFRAG:
+      pi0Gammas = std::make_shared<AAfragSecGammas>(type);
+      break;
+    default:
+      throw std::invalid_argument("Secondary Gamma model not found.");
   }
   pi0Gammas->print();
   return pi0Gammas->clone();
 }
 
 std::shared_ptr<SecondaryAntiprotons> XSECS::createSecondaryAntiprotons() {
-  if (secondaryAntiprotonModel == SecondaryAntiprotonModels::TANNG1983) {
-    secondaryAntiprotons = std::make_shared<TanNg1983SecAp>();
-  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::DIMAURO2014) {
-    secondaryAntiprotons = std::make_shared<DiMauro2014SecAp>();
-  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::DUPERRAY2003) {
-    secondaryAntiprotons = std::make_shared<Duperray2003SecAp>();
-  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::WINKLER2017) {
-    secondaryAntiprotons = std::make_shared<Winkler2017SecAp>();
-  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::KORSMEIER2018) {
-    secondaryAntiprotons = std::make_shared<Korsmeier2018SecAp>();
-  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::FENG2016QGSJET) {
-    secondaryAntiprotons = std::make_shared<Feng2016SecAp>("data/Feng2016_QGSJET04_antiprotons.txt");
-  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::FENG2016EPOS) {
-    secondaryAntiprotons = std::make_shared<Feng2016SecAp>("data/Feng2016_EPOS_LHC_antiprotons.txt");
-  } else if (secondaryAntiprotonModel == SecondaryAntiprotonModels::AAFRAG) {
-    secondaryAntiprotons = std::make_shared<AAfragSecAp>();
-  } else {
-    throw std::invalid_argument("Secondary Antiprotons model not found.");
+  switch (secondaryAntiprotonModel) {
+    case SecondaryAntiprotonModels::TANNG1983:
+      secondaryAntiprotons = std::make_shared<TanNg1983SecAp>();
+      break;
+    case SecondaryAntiprotonModels::DIMAURO2014:
+      secondaryAntiprotons = std::make_shared<DiMauro2014SecAp>();
+      break;
+    case SecondaryAntiprotonModels::DUPERRAY2003:
+      secondaryAntiprotons = std::make_shared<Duperray2003SecAp>();
+      break;
+    case SecondaryAntiprotonModels::WINKLER2017:
+      secondaryAntiprotons = std::make_shared<Winkler2017SecAp>();
+      break;
+    case SecondaryAntiprotonModels::KORSMEIER2018:
+      secondaryAntiprotons = std::make_shared<Korsmeier2018SecAp>();
+      break;
+    case SecondaryAntiprotonModels::FENG2016QGSJET:
+      secondaryAntiprotons = std::make_shared<Feng2016SecAp>("data/Feng2016_QGSJET04_antiprotons.txt");
+      break;
+    case SecondaryAntiprotonModels::FENG2016EPOS:
+      secondaryAntiprotons = std::make_shared<Feng2016SecAp>("data/Feng2016_EPOS_LHC_antiprotons.txt");
+      break;
+    case SecondaryAntiprotonModels::AAFRAG:
+      secondaryAntiprotons = std::make_shared<AAfragSecAp>();
+      break;
+    default:
+      throw std::invalid_argument("Secondary Antiprotons model not found.");
   }
   secondaryAntiprotons->print();
   return secondaryAntiprotons->clone();
 }
 
 std::shared_ptr<TertiaryProtons> XSECS::createTertiaryProtons() {
-  if (tertiaryProtonModel == TertiaryProtonModels::AAFRAG) {
-    tertiaryProtons = std::make_shared<AAfragTerProtons>();
-  } else {
-    throw std::invalid_argument("Tertiary Protons model not found.");
+  switch (tertiaryProtonModel) {
+    case TertiaryProtonModels::AAFRAG:
+      tertiaryProtons = std::make_shared<AAfragTerProtons>();
+      break;
+    default:
+      throw std::invalid_argument("Tertiary Protons model not found.");
   }
   tertiaryProtons->print();
   return tertiaryProtons->clone();
 }
 
 std::shared_ptr<Fragmentation> XSECS::createFragmentation() {
-  if (fragmentationModel == FragmentationModels::FLUKA4DRAGON) {
-    fragmentation = std::make_shared<Fluka4Dragon>();
-  } else if (fragmentationModel == FragmentationModels::WEBBER1993) {
-    fragmentation = std::make_shared<Webber1993>();
-  } else if (fragmentationModel == FragmentationModels::USINEGALPROP17OPT12) {
-    fragmentation = std::make_shared<UsineFragmentation>("data/usine-v3.5/sigProdGALPROP17_OPT12.dat");
-  } else if (fragmentationModel == FragmentationModels::USINEGALPROP17OPT22) {
-    fragmentation = std::make_shared<UsineFragmentation>("data/usine-v3.5/sigProdGALPROP17_OPT22.dat");
-  } else if (fragmentationModel == FragmentationModels::USINEWEBBER03COSTE12) {
-    fragmentation = std::make_shared<UsineFragmentation>("data/usine-v3.5/sigProdWebber03+Coste12.dat");
-  } else {
-    throw std::invalid_argument("Fragmentation model not found.");
+  switch (fragmentationModel) {
+    case FragmentationModels::FLUKA4DRAGON:
+      fragmentation = std::make_shared<Fluka4Dragon>();
+      break;
+    case FragmentationModels::WEBBER1993:
+      fragmentation = std::make_shared<Webber1993>();
+      break;
+    case FragmentationModels::USINEGALPROP17OPT12:
+      fragmentation = std::make_shared<UsineFragmentation>("data/usine-v3.5/sigProdGALPROP17_OPT12.dat");
+      break;
+    case FragmentationModels::USINEGALPROP17OPT22:
+      fragmentation = std::make_shared<UsineFragmentation>("data/usine-v3.5/sigProdGALPROP17_OPT22.dat");
+      break;
+    case FragmentationModels::USINEWEBBER03COSTE12:
+      fragmentation = std::make_shared<UsineFragmentation>("data/usine-v3.5/sigProdWebber03+Coste12.dat");
+      break;
+    default:
+      throw std::invalid_argument("Fragmentation model not found.");
   }
   fragmentation->print();
   return fragmentation->clone();
 }
-
-// std::shared_ptr<Spallation> XSECS::create_secondary_nuclei() {
-//   if (secondary_nuclei_model == "Webber1993") {
-//     secondary_nuclei = std::make_shared<Webber1993_Spallation>();
-//   } else if (secondary_nuclei_model == "Evoli2019") {
-//     secondary_nuclei = std::make_shared<Evoli2019_Spallation>();
-//   } else {
-//     assert(secondary_nuclei_model == "Webber1993");
-//   }
-//   secondary_nuclei->print();
-//   return secondary_nuclei->clone();
-// }
 
 std::shared_ptr<NucleiChart> XSECS::createNucleiChart() {
   nucleiChart = std::make_shared<NucleiChart>();

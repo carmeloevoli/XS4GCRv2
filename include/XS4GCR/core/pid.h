@@ -1,9 +1,12 @@
 #ifndef INCLUDE_XS4GCR_PID_H
 #define INCLUDE_XS4GCR_PID_H
 
-#include <plog/Log.h>
+#include <plog/Log.h>  // not used here, but many model .cpp files rely on pid.h to pull in the LOG macros
 
 #include <cmath>
+#include <ostream>
+#include <stdexcept>
+#include <string>
 
 namespace XS4GCR {
 
@@ -11,22 +14,23 @@ class PID {
  public:
   PID() { set(0, 0); }
 
+  // Construct a nucleus. Z and A must be physical (>= 1); anything else is a caller
+  // bug and throws, rather than silently building an invalid particle.
   PID(const int& Z, const int& A) {
-    if (Z < 1) {
-      LOGE << "Nucleus must have charge >= 1";
-    }
-    if (A < 1) {
-      LOGE << "Nucleus must have atomic number >= 1";
-    }
+    if (Z < 1) throw std::invalid_argument("PID: nucleus charge Z must be >= 1, got " + std::to_string(Z));
+    if (A < 1) throw std::invalid_argument("PID: nucleus mass A must be >= 1, got " + std::to_string(A));
     set(Z, A);
   }
 
   virtual ~PID() {}
 
-  void set(const int& Z, const int& A) {
-    m_Z = Z;
-    m_A = A;
-    m_id = A * 1000 + Z;
+  // Leptons are not nuclei. XS4GCR reuses PID as an identity tag for the electron and
+  // positron so they can travel through the same interfaces; this named constructor
+  // builds such a tag and intentionally bypasses the nucleus Z/A validation above.
+  static PID makeLepton(const int& Z, const int& A) {
+    PID pid;
+    pid.set(Z, A);
+    return pid;
   }
 
   int getZ() const { return m_Z; }
@@ -59,6 +63,12 @@ class PID {
   }
 
  protected:
+  void set(const int& Z, const int& A) {
+    m_Z = Z;
+    m_A = A;
+    m_id = A * 1000 + Z;
+  }
+
   int m_Z;
   int m_A;
   int m_id;
@@ -68,8 +78,11 @@ static const PID H1 = PID(1, 1);
 static const PID H2 = PID(1, 2);
 static const PID He3 = PID(2, 3);
 static const PID He4 = PID(2, 4);
-static const PID positron = PID(0, 1);
-static const PID electron = PID(0, -1);
+
+// Lepton identity tags (see PID::makeLepton). Encoded as non-nuclei so they never
+// collide with a real nucleus id, and distinguished from each other by A = +/-1.
+static const PID positron = PID::makeLepton(0, 1);
+static const PID electron = PID::makeLepton(0, -1);
 
 enum TARGET { H, He };
 

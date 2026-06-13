@@ -14,7 +14,7 @@ void Letaw1983TotalInel::print() const {
 
 std::shared_ptr<TotalInelastic> Letaw1983TotalInel::clone() { return std::make_shared<Letaw1983TotalInel>(*this); }
 
-double Letaw1983TotalInel::get(const PID& projectile, const TARGET& target, const double& T_n) const {
+double Letaw1983TotalInel::getTotal(const PID& projectile, const TARGET& target, const double& T_n) const {
   assert(projectile != PID(1, 1));
   double value = 45 * cgs::mbarn * pow(projectile.getA(), 0.7);
   value *= (1.0 + 0.016 * sin(5.3 - 2.63 * log(projectile.getA())));

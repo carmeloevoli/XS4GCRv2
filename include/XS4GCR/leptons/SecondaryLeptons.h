@@ -3,19 +3,16 @@
 
 #include <memory>
 
+#include "XS4GCR/core/XSecModel.h"
 #include "XS4GCR/core/pid.h"
 
 namespace XS4GCR {
 
-class SecondaryLeptons {
+class SecondaryLeptons : public XSecModel<SecondaryLeptons> {
  public:
-  virtual ~SecondaryLeptons() {}
-
-  virtual void print() const = 0;
-
-  virtual std::shared_ptr<SecondaryLeptons> clone() = 0;
-
-  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
+  // Differential cross-section for a secondary lepton carrying fraction x = T_sec/T_proj
+  // of a projectile of kinetic energy per nucleon T_proj on a target.
+  virtual double getDifferential(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
 
   virtual double annihilationXsec(const PID &target, const double &T_electron) const;
 

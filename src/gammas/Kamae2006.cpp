@@ -12,7 +12,7 @@ void Kamae2006Gammas::print() const {
 
 std::shared_ptr<Pi0Gammas> Kamae2006Gammas::clone() { return std::make_shared<Kamae2006Gammas>(*this); }
 
-double Kamae2006Gammas::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double Kamae2006Gammas::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   if (x > 1.) return 0.;
   const double T_ph = x * T_proj;
   double value = 0;

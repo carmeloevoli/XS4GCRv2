@@ -14,7 +14,7 @@ void AAfragTerProtons::print() const {
 
 std::shared_ptr<TertiaryProtons> AAfragTerProtons::clone() { return std::make_shared<AAfragTerProtons>(*this); }
 
-double AAfragTerProtons::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double AAfragTerProtons::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   const double T_p = x * T_proj;
   double value = 0;
   if (projectile == H1 && target == TARGET::H) {

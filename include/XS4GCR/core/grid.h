@@ -9,8 +9,8 @@
 
 namespace XS4GCR {
 
-/** Lower and upper neighbor in a unit grid */
-inline void clamp(double x, int n, int& lo, int& hi) {
+/** Lower and upper neighbor indices on a unit grid of n points (hi wraps to 0 at the top edge). */
+inline void neighborIndices(double x, int n, int& lo, int& hi) {
   lo = int(floor(x * (n - 1)));
   hi = (lo + 1) % n;
 }
@@ -66,8 +66,8 @@ class Grid {
 
     // indices of lower and upper neighbors
     int ix, iX, iy, iY;
-    clamp(x, m_Nx, ix, iX);
-    clamp(y, m_Ny, iy, iY);
+    neighborIndices(x, m_Nx, ix, iX);
+    neighborIndices(y, m_Ny, iy, iY);
 
     // linear fraction to lower and upper neighbors
     double fx = x - floor(x);

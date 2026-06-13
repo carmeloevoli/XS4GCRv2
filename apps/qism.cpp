@@ -36,7 +36,7 @@ double Q_ISM_pbar(double E_s, SecondaryAntiprotonModels model, Channel channel) 
     q = GSL::gslQAGIntegration<double>(
         [&](double lnEp) {
           auto E_p = std::pow(10., lnEp);
-          return E_p * flux_H.get(E_p) * xs->get(H1, TARGET::H, E_p, E_s);
+          return E_p * flux_H.get(E_p) * xs->getDifferential(H1, TARGET::H, E_p, E_s);
         },
         std::log10(E_s), std::log10(1e4 * E_s), 1000, 1e-4);
   }
@@ -45,7 +45,7 @@ double Q_ISM_pbar(double E_s, SecondaryAntiprotonModels model, Channel channel) 
     q = GSL::gslQAGIntegration<double>(
         [&](double lnEp) {
           auto E_p = std::pow(10., lnEp);
-          return f_He * E_p * flux_H.get(E_p) * xs->get(H1, TARGET::He, E_p, E_s);
+          return f_He * E_p * flux_H.get(E_p) * xs->getDifferential(H1, TARGET::He, E_p, E_s);
         },
         std::log10(E_s), std::log10(1e4 * E_s), 1000, 1e-4);
   }
@@ -54,7 +54,7 @@ double Q_ISM_pbar(double E_s, SecondaryAntiprotonModels model, Channel channel) 
     q = GSL::gslQAGIntegration<double>(
         [&](double lnEp) {
           auto E_p = std::pow(10., lnEp);
-          return E_p * flux_He.get(E_p) * xs->get(He4, TARGET::H, E_p, E_s);
+          return E_p * flux_He.get(E_p) * xs->getDifferential(He4, TARGET::H, E_p, E_s);
         },
         std::log10(E_s), std::log10(1e4 * E_s), 1000, 1e-4);
   }
@@ -63,7 +63,7 @@ double Q_ISM_pbar(double E_s, SecondaryAntiprotonModels model, Channel channel) 
     q = GSL::gslQAGIntegration<double>(
         [&](double lnEp) {
           auto E_p = std::pow(10., lnEp);
-          return f_He * E_p * flux_He.get(E_p) * xs->get(He4, TARGET::He, E_p, E_s);
+          return f_He * E_p * flux_He.get(E_p) * xs->getDifferential(He4, TARGET::He, E_p, E_s);
         },
         std::log10(E_s), std::log10(1e4 * E_s), 1000, 1e-4);
   }
@@ -86,7 +86,7 @@ double Q_ISM_pos(double E_s, SecondaryLeptonModels model, Channel channel) {
     q = GSL::gslQAGIntegration<double>(
         [&](double lnEp) {
           auto E_p = std::pow(10., lnEp);
-          return E_p * flux_H.get(E_p) * xs->get(H1, TARGET::H, E_p, E_s);
+          return E_p * flux_H.get(E_p) * xs->getDifferential(H1, TARGET::H, E_p, E_s);
         },
         std::log10(E_s), std::log10(1e4 * E_s), 1000, 1e-4);
   }
@@ -95,7 +95,7 @@ double Q_ISM_pos(double E_s, SecondaryLeptonModels model, Channel channel) {
     q = GSL::gslQAGIntegration<double>(
         [&](double lnEp) {
           auto E_p = std::pow(10., lnEp);
-          return f_He * E_p * flux_H.get(E_p) * xs->get(H1, TARGET::He, E_p, E_s);
+          return f_He * E_p * flux_H.get(E_p) * xs->getDifferential(H1, TARGET::He, E_p, E_s);
         },
         std::log10(E_s), std::log10(1e4 * E_s), 1000, 1e-4);
   }
@@ -104,7 +104,7 @@ double Q_ISM_pos(double E_s, SecondaryLeptonModels model, Channel channel) {
     q = GSL::gslQAGIntegration<double>(
         [&](double lnEp) {
           auto E_p = std::pow(10., lnEp);
-          return E_p * flux_He.get(E_p) * xs->get(He4, TARGET::H, E_p, E_s);
+          return E_p * flux_He.get(E_p) * xs->getDifferential(He4, TARGET::H, E_p, E_s);
         },
         std::log10(E_s), std::log10(1e4 * E_s), 1000, 1e-4);
   }
@@ -113,7 +113,7 @@ double Q_ISM_pos(double E_s, SecondaryLeptonModels model, Channel channel) {
     q = GSL::gslQAGIntegration<double>(
         [&](double lnEp) {
           auto E_p = std::pow(10., lnEp);
-          return f_He * E_p * flux_He.get(E_p) * xs->get(He4, TARGET::He, E_p, E_s);
+          return f_He * E_p * flux_He.get(E_p) * xs->getDifferential(He4, TARGET::He, E_p, E_s);
         },
         std::log10(E_s), std::log10(1e4 * E_s), 1000, 1e-4);
   }

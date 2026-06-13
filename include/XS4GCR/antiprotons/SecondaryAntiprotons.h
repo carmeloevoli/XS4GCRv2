@@ -4,19 +4,16 @@
 
 #include <memory>
 
+#include "XS4GCR/core/XSecModel.h"
 #include "XS4GCR/core/pid.h"
 
 namespace XS4GCR {
 
-class SecondaryAntiprotons {
+class SecondaryAntiprotons : public XSecModel<SecondaryAntiprotons> {
  public:
-  virtual ~SecondaryAntiprotons() {}
-
-  virtual void print() const = 0;
-
-  virtual std::shared_ptr<SecondaryAntiprotons> clone() = 0;
-
-  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
+  // Differential cross-section for a secondary antiproton carrying fraction x = T_sec/T_proj
+  // of a projectile of kinetic energy per nucleon T_proj on a target.
+  virtual double getDifferential(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
 
   double getTotalInelastic(const TARGET &target, const double &T_ap);
 

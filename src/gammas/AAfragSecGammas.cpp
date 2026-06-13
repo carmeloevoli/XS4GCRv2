@@ -30,7 +30,7 @@ void AAfragSecGammas::print() const {
 
 std::shared_ptr<Pi0Gammas> AAfragSecGammas::clone() { return std::make_shared<AAfragSecGammas>(*this); }
 
-double AAfragSecGammas::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double AAfragSecGammas::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   if (x > 1.) return 0.;
   const double T_ph = x * T_proj;
   double value = 0.;

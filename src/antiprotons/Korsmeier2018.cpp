@@ -61,7 +61,7 @@ void Korsmeier2018SecAp::readDataFiles() {
   }
 }
 
-double Korsmeier2018SecAp::get(const PID& projectile, const TARGET& target, const double& T_proj,
+double Korsmeier2018SecAp::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj,
                                const double& x) const {
   using std::log;
   double value = 0;

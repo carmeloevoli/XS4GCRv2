@@ -12,7 +12,7 @@ void Kelner2006Gammas::print() const {
 
 std::shared_ptr<Pi0Gammas> Kelner2006Gammas::clone() { return std::make_shared<Kelner2006Gammas>(*this); }
 
-double Kelner2006Gammas::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double Kelner2006Gammas::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   if (x > 1.) return 0.;
   double value = 0.;
   if (projectile == H1 && target == TARGET::H) {

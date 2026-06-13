@@ -21,7 +21,6 @@ set(XS4GCR_SRCS
     src/models/apDiMauro14.cpp
     src/models/apDuperray03.cpp
     src/models/apTanNg83.cpp
-    src/models/gammaKafexhiu14.cpp
     src/models/gammaKelner06.cpp
     src/models/inTripathi99.cpp
     src/models/secAAfrag101.cpp
@@ -56,8 +55,13 @@ set(XS4GCR_SRCS
     src/core/nucleiChart.cpp
     src/core/utilities.cpp
     src/core/xsecs.cpp
+    external/LibppGam/LibppGam.c
     "${git_revision_cpp}"
 )
+
+# LibppGam ships as a .c file; compile it as C++ so its symbols match the C++ linkage
+# expected by the (C++) caller in src/gammas/Kafexhiu2014.cpp.
+set_source_files_properties(external/LibppGam/LibppGam.c PROPERTIES LANGUAGE CXX)
 
 # PLOG (header-only, provided)
 # cparamlib (provided)
@@ -97,6 +101,7 @@ target_include_directories(XS4GCR_LIB
     ${CMAKE_SOURCE_DIR}/include
     external/plog/include
     external/cparamlib/include
+    external/LibppGam
 )
 target_compile_options(XS4GCR_LIB PRIVATE -ftree-vectorize -O3 -DDEBUG)
 target_link_libraries(XS4GCR_LIB

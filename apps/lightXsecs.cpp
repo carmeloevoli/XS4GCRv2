@@ -22,10 +22,10 @@ void print_secondary_xsecs(std::shared_ptr<T> xs, std::string filename) {
   for (auto& x : xAxis) {
     outfile << x << "\t";
     for (auto& T_p : TprojAxis) {
-      outfile << xs->get(H1, TARGET::H, T_p, x) / units << "\t";
-      outfile << xs->get(H1, TARGET::He, T_p, x) / units << "\t";
-      outfile << xs->get(He4, TARGET::H, T_p, x) / units << "\t";
-      outfile << xs->get(He4, TARGET::He, T_p, x) / units << "\t";
+      outfile << xs->getDifferential(H1, TARGET::H, T_p, x) / units << "\t";
+      outfile << xs->getDifferential(H1, TARGET::He, T_p, x) / units << "\t";
+      outfile << xs->getDifferential(He4, TARGET::H, T_p, x) / units << "\t";
+      outfile << xs->getDifferential(He4, TARGET::He, T_p, x) / units << "\t";
     }
     outfile << "\n";
   }
@@ -41,7 +41,7 @@ double compute_source(std::shared_ptr<T> xs, double slope, double E_s) {
         const double y = std::exp(logy);
         const double E_p = y * E_0;
         const double x = E_s / E_p;
-        return std::pow(y, -slope) * xs->get(H1, TARGET::H, E_p, x);
+        return std::pow(y, -slope) * xs->getDifferential(H1, TARGET::H, E_p, x);
       },
       std::log(E_s / E_0), std::log(1e4 * E_s / E_0), 1000, 1e-4);
   return std::pow(E_s / cgs::GeV, slope) * q_s;
@@ -75,7 +75,7 @@ double compute_probability(std::shared_ptr<T> xs, double slope, double E_s, doub
         const auto y = std::exp(lny);
         const double E_p = y * E_0;
         const double x = E_s / E_p;
-        return std::pow(y, -slope) * xs->get(H1, TARGET::H, E_p, x);
+        return std::pow(y, -slope) * xs->getDifferential(H1, TARGET::H, E_p, x);
       },
       std::log(E_s / E_0), std::log(E_max / E_0), 1000, 1e-4);
   return P;

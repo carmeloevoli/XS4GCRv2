@@ -13,7 +13,7 @@ std::shared_ptr<TotalInelastic> Tripathi1999TotalInel::clone() {
   return std::make_shared<Tripathi1999TotalInel>(*this);
 }
 
-double Tripathi1999TotalInel::get(const PID& projectile, const TARGET& target, const double& T_n) const {
+double Tripathi1999TotalInel::getTotal(const PID& projectile, const TARGET& target, const double& T_n) const {
   assert(projectile != PID(1, 1));
   int A_p = (target == TARGET::H) ? 1 : 4;
   int Z_p = (target == TARGET::H) ? 1 : 2;

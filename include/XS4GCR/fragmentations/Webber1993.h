@@ -12,10 +12,10 @@ class Webber1993 : public Fragmentation {
  public:
   Webber1993();
   void init();
-  void print() override;
+  void print() const override;
   std::shared_ptr<Fragmentation> clone() override;
   bool hasChannel(const FragmentationChannel& ch) const override;
-  double get(const FragmentationChannel& ch, const TARGET& target, const double& T_n, bool do_ghosts = false) override;
+  double getTotal(const FragmentationChannel& ch, const TARGET& target, const double& T_n, bool do_ghosts = false) override;
 
  protected:
   double direct(const FragmentationChannel& ch, const double& T_n) const;

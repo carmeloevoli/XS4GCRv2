@@ -56,7 +56,7 @@ void Feng2016SecAp::print() const {
 
 std::shared_ptr<SecondaryAntiprotons> Feng2016SecAp::clone() { return std::make_shared<Feng2016SecAp>(*this); }
 
-double Feng2016SecAp::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double Feng2016SecAp::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   using std::log;  // TODO check if sigma is ds/dT or ds/dp and correct
 
   const double T_ap = x * T_proj;

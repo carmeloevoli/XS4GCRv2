@@ -46,25 +46,10 @@ bool fileExists(const std::string& filename) {
   return f.good();
 }
 
-// std::vector<std::string> split(std::string s, std::string delimiter = " ") {
-//   size_t pos_start = 0, pos_end, delim_len = delimiter.length();
-//   std::string token;
-//   std::vector<std::string> res;
-
-//   while ((pos_end = s.find(delimiter, pos_start)) != std::string::npos) {
-//     token = s.substr(pos_start, pos_end - pos_start);
-//     pos_start = pos_end + delim_len;
-//     res.push_back(token);
-//   }
-
-//   res.push_back(s.substr(pos_start));
-//   return res;
-// }
-
-std::vector<std::string> split(std::string s, std::string delimiter = " ") {
+std::vector<std::string> splitOnWhitespace(const std::string& s) {
   std::vector<std::string> result;
   std::istringstream iss(s);
-  for (std::string s; iss >> s;) result.push_back(s);
+  for (std::string token; iss >> token;) result.push_back(token);
   return result;
 }
 
@@ -75,7 +60,7 @@ std::vector<double> loadColumn(const std::string& filename, size_t useCol, size_
   size_t count = 0;
   while (getline(file, line)) {
     if (count >= nHeaderLines) {
-      auto items = split(line, " ");
+      auto items = splitOnWhitespace(line);
       if (items.size() > 0) {
         auto s = items.at(useCol);
         v.push_back(atof(s.c_str()));

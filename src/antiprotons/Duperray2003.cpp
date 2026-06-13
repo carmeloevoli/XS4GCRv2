@@ -13,7 +13,7 @@ void Duperray2003SecAp::print() const {
 
 std::shared_ptr<SecondaryAntiprotons> Duperray2003SecAp::clone() { return std::make_shared<Duperray2003SecAp>(*this); }
 
-double Duperray2003SecAp::get(const PID& particle, const TARGET& target, const double& T_proj, const double& x) const {
+double Duperray2003SecAp::getDifferential(const PID& particle, const TARGET& target, const double& T_proj, const double& x) const {
   const double T_ap = x * T_proj;
   double value = 0;
   if (particle == H1 && target == TARGET::H)

@@ -3,21 +3,18 @@
 
 #include <memory>
 
+#include "XS4GCR/core/XSecModel.h"
 #include "XS4GCR/core/pid.h"
 
 namespace XS4GCR {
 
-class TertiaryProtons {
+class TertiaryProtons : public XSecModel<TertiaryProtons> {
  public:
-  virtual ~TertiaryProtons() {}
-
-  virtual void print() const = 0;
-
-  virtual std::shared_ptr<TertiaryProtons> clone() = 0;
-
-  virtual double get(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
+  // Differential cross-section for a tertiary proton carrying fraction x = T_sec/T_proj
+  // of a projectile of kinetic energy per nucleon T_proj on a target.
+  virtual double getDifferential(const PID &projectile, const TARGET &target, const double &T_proj, const double &x) const = 0;
 };
 
 }  // namespace XS4GCR
 
-#endif  // INCLUDE_XS4GCR_LEPTONS_LEPTONS_H
+#endif  // INCLUDE_XS4GCR_TERTIARY_H

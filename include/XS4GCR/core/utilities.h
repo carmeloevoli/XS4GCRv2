@@ -20,7 +20,7 @@ bool fileExists(const std::string& filename);
 
 std::vector<double> loadColumn(const std::string& filename, size_t useCol, size_t nHeaderLines);
 
-std::vector<std::string> split(std::string s, std::string delimiter);
+std::vector<std::string> splitOnWhitespace(const std::string& s);
 
 bool inRange(double x, std::pair<double, double> range);
 

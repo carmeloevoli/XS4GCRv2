@@ -47,7 +47,7 @@ namespace XS4GCR {
 
 Webber1993::Webber1993() { init(); }
 
-void Webber1993::print() { std::cout << "# using Webber1993 fragmentation model: Webber et al. 1993" << '\n'; }
+void Webber1993::print() const { std::cout << "# using Webber1993 fragmentation model: Webber et al. 1993" << '\n'; }
 
 void Webber1993::init() { setSigma(); }
 
@@ -76,7 +76,7 @@ double Webber1993::direct(const FragmentationChannel& ch, const double& T_n) con
   return direct;
 }
 
-double Webber1993::get(const FragmentationChannel& ch, const TARGET& target, const double& T_n, bool do_ghosts) {
+double Webber1993::getTotal(const FragmentationChannel& ch, const TARGET& target, const double& T_n, bool do_ghosts) {
   if (do_ghosts) {
     throw std::runtime_error("Webber1993 does not implement ghost contributions");
   }

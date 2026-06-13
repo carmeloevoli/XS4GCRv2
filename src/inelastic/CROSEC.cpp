@@ -37,7 +37,7 @@ double CrosecTotalInel::set_energy_within_range(const double& T_n) const {
     return T_n;
 }
 
-double CrosecTotalInel::get(const PID& projectile, const TARGET& target, const double& T_n) const {
+double CrosecTotalInel::getTotal(const PID& projectile, const TARGET& target, const double& T_n) const {
   assert(projectile != PID(1, 1));
   double TA = projectile.getA();
   double TZ = projectile.getZ();                       // target nucleus mass and charge numbers (4.0<=A2<=239.0)

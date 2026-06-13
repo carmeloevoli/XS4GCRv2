@@ -23,7 +23,7 @@ void AAfragSecAp::print() const {
 
 std::shared_ptr<SecondaryAntiprotons> AAfragSecAp::clone() { return std::make_shared<AAfragSecAp>(*this); }
 
-double AAfragSecAp::get(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
+double AAfragSecAp::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj, const double& x) const {
   const double T_ap = x * T_proj;
   double value = 0.;
   if (projectile == H1 && target == TARGET::H) {

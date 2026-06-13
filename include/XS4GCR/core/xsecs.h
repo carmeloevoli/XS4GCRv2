@@ -11,31 +11,6 @@
 #include "XS4GCR/leptons/SecondaryLeptons.h"
 #include "XS4GCR/tertiary/TertiaryProtons.h"
 
-// #include "XS4GCR/antiprotons/AAfragSecAp.h"
-// #include "XS4GCR/antiprotons/DiMauro2014.h"
-// #include "XS4GCR/antiprotons/Duperray2003.h"
-// #include "XS4GCR/antiprotons/Feng2016.h"
-// #include "XS4GCR/antiprotons/TanNg1983.h"
-// #include "XS4GCR/antiprotons/Winkler2017.h"
-// #include "XS4GCR/core/nucleiChart.h"
-// #include "XS4GCR/gammas/AAfragSecGammas.h"
-// #include "XS4GCR/gammas/Kafexhiu2014.h"
-// #include "XS4GCR/gammas/Kamae2006.h"
-// #include "XS4GCR/gammas/Kelner2006.h"
-// #include "XS4GCR/inelastic/CROSEC.h"
-// #include "XS4GCR/inelastic/Letaw1983.h"
-// #include "XS4GCR/inelastic/Tripathi1999.h"
-// #include "XS4GCR/leptons/AAfragSecLeptons.h"
-// #include "XS4GCR/leptons/HuangPohl2007.h"
-// #include "XS4GCR/leptons/Kamae2006.h"
-// #include "XS4GCR/leptons/Orusa2022.h"
-
-// #include "XS4GCR/particlenames.h"
-// #include "XS4GCR/protons.h"
-// #include "XS4GCR/spallation/Evoli2019.h"
-// #include "XS4GCR/spallation/Webber1993.h"
-// #include "XS4GCR/spallation/spallation.h"
-
 namespace XS4GCR {
 
 enum class SecondaryAntiprotonModels {
@@ -85,16 +60,12 @@ class XSECS {
   std::shared_ptr<NucleiChart> createNucleiChart();
   std::shared_ptr<Fragmentation> createFragmentation();
 
-  //   std::shared_ptr<Spallation> create_secondary_nuclei();
-
   inline void setTotalInelastic(TotalInelasticModels model) { totalInelasticModel = model; }
   inline void setSecondaryAntiprotons(SecondaryAntiprotonModels model) { secondaryAntiprotonModel = model; }
   inline void setSecondaryLeptons(SecondaryLeptonModels model) { secondaryLeptonModel = model; }
   inline void setPi0Gammas(Pi0GammaModels model) { pi0GammaModel = model; }
   inline void setTertiaryProtons(TertiaryProtonModels model) { tertiaryProtonModel = model; }
   inline void setFragmentation(FragmentationModels model) { fragmentationModel = model; }
-
-  //   inline void set_secondary_nuclei(const std::string &model_name) { secondary_nuclei_model = model_name; }
 
  private:
   TotalInelasticModels totalInelasticModel = TotalInelasticModels::TRIPATHI1999;
@@ -104,8 +75,6 @@ class XSECS {
   TertiaryProtonModels tertiaryProtonModel = TertiaryProtonModels::AAFRAG;
   FragmentationModels fragmentationModel = FragmentationModels::FLUKA4DRAGON;
 
-  //   std::string secondary_nuclei_model = "Webber1993";
-
   std::shared_ptr<TotalInelastic> totalInelastic;
   std::shared_ptr<SecondaryLeptons> secondaryLeptons;
   std::shared_ptr<SecondaryAntiprotons> secondaryAntiprotons;
@@ -113,7 +82,6 @@ class XSECS {
   std::shared_ptr<TertiaryProtons> tertiaryProtons;
   std::shared_ptr<NucleiChart> nucleiChart;
   std::shared_ptr<Fragmentation> fragmentation;
-  //   std::shared_ptr<Spallation> secondary_nuclei;
 };
 
 }  // namespace XS4GCR

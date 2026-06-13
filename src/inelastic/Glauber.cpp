@@ -37,7 +37,7 @@ inline double sigmappTot(double T) {
   return (a * std::pow(plab, b) + c * std::pow(plab, -d)) * cgs::mbarn;
 }
 
-double GlauberTotalInel::get(const PID& projectile, const TARGET& target, const double& T_n) const {
+double GlauberTotalInel::getTotal(const PID& projectile, const TARGET& target, const double& T_n) const {
   assert(projectile != PID(1, 1));
   auto A = projectile.getA();
   auto Z = projectile.getZ();

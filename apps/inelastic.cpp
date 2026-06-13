@@ -25,8 +25,8 @@ void get_inelastic_timescales(TotalInelasticModels model, std::string filename) 
     outfile << T / cgs::GeV << "\t";
     auto v = cgs::c * T2beta(T);
     for (auto p : particles) {
-      auto sigma = x_in->get(p, TARGET::H, T);
-      sigma += f_He * x_in->get(C, TARGET::He, T);
+      auto sigma = x_in->getTotal(p, TARGET::H, T);
+      sigma += f_He * x_in->getTotal(C, TARGET::He, T);
       auto t_f = 1. / v / n_gas / sigma;
       outfile << t_f / cgs::Myr << "\t";
     }

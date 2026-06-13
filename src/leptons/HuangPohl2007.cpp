@@ -36,7 +36,7 @@ void HuangPohl2007SecLep::init() {
   readDataFiles();
 }
 
-double HuangPohl2007SecLep::get(const PID& projectile, const TARGET& target, const double& T_proj,
+double HuangPohl2007SecLep::getDifferential(const PID& projectile, const TARGET& target, const double& T_proj,
                                 const double& x) const {
   using std::log;
 
