@@ -4,7 +4,6 @@
 #include <memory>
 
 #include "XS4GCR/antiprotons/SecondaryAntiprotons.h"
-#include "XS4GCR/core/nucleiChart.h"
 #include "XS4GCR/fragmentations/fragmentations.h"
 #include "XS4GCR/inelastic/TotalInelastic.h"
 #include "XS4GCR/leptons/SecondaryLeptons.h"
@@ -65,7 +64,6 @@ class XSECS {
   std::shared_ptr<Pi0Gammas> createPi0Gammas(NeutralParticleType type = NeutralParticleType::GAMMA);
   std::shared_ptr<TertiaryProtons> createTertiaryProtons();
   std::shared_ptr<SecondaryNuclei> createSecondaryNuclei(NucleusSpecies species = NucleusSpecies::ANTIDEUTERON);
-  std::shared_ptr<NucleiChart> createNucleiChart();
   std::shared_ptr<Fragmentation> createFragmentation();
 
   inline void setTotalInelastic(TotalInelasticModels model) { totalInelasticModel = model; }
@@ -90,7 +88,6 @@ class XSECS {
   std::shared_ptr<SecondaryAntiprotons> secondaryAntiprotons;
   std::shared_ptr<SecondaryNeutrals> secondaryNeutrals;
   std::shared_ptr<SecondaryNuclei> secondaryNuclei;
-  std::shared_ptr<NucleiChart> nucleiChart;
   std::shared_ptr<Fragmentation> fragmentation;
 };
 

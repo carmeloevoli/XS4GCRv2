@@ -97,7 +97,6 @@ set(XS4GCR_SRCS
     src/fragmentations/Webber1993.cpp
     src/core/common.cpp
     src/core/lis.cpp
-    src/core/nucleiChart.cpp
     src/core/utilities.cpp
     src/core/xsecs.cpp
     external/LibppGam/LibppGam.c

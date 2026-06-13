@@ -9,7 +9,6 @@
 #include "XS4GCR/antiprotons/Korsmeier2018.h"
 #include "XS4GCR/antiprotons/TanNg1983.h"
 #include "XS4GCR/antiprotons/Winkler2017.h"
-#include "XS4GCR/core/nucleiChart.h"
 #include "XS4GCR/fragmentations/Evoli2026.h"
 #include "XS4GCR/fragmentations/Fluka4Dragon.h"
 #include "XS4GCR/fragmentations/UsineFragmentationTables.h"
@@ -177,12 +176,6 @@ std::shared_ptr<Fragmentation> XSECS::createFragmentation() {
   }
   fragmentation->print();
   return fragmentation->clone();
-}
-
-std::shared_ptr<NucleiChart> XSECS::createNucleiChart() {
-  nucleiChart = std::make_shared<NucleiChart>();
-  nucleiChart->print();
-  return nucleiChart->clone();
 }
 
 }  // namespace XS4GCR

@@ -4,8 +4,8 @@
 #include <plog/Log.h>
 
 #include <algorithm>
-#include <cmath>
 #include <memory>
+#include <set>
 #include <stdexcept>
 #include <utility>
 
@@ -34,15 +34,6 @@ double yieldx(int projectileZ, int projectileA, int fragmentZ, int fragmentA, do
   float T_n_MeV = static_cast<float>(T_n / XS4GCR::cgs::MeV);
   yieldx_(&projectileZ, &projectileA, &fragmentZ, &fragmentA, &T_n_MeV, &sigmaMb);
   return sigmaMb * XS4GCR::cgs::mbarn;
-}
-
-double ferrando1998HeToH(double T_n, int projectileZ, int fragmentZ) {
-  const double T_GeV = (T_n / XS4GCR::cgs::GeV < 1.51) ? T_n / XS4GCR::cgs::GeV : 1.51;
-  const double Z = (projectileZ < 26) ? projectileZ : 26;
-  const double mu_E = 0.1601136 - 0.21994302 * T_GeV + 0.08903134 * T_GeV * T_GeV;
-  const double delta_E = 0.40183405 + 5.60541311 * T_GeV - 1.95868946 * T_GeV * T_GeV;
-  const double fZI_Z = -2.90627699 + 1.19911266 * std::log(Z);
-  return std::exp(mu_E * std::pow(std::fabs(projectileZ - fragmentZ - fZI_Z * delta_E), 1.43));
 }
 
 bool isDirectFragmentationChannel(const XS4GCR::FragmentationChannel& ch) {
@@ -81,27 +72,32 @@ void Evoli2026::init() {
 std::shared_ptr<Fragmentation> Evoli2026::clone() { return std::make_shared<Evoli2026>(*this); }
 
 bool Evoli2026::hasChannel(const FragmentationChannel& ch) const {
+  std::set<PID> activeGhosts;
+  return hasChannel(ch, activeGhosts);
+}
+
+bool Evoli2026::hasChannel(const FragmentationChannel& ch, std::set<PID> activeGhosts) const {
   if (isDirectFragmentationChannel(ch)) return true;
 
   const PID& projectile = ch.first;
   const PID& child = ch.second;
   if (ghostTree.nParents(child) == 0) return false;
+  if (!activeGhosts.insert(child).second) {
+    throw std::runtime_error("cycle detected in Evoli2026 ghost tree at isotope " + child.str());
+  }
 
   for (const auto& parent : ghostTree.getParents(child)) {
-    if (hasChannel(std::make_pair(projectile, parent.first))) return true;
+    if (hasChannel(std::make_pair(projectile, parent.first), activeGhosts)) return true;
   }
   return false;
 }
 
 double Evoli2026::getTotal(const FragmentationChannel& ch, const TARGET& target, const double& T_n, bool do_ghosts) {
   if (T_n <= 0.) return 0.;
+  if (target == TARGET::He) return 0.;
+  if (target != TARGET::H) throw std::runtime_error("target not implemented in Evoli2026");
 
   double value = do_ghosts ? withGhosts(ch, T_n) : direct(ch, T_n);
-  if (target == TARGET::He) {
-    value *= ferrando1998HeToH(T_n, ch.first.getZ(), ch.second.getZ());
-  } else if (target != TARGET::H) {
-    throw std::runtime_error("target not implemented in Evoli2026");
-  }
   return std::max(value, 0.);
 }
 
@@ -152,13 +148,21 @@ double Evoli2026::direct(const FragmentationChannel& ch, double T_n) const {
 }
 
 double Evoli2026::withGhosts(const FragmentationChannel& ch, double T_n) const {
+  std::set<PID> activeGhosts;
+  return withGhosts(ch, T_n, activeGhosts);
+}
+
+double Evoli2026::withGhosts(const FragmentationChannel& ch, double T_n, std::set<PID> activeGhosts) const {
   const PID& projectile = ch.first;
   const PID& child = ch.second;
   if (ghostTree.nParents(child) == 0) return direct(ch, T_n);
+  if (!activeGhosts.insert(child).second) {
+    throw std::runtime_error("cycle detected in Evoli2026 ghost tree at isotope " + child.str());
+  }
 
   double value = direct(ch, T_n);
   for (const auto& parent : ghostTree.getParents(child)) {
-    value += parent.second * withGhosts(std::make_pair(projectile, parent.first), T_n);
+    value += parent.second * withGhosts(std::make_pair(projectile, parent.first), T_n, activeGhosts);
   }
   return value;
 }

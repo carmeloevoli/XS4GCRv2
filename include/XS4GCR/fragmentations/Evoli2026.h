@@ -3,6 +3,7 @@
 #define INCLUDE_XS4GCR_FRAGMENTATIONS_EVOLI2026_H_
 
 #include <memory>
+#include <set>
 #include <string>
 
 #include "XS4GCR/core/fit_data.h"
@@ -24,8 +25,10 @@ class Evoli2026 : public Fragmentation {
 
  private:
   void init();
+  bool hasChannel(const FragmentationChannel& ch, std::set<PID> activeGhosts) const;
   double direct(const FragmentationChannel& ch, double T_n) const;
   double withGhosts(const FragmentationChannel& ch, double T_n) const;
+  double withGhosts(const FragmentationChannel& ch, double T_n, std::set<PID> activeGhosts) const;
   double bestfitNormalization(const FragmentationChannel& ch) const;
 
   std::string ghostListFilename = "data/Evoli2026/ghost_list.txt";
