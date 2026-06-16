@@ -18,7 +18,7 @@ using crams::read_isotopes;
 
 std::shared_ptr<Fragmentation> make_model() {
   XSECS xsecs;
-  xsecs.setFragmentation(FragmentationModels::EVOLI2026);
+  xsecs.setFragmentation(FragmentationModels::EVOLI2019);
   return xsecs.createFragmentation();
 }
 
@@ -71,8 +71,8 @@ int main() {
     const auto sigma = make_model();
     const auto isotopes = read_isotopes(isotopeFile);
 
-    write_table(sigma, isotopes, "output/crxsecs_fragmentation_Evoli2026_direct.txt", false);
-    write_table(sigma, isotopes, "output/crxsecs_fragmentation_Evoli2026_cumulative.txt", true);
+    write_table(sigma, isotopes, "output/crxsecs_fragmentation_Evoli2019_direct.txt", false);
+    write_table(sigma, isotopes, "output/crxsecs_fragmentation_Evoli2019_cumulative.txt", true);
   } catch (const std::exception& e) {
     LOGF << "exception caught with message: " << e.what();
     return 1;

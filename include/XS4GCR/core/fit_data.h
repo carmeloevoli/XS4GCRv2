@@ -36,14 +36,14 @@ class FitData {
     std::vector<DataPoint> result;
     for (const auto& data : dataPoints)
       if (data.channel == ch) result.push_back(data);
-    if (result.empty()) throw std::runtime_error("Evoli2026 fit data channel not found");
+    if (result.empty()) throw std::runtime_error("Evoli2019 fit data channel not found");
     return result;
   }
 
  private:
   void readData() {
     std::ifstream input(filename.c_str());
-    if (!input) throw std::runtime_error("problem with opening Evoli2026 fit-data file: " + filename);
+    if (!input) throw std::runtime_error("problem with opening Evoli2019 fit-data file: " + filename);
 
     input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 

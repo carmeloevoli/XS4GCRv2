@@ -9,6 +9,7 @@
 #include "XS4GCR/antiprotons/Korsmeier2018.h"
 #include "XS4GCR/antiprotons/TanNg1983.h"
 #include "XS4GCR/antiprotons/Winkler2017.h"
+#include "XS4GCR/fragmentations/Evoli2019.h"
 #include "XS4GCR/fragmentations/Evoli2026.h"
 #include "XS4GCR/fragmentations/Fluka4Dragon.h"
 #include "XS4GCR/fragmentations/UsineFragmentationTables.h"
@@ -153,6 +154,9 @@ std::shared_ptr<SecondaryNuclei> XSECS::createSecondaryNuclei(NucleusSpecies spe
 
 std::shared_ptr<Fragmentation> XSECS::createFragmentation() {
   switch (fragmentationModel) {
+    case FragmentationModels::EVOLI2019:
+      fragmentation = std::make_shared<Evoli2019>();
+      break;
     case FragmentationModels::EVOLI2026:
       fragmentation = std::make_shared<Evoli2026>();
       break;

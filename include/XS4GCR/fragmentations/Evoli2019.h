@@ -1,22 +1,21 @@
 // Copyright (c) 2017 Carmelo Evoli - MIT License
-#ifndef INCLUDE_XS4GCR_FRAGMENTATIONS_EVOLI2026_H_
-#define INCLUDE_XS4GCR_FRAGMENTATIONS_EVOLI2026_H_
+#ifndef INCLUDE_XS4GCR_FRAGMENTATIONS_EVOLI2019_H_
+#define INCLUDE_XS4GCR_FRAGMENTATIONS_EVOLI2019_H_
 
 #include <memory>
 #include <set>
 #include <string>
 
-#include "XS4GCR/core/frag_channels_table.h"
-#include "XS4GCR/core/ghost_tree.h"
+#include "XS4GCR/core/fit_data.h"
+#include "XS4GCR/core/fitting_functions.h"
 #include "XS4GCR/fragmentations/fragmentations.h"
+#include "XS4GCR/core/ghost_tree.h"
 
 namespace XS4GCR {
 
-enum class Evoli2026FallbackModel { W93, ST99 };
-
-class Evoli2026 : public Fragmentation {
+class Evoli2019 : public Fragmentation {
  public:
-  explicit Evoli2026(Evoli2026FallbackModel fallbackModel = Evoli2026FallbackModel::W93);
+  Evoli2019();
 
   void print() const override;
   std::shared_ptr<Fragmentation> clone() override;
@@ -30,15 +29,17 @@ class Evoli2026 : public Fragmentation {
   double direct(const FragmentationChannel& ch, double T_n) const;
   double withGhosts(const FragmentationChannel& ch, double T_n) const;
   double withGhosts(const FragmentationChannel& ch, double T_n, std::set<PID> activeGhosts) const;
+  double bestfitNormalization(const FragmentationChannel& ch) const;
 
-  std::string directChannelsFilename = "data/Evoli2026/direct_channels.txt";
-  std::string ghostListFilename = "data/Evoli2026/ghost_list_IAEA2026.txt";
+  std::string ghostListFilename = "data/Evoli2019/ghost_list.txt";
+  std::string fitParamsFilename = "data/Evoli2019/fragmentation_direct_fit_params.txt";
+  std::string fitDataFilename = "data/Evoli2019/xsecs_data_full.txt";
 
-  Evoli2026FallbackModel fallbackModel;
-  FragmentationChannels directChannels;
+  FittingFunctions fittingFunctions;
   GhostTree ghostTree;
+  FitData fitData;
 };
 
 }  // namespace XS4GCR
 
-#endif  // INCLUDE_XS4GCR_FRAGMENTATIONS_EVOLI2026_H_
+#endif  // INCLUDE_XS4GCR_FRAGMENTATIONS_EVOLI2019_H_

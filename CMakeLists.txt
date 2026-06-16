@@ -89,7 +89,9 @@ set(XS4GCR_SRCS
     src/neutrals/Kelner2006.cpp
     src/neutrals/AAfragSecNeutrals.cpp
     src/nuclei/AAfragSecNuclei.cpp
+    src/fragmentations/Evoli2019.cpp
     src/fragmentations/Evoli2026.cpp
+    src/core/frag_channels_table.cpp
     src/core/fitting_functions.cpp
     src/core/ghost_tree.cpp
     src/fragmentations/Fluka4Dragon.cpp

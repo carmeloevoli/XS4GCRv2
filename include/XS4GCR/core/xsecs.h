@@ -44,6 +44,7 @@ using TertiaryProtonModels = SecondaryNucleiModels;
 enum class TotalInelasticModels { TRIPATHI1999, CROSEC, LETAW1983, GLAUBER };
 
 enum class FragmentationModels {
+  EVOLI2019,
   EVOLI2026,
   FLUKA4DRAGON,
   WEBBER1993,

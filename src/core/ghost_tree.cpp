@@ -61,7 +61,7 @@ bool GhostTree::isGhost(double halfLifeValue, const std::string& halfLifeUnits) 
 
 void GhostTree::readGhosts() {
   std::ifstream input(filename.c_str());
-  if (!input) throw std::runtime_error("problem with opening Evoli2026 ghost list: " + filename);
+  if (!input) throw std::runtime_error("problem with opening Evoli2019 ghost list: " + filename);
 
   input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -83,7 +83,7 @@ void GhostTree::readGhosts() {
     ++counter;
   }
 
-  LOGI << "read " << counter << " Evoli2026 ghost reactions";
+  LOGI << "read " << counter << " Evoli2019 ghost reactions";
 }
 
 }  // namespace XS4GCR

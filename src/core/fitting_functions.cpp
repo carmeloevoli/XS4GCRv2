@@ -18,7 +18,7 @@ std::string stripComment(const std::string& line) {
 }
 
 std::string lineError(const std::string& filename, size_t lineNumber, const std::string& message) {
-  return "malformed Evoli2026 fit-parameter file '" + filename + "' at line " + std::to_string(lineNumber) + ": " +
+  return "malformed Evoli2019 fit-parameter file '" + filename + "' at line " + std::to_string(lineNumber) + ": " +
          message;
 }
 
@@ -79,7 +79,7 @@ double FittingFunctions::get(const FragmentationChannel& ch, double T_n) const {
 
 void FittingFunctions::readDataFile() {
   std::ifstream input(dataFilename.c_str());
-  if (!input) throw std::runtime_error("problem with opening Evoli2026 fit-parameter file: " + dataFilename);
+  if (!input) throw std::runtime_error("problem with opening Evoli2019 fit-parameter file: " + dataFilename);
 
   functions.clear();
 
@@ -151,7 +151,7 @@ void FittingFunctions::readDataFile() {
     if (!inserted.second) throw std::runtime_error(lineError(dataFilename, lineNumber, "duplicate channel"));
   }
 
-  LOGI << "read Evoli2026 fit parameters for " << functions.size() << " fragmentation channels";
+  LOGI << "read Evoli2019 fit parameters for " << functions.size() << " fragmentation channels";
 }
 
 }  // namespace XS4GCR
