@@ -1,5 +1,5 @@
 build*
 plots/output
-plots/*.pdf
+plots/figs/*.pdf
 .DS_Store*
 *.code-workspace
