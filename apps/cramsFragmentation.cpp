@@ -42,8 +42,7 @@ ModelInfo model_info(FragmentationModels model) {
       return {model, "Evoli2026_W93", "output/crams_fragmentation_evoli2026_w93.csv", true,
               Evoli2026FallbackModel::W93};
     case FragmentationModels::FLUKA4DRAGON:
-      return {model, "Fluka4Dragon", "output/crams_fragmentation_fluka4dragon.csv", true,
-              Evoli2026FallbackModel::W93};
+      return {model, "Fluka4Dragon", "output/crams_fragmentation_fluka4dragon.csv", true, Evoli2026FallbackModel::W93};
     case FragmentationModels::WEBBER1993:
       return {model, "Webber1993", "output/crams_fragmentation_webber1993.csv", false, Evoli2026FallbackModel::W93};
     case FragmentationModels::USINEGALPROP17OPT12:
@@ -146,8 +145,8 @@ void write_sigma_h_table(const std::string& outputFile, const std::string& model
   }
 }
 
-void make_table(const ModelInfo& info, const std::string& isotopeFile, double TminGeV, double TmaxGeV,
-                size_t nEnergy, const std::vector<Isotope>& isotopes, const std::vector<double>& energies) {
+void make_table(const ModelInfo& info, const std::string& isotopeFile, double TminGeV, double TmaxGeV, size_t nEnergy,
+                const std::vector<Isotope>& isotopes, const std::vector<double>& energies) {
   const auto xsec = make_model(info);
   const auto channels = collect_channels(isotopes, isotopes, energies, xsec, info.doGhosts);
 
@@ -168,13 +167,10 @@ int main() {
     const size_t pointsPerDecade = 16;
     const size_t nEnergy = 7 * pointsPerDecade;  // 7 decades from TminGeV to TmaxGeV
     const std::vector<ModelInfo> models = {
-        model_info(FragmentationModels::EVOLI2019),
-        evoli2026_model_info(Evoli2026FallbackModel::W93),
-        evoli2026_model_info(Evoli2026FallbackModel::ST99),
-        model_info(FragmentationModels::FLUKA4DRAGON),
-        model_info(FragmentationModels::USINEGALPROP17OPT12),
-        model_info(FragmentationModels::USINEGALPROP17OPT22),
-        model_info(FragmentationModels::USINEWEBBER03COSTE12),
+        // model_info(FragmentationModels::EVOLI2019),
+        evoli2026_model_info(Evoli2026FallbackModel::W93),    evoli2026_model_info(Evoli2026FallbackModel::ST99),
+        model_info(FragmentationModels::FLUKA4DRAGON),        model_info(FragmentationModels::USINEGALPROP17OPT12),
+        model_info(FragmentationModels::USINEGALPROP17OPT22), model_info(FragmentationModels::USINEWEBBER03COSTE12),
     };
 
     if (!(TminGeV > 0.0) || !(TmaxGeV > TminGeV)) throw std::invalid_argument("Require 0 < TminGeV < TmaxGeV");

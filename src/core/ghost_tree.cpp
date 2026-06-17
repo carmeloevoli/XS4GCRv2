@@ -13,9 +13,9 @@ namespace {
 
 int elementZ(const std::string& symbol) {
   static const std::map<std::string, int> elements = {
-      {"H", 1},   {"He", 2},  {"Li", 3}, {"Be", 4}, {"B", 5},   {"C", 6},  {"N", 7},  {"O", 8},
+      {"H", 1},   {"He", 2},  {"Li", 3},  {"Be", 4},  {"B", 5},   {"C", 6},   {"N", 7},  {"O", 8},
       {"F", 9},   {"Ne", 10}, {"Na", 11}, {"Mg", 12}, {"Al", 13}, {"Si", 14}, {"P", 15}, {"S", 16},
-      {"Cl", 17}, {"Ar", 18}, {"K", 19}, {"Ca", 20}, {"Sc", 21}, {"Ti", 22}, {"V", 23}, {"Cr", 24},
+      {"Cl", 17}, {"Ar", 18}, {"K", 19},  {"Ca", 20}, {"Sc", 21}, {"Ti", 22}, {"V", 23}, {"Cr", 24},
       {"Mn", 25}, {"Fe", 26}, {"Co", 27}, {"Ni", 28}, {"Cu", 29}, {"Zn", 30},
   };
 
@@ -61,7 +61,7 @@ bool GhostTree::isGhost(double halfLifeValue, const std::string& halfLifeUnits) 
 
 void GhostTree::readGhosts() {
   std::ifstream input(filename.c_str());
-  if (!input) throw std::runtime_error("problem with opening Evoli2019 ghost list: " + filename);
+  if (!input) throw std::runtime_error("problem with opening ghost list: " + filename);
 
   input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
@@ -83,7 +83,7 @@ void GhostTree::readGhosts() {
     ++counter;
   }
 
-  LOGI << "read " << counter << " Evoli2019 ghost reactions";
+  LOGI << "read " << counter << " ghost reactions";
 }
 
 }  // namespace XS4GCR
