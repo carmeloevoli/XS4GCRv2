@@ -1,4 +1,5 @@
 build*
+*__pycache__/
 plots/output
 plots/figs/*.pdf
 .DS_Store*
