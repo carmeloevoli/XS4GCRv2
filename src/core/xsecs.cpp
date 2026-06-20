@@ -17,6 +17,7 @@
 #include "XS4GCR/inelastic/CROSEC.h"
 #include "XS4GCR/inelastic/Glauber.h"
 #include "XS4GCR/inelastic/Letaw1983.h"
+#include "XS4GCR/inelastic/Luoni2023.h"
 #include "XS4GCR/inelastic/Tripathi1999.h"
 #include "XS4GCR/leptons/AAfragSecLeptons.h"
 #include "XS4GCR/leptons/HuangPohl2007.h"
@@ -37,6 +38,9 @@ std::shared_ptr<TotalInelastic> XSECS::createTotalInelastic() {
       break;
     case TotalInelasticModels::TRIPATHI1999:
       totalInelastic = std::make_shared<Tripathi1999TotalInel>();
+      break;
+    case TotalInelasticModels::LUONI2023:
+      totalInelastic = std::make_shared<Luoni2023TotalInel>();
       break;
     case TotalInelasticModels::CROSEC:
       totalInelastic = std::make_shared<CrosecTotalInel>();

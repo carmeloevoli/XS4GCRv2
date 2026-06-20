@@ -78,6 +78,8 @@ set(XS4GCR_SRCS
     src/inelastic/CROSEC.cpp
     src/inelastic/Glauber.cpp
     src/inelastic/Letaw1983.cpp
+    src/inelastic/Luoni2023.cpp
+    src/inelastic/NucleonNucleonXsc.cpp
     src/inelastic/Tripathi1999.cpp
     src/leptons/SecondaryLeptons.cpp
     src/leptons/AAfragSecLeptons.cpp
