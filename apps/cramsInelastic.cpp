@@ -29,6 +29,8 @@ ModelInfo model_info(TotalInelasticModels model) {
   switch (model) {
     case TotalInelasticModels::TRIPATHI1999:
       return {"Tripathi1999", "output/crams_inelastic_tripathi99.csv"};
+    case TotalInelasticModels::LUONI2023:
+      return {"Luoni2023", "output/crams_inelastic_luoni2023.csv"};
     case TotalInelasticModels::CROSEC:
       return {"CROSEC", "output/crams_inelastic_crosec.csv"};
     case TotalInelasticModels::LETAW1983:

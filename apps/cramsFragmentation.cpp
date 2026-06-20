@@ -167,10 +167,13 @@ int main() {
     const size_t pointsPerDecade = 16;
     const size_t nEnergy = 7 * pointsPerDecade;  // 7 decades from TminGeV to TmaxGeV
     const std::vector<ModelInfo> models = {
-        // model_info(FragmentationModels::EVOLI2019),
-        evoli2026_model_info(Evoli2026FallbackModel::W93),    evoli2026_model_info(Evoli2026FallbackModel::ST99),
-        model_info(FragmentationModels::FLUKA4DRAGON),        model_info(FragmentationModels::USINEGALPROP17OPT12),
-        model_info(FragmentationModels::USINEGALPROP17OPT22), model_info(FragmentationModels::USINEWEBBER03COSTE12),
+        model_info(FragmentationModels::EVOLI2019),
+        evoli2026_model_info(Evoli2026FallbackModel::W93),
+        evoli2026_model_info(Evoli2026FallbackModel::ST99),
+        model_info(FragmentationModels::FLUKA4DRAGON),
+        model_info(FragmentationModels::USINEGALPROP17OPT12),
+        model_info(FragmentationModels::USINEGALPROP17OPT22),
+        model_info(FragmentationModels::USINEWEBBER03COSTE12),
     };
 
     if (!(TminGeV > 0.0) || !(TmaxGeV > TminGeV)) throw std::invalid_argument("Require 0 < TminGeV < TmaxGeV");
