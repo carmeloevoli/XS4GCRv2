@@ -31,7 +31,7 @@ class Evoli2026 : public Fragmentation {
   double withGhosts(const FragmentationChannel& ch, double T_n) const;
   double withGhosts(const FragmentationChannel& ch, double T_n, std::set<PID> activeGhosts) const;
 
-  std::string directChannelsFilename = "data/Evoli2026/direct_channels_with_ams02.txt";
+  std::string directChannelsFilename = "data/Evoli2026/direct_channels.txt";
   std::string ghostListFilename = "data/Evoli2026/ghost_list_IAEA2026.txt";
 
   Evoli2026FallbackModel fallbackModel;
